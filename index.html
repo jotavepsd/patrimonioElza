@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Relação Patrimonial - Controle Local</title>
+<title>Relação Patrimonial - Realtime Database</title>
 <style>
   body { font-family: Arial, sans-serif; background: #f4f6f8; margin: 20px; color: #333; }
   h1 { text-align: center; }
@@ -29,14 +29,17 @@
   .btn-print { background: #f57c00; width: auto; padding: 5px 15px; }
   .btn-print:hover { background: #e65100; }
 </style>
+
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
 </head>
 <body>
 
-<h1>Relação Patrimonial</h1>
+<h1>Relação Patrimonial (Realtime)</h1>
 
 <div class="form-container modo-buttons">
   <button onclick="exportar()">Exportar Backup (JSON)</button>
-  <button onclick="document.getElementById('importFile').click()">Importar JSON</button>
+  <button onclick="document.getElementById('importFile').click()">Importar JSON p/ Realtime</button>
   <button class="btn-geral" onclick="gerarRelatorioGeral()">🖨️ Relatório Geral (Todos)</button>
   <input type="file" id="importFile" hidden onchange="importar(event)">
 </div>
@@ -102,7 +105,22 @@
 </div>
 
 <script>
-let dados = JSON.parse(localStorage.getItem('patrimonio_dados')) || [];
+// SUAS CREDENCIAIS DO FIREBASE
+const firebaseConfig = {
+  apiKey: "AIzaSyC6UbTClmCouKf9GBR-nUjWfIsMk9qhPdM",
+  authDomain: "controlepatrimonio-f26a4.firebaseapp.com",
+  databaseURL: "https://controlepatrimonio-f26a4-default-rtdb.firebaseio.com",
+  projectId: "controlepatrimonio-f26a4",
+  storageBucket: "controlepatrimonio-f26a4.firebasestorage.app",
+  messagingSenderId: "392708288984",
+  appId: "1:392708288984:web:e2fddf80ce7f45f274c2ad",
+  measurementId: "G-DC62JR2ZDC"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database(); // AGORA USANDO REALTIME
+
+let dados = [];
 let modo = 'local';
 let abaAbertaRecentemente = null;
 
@@ -115,22 +133,28 @@ const tabContents = document.getElementById('tabContents');
 const btnLocal = document.getElementById('btnLocal');
 const btnDescricao = document.getElementById('btnDescricao');
 
+// Escuta o Realtime Database
+db.ref("patrimonios").on("value", (snapshot) => {
+  const val = snapshot.val();
+  if (val) {
+    // Converte o objeto do Firebase em array
+    dados = Object.keys(val).map(key => ({ id: key, ...val[key] }));
+  } else {
+    dados = [];
+  }
+  renderizar(abaAbertaRecentemente);
+});
+
 function ordenarPatrimonios(a, b) {
   const descA = a.descricao.toLowerCase();
   const descB = b.descricao.toLowerCase();
   const numA = String(a.numero);
   const numB = String(b.numero);
   const termoConjunto = "conjunto de carteira";
-
   if (descA === termoConjunto && descB !== termoConjunto) return 1;
   if (descA !== termoConjunto && descB === termoConjunto) return -1;
   if (descA !== descB) return descA.localeCompare(descB);
   return numA.localeCompare(numB, undefined, { numeric: true, sensitivity: 'base' });
-}
-
-function salvar() {
-  localStorage.setItem('patrimonio_dados', JSON.stringify(dados));
-  renderizar(abaAbertaRecentemente);
 }
 
 function setModo(m) {
@@ -157,18 +181,17 @@ function adicionar() {
   }
 
   abaAbertaRecentemente = (modo === 'local') ? local : descricao;
-  dados.push({ id: Date.now(), numero, local, descricao });
+  
+  // Salva no Realtime usando push()
+  db.ref("patrimonios").push({ numero, local, descricao });
   
   numeroInput.value = '';
   descricaoSelect.value = '';
-  
-  salvar();
 }
 
 function excluir(id) {
   if (confirm("Excluir este item permanentemente?")) {
-    dados = dados.filter(d => d.id !== id);
-    salvar();
+    db.ref("patrimonios").child(id).remove();
   }
 }
 
@@ -178,110 +201,50 @@ function editar(id) {
 
   const n = prompt("N° Patrimônio:", item.numero);
   if (n === null) return;
-  if (n !== item.numero && dados.some(d => String(d.numero).toUpperCase() === String(n).toUpperCase())) {
-      alert("Este número de patrimônio já existe!");
-      return;
-  }
-
   const l = prompt("Local:", item.local);
   if (l === null) return;
   const d = prompt("Descrição:", item.descricao);
   if (d === null) return;
 
-  item.numero = n;
-  item.local = l;
-  item.descricao = d;
-  
-  salvar();
+  db.ref("patrimonios").child(id).update({
+    numero: n,
+    local: l,
+    descricao: d
+  });
 }
 
+// Funções de relatório permanecem iguais (utilizam o array 'dados')
 function gerarRelatorio(nomeGrupo) {
   const campo = modo === 'local' ? 'local' : 'descricao';
-  const itens = dados
-    .filter(d => d[campo] === nomeGrupo)
-    .sort(ordenarPatrimonios);
-  
+  const itens = dados.filter(d => d[campo] === nomeGrupo).sort(ordenarPatrimonios);
   imprimirTemplate(`Setor/Item: ${nomeGrupo}`, itens, false);
 }
 
 function gerarRelatorioGeral() {
-  // Filtra removendo "Não localizado" e ordena por Local
   const dadosFiltrados = dados.filter(d => d.local !== "Não localizado");
-
   if (dadosFiltrados.length === 0) {
-    alert("Não há dados válidos (excluindo 'Não localizado') para gerar o relatório.");
+    alert("Não há dados válidos para gerar o relatório.");
     return;
   }
-
   const itensGerais = [...dadosFiltrados].sort((a, b) => {
     if (a.local.toLowerCase() < b.local.toLowerCase()) return -1;
     if (a.local.toLowerCase() > b.local.toLowerCase()) return 1;
     return ordenarPatrimonios(a, b);
   });
-
   imprimirTemplate("Relatório Geral (Consolidado)", itensGerais, true);
 }
 
 function imprimirTemplate(titulo, lista, isGeral) {
-  let htmlRelatorio = `
-    <html>
-    <head>
-      <title>${titulo}</title>
-      <style>
-        body { font-family: sans-serif; padding: 20px; }
-        h2 { text-align: center; border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 5px; }
-        h4 { text-align: center; margin-top: 0; color: #555; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #333; padding: 8px; text-align: left; font-size: 13px; }
-        th { background-color: #f2f2f2; text-align: center; }
-        .row-local-divider { background-color: #455a64; color: white; font-weight: bold; font-size: 14px; }
-        .footer { margin-top: 40px; font-size: 11px; text-align: right; border-top: 1px solid #ccc; padding-top: 5px; }
-        @media print { .no-print { display: none; } }
-      </style>
-    </head>
-    <body>
-      <h2>Relatório de Patrimônio</h2>
-      <h4>${titulo}</h4>
-      <table>
-        <thead>
-          <tr>
-            <th width="20%">Nº Patrimônio</th>
-            <th>Descrição do Item</th>
-          </tr>
-        </thead>
-        <tbody>
-  `;
-
+  let htmlRelatorio = `<html><head><title>${titulo}</title><style>body { font-family: sans-serif; padding: 20px; } h2 { text-align: center; border-bottom: 2px solid #000; padding-bottom: 10px; } table { width: 100%; border-collapse: collapse; margin-top: 20px; } th, td { border: 1px solid #333; padding: 8px; text-align: left; font-size: 13px; } th { background-color: #f2f2f2; text-align: center; } .row-local-divider { background-color: #455a64; color: white; font-weight: bold; } .footer { margin-top: 40px; font-size: 11px; text-align: right; }</style></head><body><h2>Relatório de Patrimônio</h2><h4>${titulo}</h4><table><thead><tr><th width="20%">Nº Patrimônio</th><th>Descrição do Item</th></tr></thead><tbody>`;
   let localAtual = "";
-
   lista.forEach(item => {
-    // Se for o relatório geral, adiciona uma linha divisória ao mudar de local
     if (isGeral && item.local !== localAtual) {
       localAtual = item.local;
-      htmlRelatorio += `
-        <tr>
-          <td colspan="2" class="row-local-divider">📍 LOCAL: ${localAtual.toUpperCase()}</td>
-        </tr>
-      `;
+      htmlRelatorio += `<tr><td colspan="2" class="row-local-divider">📍 LOCAL: ${localAtual.toUpperCase()}</td></tr>`;
     }
-
-    htmlRelatorio += `
-      <tr>
-        <td style="text-align:center;">${item.numero}</td>
-        <td>${item.descricao}</td>
-      </tr>
-    `;
+    htmlRelatorio += `<tr><td style="text-align:center;">${item.numero}</td><td>${item.descricao}</td></tr>`;
   });
-
-  htmlRelatorio += `
-        </tbody>
-      </table>
-      <div class="footer">Extraído em: ${new Date().toLocaleString('pt-BR')} | Total de itens: ${lista.length}</div>
-      <script>window.print();<\/script>
-    </body>
-    </html>
-  `;
-
+  htmlRelatorio += `</tbody></table><div class="footer">Extraído em: ${new Date().toLocaleString('pt-BR')} | Total: ${lista.length}</div><script>window.print();<\/script></body></html>`;
   const win = window.open('', '_blank');
   win.document.write(htmlRelatorio);
   win.document.close();
@@ -291,7 +254,7 @@ function exportar() {
   const blob = new Blob([JSON.stringify(dados, null, 2)], { type: "application/json" });
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
-  a.download = "patrimonio_backup.json";
+  a.download = "patrimonio_realtime_backup.json";
   a.click();
 }
 
@@ -302,15 +265,12 @@ function importar(e) {
   reader.onload = (event) => {
     try {
       let importados = JSON.parse(event.target.result);
-      if (confirm("Isso substituirá seus dados atuais. Continuar?")) {
-        dados = importados.map((item, index) => ({
-            id: item.id || (Date.now() + index),
-            numero: item.numero,
-            local: item.local,
-            descricao: item.descricao
-        }));
-        abaAbertaRecentemente = null;
-        salvar();
+      if (confirm(`Isso enviará ${importados.length} itens para o Realtime Database. Continuar?`)) {
+        const ref = db.ref("patrimonios");
+        importados.forEach(item => {
+          ref.push({ numero: item.numero, local: item.local, descricao: item.descricao });
+        });
+        alert("Importação concluída com sucesso!");
       }
     } catch (err) { alert("Arquivo inválido."); }
   };
@@ -319,10 +279,7 @@ function importar(e) {
 
 function renderizar(abaParaFocar = null) {
   const filtro = pesquisa.value.toLowerCase().trim();
-  const filtrados = dados
-    .filter(d => String(d.numero).toLowerCase().includes(filtro))
-    .sort(ordenarPatrimonios);
-
+  const filtrados = dados.filter(d => String(d.numero).toLowerCase().includes(filtro)).sort(ordenarPatrimonios);
   tabButtons.innerHTML = '';
   tabContents.innerHTML = '';
 
@@ -332,14 +289,14 @@ function renderizar(abaParaFocar = null) {
   }
 
   if (filtro !== "") {
-    tabButtons.innerHTML = "<span style='padding: 10px; color: #0277bd; font-weight: bold;'>🔍 Resultados da busca:</span>";
+    tabButtons.innerHTML = "<span style='padding: 10px; color: #0277bd; font-weight: bold;'>🔍 Resultados:</span>";
     const div = document.createElement('div');
     div.className = 'tab-content active';
     let t = `<table><thead><tr><th>N° Patrimônio</th><th>Local</th><th>Descrição</th><th>Ações</th></tr></thead><tbody>`;
     filtrados.forEach(d => {
       t += `<tr><td><strong>${d.numero}</strong></td><td>${d.local}</td><td>${d.descricao}</td><td>
-              <button class="btn-edit" onclick="editar(${d.id})">Editar</button>
-              <button class="btn-delete" onclick="excluir(${d.id})">Excluir</button>
+              <button class="btn-edit" onclick="editar('${d.id}')">Editar</button>
+              <button class="btn-delete" onclick="excluir('${d.id}')">Excluir</button>
             </td></tr>`;
     });
     t += '</tbody></table>';
@@ -350,7 +307,6 @@ function renderizar(abaParaFocar = null) {
 
   const campo = modo === 'local' ? 'local' : 'descricao';
   const grupos = [...new Set(filtrados.map(d => d[campo]))].sort();
-
   let indiceAtivo = 0;
   grupos.forEach((g, i) => {
     if (abaParaFocar && g === abaParaFocar) indiceAtivo = i;
@@ -358,21 +314,11 @@ function renderizar(abaParaFocar = null) {
     b.textContent = g;
     b.onclick = () => { abaAbertaRecentemente = g; ativarAba(i); };
     tabButtons.appendChild(b);
-
     const div = document.createElement('div');
     div.className = 'tab-content';
-    let t = `
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; background:#fff; padding:10px; border-radius:5px; border:1px solid #ddd;">
-        <strong style="font-size:1.1em; color:#1c313a;">📍 ${g}</strong>
-        <button class="btn-print" onclick="gerarRelatorio('${g}')">🖨️ Gerar tabela p/ impressão</button>
-      </div>
-      <table><thead><tr><th>N° Patrimônio</th><th>Local</th><th>Descrição</th><th>Ações</th></tr></thead><tbody>`;
-    
+    let t = `<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; background:#fff; padding:10px; border-radius:5px; border:1px solid #ddd;"><strong style="color:#1c313a;">📍 ${g}</strong><button class="btn-print" onclick="gerarRelatorio('${g}')">🖨️ Imprimir</button></div><table><thead><tr><th>N° Patrimônio</th><th>Local</th><th>Descrição</th><th>Ações</th></tr></thead><tbody>`;
     filtrados.filter(d => d[campo] === g).forEach(d => {
-      t += `<tr><td><strong>${d.numero}</strong></td><td>${d.local}</td><td>${d.descricao}</td><td>
-            <button class="btn-edit" onclick="editar(${d.id})">Editar</button>
-            <button class="btn-delete" onclick="excluir(${d.id})">Excluir</button>
-          </td></tr>`;
+      t += `<tr><td><strong>${d.numero}</strong></td><td>${d.local}</td><td>${d.descricao}</td><td><button class="btn-edit" onclick="editar('${d.id}')">Editar</button><button class="btn-delete" onclick="excluir('${d.id}')">Excluir</button></td></tr>`;
     });
     t += '</tbody></table>';
     div.innerHTML = t;
@@ -390,6 +336,5 @@ function ativarAba(i) {
 
 setModo('local');
 </script>
-
 </body>
 </html>

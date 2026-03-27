@@ -1,0 +1,2582 @@
+[
+  {
+    "id": 1769106371387,
+    "numero": "DE 16654",
+    "local": "Sala 01",
+    "descricao": "Armário"
+  },
+  {
+    "id": 1769106371388,
+    "numero": "34463",
+    "local": "Sala 01",
+    "descricao": "Armário"
+  },
+  {
+    "id": 1769106371389,
+    "numero": "22545",
+    "local": "Sala 01",
+    "descricao": "Armário"
+  },
+  {
+    "id": 1769106371390,
+    "numero": "21380",
+    "local": "Sala 01",
+    "descricao": "Ar Condicionado"
+  },
+  {
+    "id": 1769106371391,
+    "numero": "DE 16534",
+    "local": "Sala 01",
+    "descricao": "Ventilador"
+  },
+  {
+    "id": 1769106371392,
+    "numero": "DE 16781",
+    "local": "Sala 01",
+    "descricao": "Mesa"
+  },
+  {
+    "id": 1769106371394,
+    "numero": "PDDE 218",
+    "local": "Sala 01",
+    "descricao": "Prateleira"
+  },
+  {
+    "id": 1769106371395,
+    "numero": "32268",
+    "local": "Sala 10",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371396,
+    "numero": "32278",
+    "local": "Sala 13",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371397,
+    "numero": "26091",
+    "local": "Não localizado",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371398,
+    "numero": "26148",
+    "local": "Não localizado",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371399,
+    "numero": "26126",
+    "local": "Não localizado",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371400,
+    "numero": "26113",
+    "local": "Sala 01",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371401,
+    "numero": "26133",
+    "local": "Sala 01",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371402,
+    "numero": "26120",
+    "local": "Não localizado",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371403,
+    "numero": "26131",
+    "local": "Não localizado",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371404,
+    "numero": "26106",
+    "local": "Sala 03",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371405,
+    "numero": "26121",
+    "local": "Sala 01",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371406,
+    "numero": "26107",
+    "local": "Sala 01",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371407,
+    "numero": "26074",
+    "local": "Não localizado",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371408,
+    "numero": "26092",
+    "local": "Sala 12",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371409,
+    "numero": "26181",
+    "local": "Não localizado",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371410,
+    "numero": "26185",
+    "local": "Não localizado",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371411,
+    "numero": "32269",
+    "local": "Sala 12",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371412,
+    "numero": "DE 16678",
+    "local": "Sala 03",
+    "descricao": "Armário"
+  },
+  {
+    "id": 1769106371413,
+    "numero": "34466",
+    "local": "Sala 03",
+    "descricao": "Armário"
+  },
+  {
+    "id": 1769106371414,
+    "numero": "22547",
+    "local": "Sala 03",
+    "descricao": "Armário"
+  },
+  {
+    "id": 1769106371415,
+    "numero": "21371",
+    "local": "Sala 03",
+    "descricao": "Ar Condicionado"
+  },
+  {
+    "id": 1769106371416,
+    "numero": "20404",
+    "local": "Sala 03",
+    "descricao": "Ventilador"
+  },
+  {
+    "id": 1769106371417,
+    "numero": "26247",
+    "local": "Não localizado",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371418,
+    "numero": "26197",
+    "local": "Não localizado",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371419,
+    "numero": "26139",
+    "local": "Sala 03",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371420,
+    "numero": "26208",
+    "local": "Sala 03",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371421,
+    "numero": "26115",
+    "local": "Não localizado",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371422,
+    "numero": "26143",
+    "local": "Sala 03",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371423,
+    "numero": "26205",
+    "local": "Sala 03",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371424,
+    "numero": "26186",
+    "local": "Sala 03",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371425,
+    "numero": "26187",
+    "local": "Sala 03",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371426,
+    "numero": "26228",
+    "local": "Sala 03",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371427,
+    "numero": "26196",
+    "local": "Sala 03",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371428,
+    "numero": "26097",
+    "local": "Sala 03",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371429,
+    "numero": "26256",
+    "local": "Sala 03",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371430,
+    "numero": "26110",
+    "local": "Sala 03",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371431,
+    "numero": "26122",
+    "local": "Sala 03",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371432,
+    "numero": "26212",
+    "local": "Sala 03",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371433,
+    "numero": "26104",
+    "local": "Não localizado",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371434,
+    "numero": "26090",
+    "local": "Sala 14",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371435,
+    "numero": "26119",
+    "local": "Sala 03",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371436,
+    "numero": "25219",
+    "local": "Sala 04",
+    "descricao": "Armário"
+  },
+  {
+    "id": 1769106371437,
+    "numero": "25223",
+    "local": "Sala 04",
+    "descricao": "Armário"
+  },
+  {
+    "id": 1769106371438,
+    "numero": "PDDE 20396",
+    "local": "Sala 04",
+    "descricao": "Ventilador"
+  },
+  {
+    "id": 1769106371439,
+    "numero": "27098",
+    "local": "Sala 04",
+    "descricao": "Ventilador"
+  },
+  {
+    "id": 1769106371440,
+    "numero": "21372",
+    "local": "Sala 04",
+    "descricao": "Ar Condicionado"
+  },
+  {
+    "id": 1769106371441,
+    "numero": "25218",
+    "local": "Sala 05",
+    "descricao": "Armário"
+  },
+  {
+    "id": 1769106371442,
+    "numero": "25221",
+    "local": "Sala 05",
+    "descricao": "Armário"
+  },
+  {
+    "id": 1769106371443,
+    "numero": "PDDE 289",
+    "local": "Sala 05",
+    "descricao": "Ventilador"
+  },
+  {
+    "id": 1769106371444,
+    "numero": "PDDE 290",
+    "local": "Sala 05",
+    "descricao": "Ventilador"
+  },
+  {
+    "id": 1769106371445,
+    "numero": "21373",
+    "local": "Sala 05",
+    "descricao": "Ar Condicionado"
+  },
+  {
+    "id": 1769106371446,
+    "numero": "DE 16705",
+    "local": "Sala 05",
+    "descricao": "Mesa"
+  },
+  {
+    "id": 1769106371447,
+    "numero": "25220",
+    "local": "Sala 06",
+    "descricao": "Armário"
+  },
+  {
+    "id": 1769106371448,
+    "numero": "25222",
+    "local": "Sala 06",
+    "descricao": "Armário"
+  },
+  {
+    "id": 1769106371449,
+    "numero": "21374",
+    "local": "Sala 06",
+    "descricao": "Ar Condicionado"
+  },
+  {
+    "id": 1769106371450,
+    "numero": "26645",
+    "local": "Sala 06",
+    "descricao": "Mesa"
+  },
+  {
+    "id": 1769106371451,
+    "numero": "DE 16652",
+    "local": "Sala 07",
+    "descricao": "Armário"
+  },
+  {
+    "id": 1769106371452,
+    "numero": "22540",
+    "local": "Sala 07",
+    "descricao": "Armário"
+  },
+  {
+    "id": 1769106371453,
+    "numero": "DE 16680",
+    "local": "Sala 07",
+    "descricao": "Armário"
+  },
+  {
+    "id": 1769106371454,
+    "numero": "21379",
+    "local": "Sala 07",
+    "descricao": "Ar Condicionado"
+  },
+  {
+    "id": 1769106371455,
+    "numero": "PDDE 291",
+    "local": "Sala 07",
+    "descricao": "Ventilador"
+  },
+  {
+    "id": 1769106371456,
+    "numero": "PDDE 292",
+    "local": "Sala 07",
+    "descricao": "Ventilador"
+  },
+  {
+    "id": 1769106371457,
+    "numero": "26084",
+    "local": "Sala 07",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371458,
+    "numero": "26271",
+    "local": "Sala 07",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371459,
+    "numero": "26252",
+    "local": "Sala 07",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371460,
+    "numero": "26161",
+    "local": "Sala 07",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371461,
+    "numero": "26245",
+    "local": "Sala 07",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371462,
+    "numero": "26206",
+    "local": "Sala 07",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371463,
+    "numero": "26175",
+    "local": "Sala 07",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371464,
+    "numero": "26152",
+    "local": "Sala 07",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371465,
+    "numero": "26266",
+    "local": "Sala 09",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371466,
+    "numero": "26130",
+    "local": "Sala 07",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371467,
+    "numero": "26156",
+    "local": "Sala 07",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371468,
+    "numero": "26154",
+    "local": "Sala 12",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371469,
+    "numero": "26211",
+    "local": "Sala 07",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371470,
+    "numero": "26210",
+    "local": "Sala 07",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371471,
+    "numero": "26257",
+    "local": "Sala 07",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371472,
+    "numero": "26045",
+    "local": "Não localizado",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371473,
+    "numero": "19121",
+    "local": "Sala 08",
+    "descricao": "Armário"
+  },
+  {
+    "id": 1769106371474,
+    "numero": "19114",
+    "local": "Sala 08",
+    "descricao": "Armário"
+  },
+  {
+    "id": 1769106371475,
+    "numero": "22539",
+    "local": "Sala 08",
+    "descricao": "Armário"
+  },
+  {
+    "id": 1769106371476,
+    "numero": "21378",
+    "local": "Sala 08",
+    "descricao": "Ar Condicionado"
+  },
+  {
+    "id": 1769106371477,
+    "numero": "34130",
+    "local": "Sala 08",
+    "descricao": "Ventilador"
+  },
+  {
+    "id": 1769106371478,
+    "numero": "34131",
+    "local": "Sala 08",
+    "descricao": "Ventilador"
+  },
+  {
+    "id": 1769106371479,
+    "numero": "DE 16681",
+    "local": "Sala 08",
+    "descricao": "Armário"
+  },
+  {
+    "id": 1769106371480,
+    "numero": "26145",
+    "local": "Não localizado",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371481,
+    "numero": "26128",
+    "local": "Sala 08",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371482,
+    "numero": "26251",
+    "local": "Sala 08",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371483,
+    "numero": "21377",
+    "local": "Sala 09",
+    "descricao": "Ar Condicionado"
+  },
+  {
+    "id": 1769106371484,
+    "numero": "22543",
+    "local": "Sala 09",
+    "descricao": "Armário"
+  },
+  {
+    "id": 1769106371485,
+    "numero": "19117",
+    "local": "Sala 09",
+    "descricao": "Armário"
+  },
+  {
+    "id": 1769106371486,
+    "numero": "DE 38182",
+    "local": "Sala 09",
+    "descricao": "Armário"
+  },
+  {
+    "id": 1769106371487,
+    "numero": "27099",
+    "local": "Sala 09",
+    "descricao": "Ventilador"
+  },
+  {
+    "id": 1769106371488,
+    "numero": "PDDE 293",
+    "local": "Sala 09",
+    "descricao": "Ventilador"
+  },
+  {
+    "id": 1769106371489,
+    "numero": "26127",
+    "local": "Sala 09",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371490,
+    "numero": "26207",
+    "local": "Não localizado",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371491,
+    "numero": "26194",
+    "local": "Sala 09",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371492,
+    "numero": "26195",
+    "local": "Não localizado",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371493,
+    "numero": "26109",
+    "local": "Sala 09",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371494,
+    "numero": "26198",
+    "local": "Não localizado",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371495,
+    "numero": "26200",
+    "local": "Sala 09",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371496,
+    "numero": "26320",
+    "local": "Não localizado",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371497,
+    "numero": "22546",
+    "local": "Sala 10",
+    "descricao": "Armário"
+  },
+  {
+    "id": 1769106371498,
+    "numero": "19120",
+    "local": "Sala 10",
+    "descricao": "Armário"
+  },
+  {
+    "id": 1769106371499,
+    "numero": "34162",
+    "local": "Sala 10",
+    "descricao": "Ventilador"
+  },
+  {
+    "id": 1769106371500,
+    "numero": "20392",
+    "local": "Sala 10",
+    "descricao": "Ventilador"
+  },
+  {
+    "id": 1769106371501,
+    "numero": "DE 16785",
+    "local": "Sala 10",
+    "descricao": "Mesa"
+  },
+  {
+    "id": 1769106371502,
+    "numero": "21376",
+    "local": "Sala 10",
+    "descricao": "Ar Condicionado"
+  },
+  {
+    "id": 1769106371503,
+    "numero": "PDDE 239",
+    "local": "Sala 10",
+    "descricao": "Prateleira"
+  },
+  {
+    "id": 1769106371504,
+    "numero": "DE 38096",
+    "local": "Sala 10",
+    "descricao": "Armário"
+  },
+  {
+    "id": 1769106371505,
+    "numero": "26138",
+    "local": "Não localizado",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371506,
+    "numero": "26233",
+    "local": "Sala 10",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371507,
+    "numero": "26099",
+    "local": "Não localizado",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371508,
+    "numero": "26220",
+    "local": "Sala 10",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371509,
+    "numero": "26242",
+    "local": "Não localizado",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371510,
+    "numero": "26259",
+    "local": "Não localizado",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371511,
+    "numero": "26217",
+    "local": "Não localizado",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371512,
+    "numero": "26231",
+    "local": "Não localizado",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371513,
+    "numero": "26140",
+    "local": "Sala 10",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371514,
+    "numero": "26227",
+    "local": "Não localizado",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371515,
+    "numero": "26226",
+    "local": "Não localizado",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371516,
+    "numero": "26232",
+    "local": "Não localizado",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371517,
+    "numero": "26239",
+    "local": "Sala 03",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371518,
+    "numero": "26238",
+    "local": "Não localizado",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371519,
+    "numero": "26213",
+    "local": "Sala 10",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371520,
+    "numero": "26241",
+    "local": "Não localizado",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371521,
+    "numero": "26240",
+    "local": "Não localizado",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371522,
+    "numero": "26222",
+    "local": "Não localizado",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371523,
+    "numero": "26225",
+    "local": "Não localizado",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371524,
+    "numero": "34465",
+    "local": "Sala 11",
+    "descricao": "Armário"
+  },
+  {
+    "id": 1769106371525,
+    "numero": "DE 16573",
+    "local": "Sala 11",
+    "descricao": "Armário"
+  },
+  {
+    "id": 1769106371526,
+    "numero": "21215",
+    "local": "Sala 11",
+    "descricao": "Mesa"
+  },
+  {
+    "id": 1769106371527,
+    "numero": "DE 16544",
+    "local": "Sala 11",
+    "descricao": "Ventilador"
+  },
+  {
+    "id": 1769106371528,
+    "numero": "DE 20407",
+    "local": "Sala 11",
+    "descricao": "Ventilador"
+  },
+  {
+    "id": 1769106371529,
+    "numero": "21382",
+    "local": "Sala 11",
+    "descricao": "Ar Condicionado"
+  },
+  {
+    "id": 1769106371530,
+    "numero": "26108",
+    "local": "Sala 11",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371531,
+    "numero": "26255",
+    "local": "Sala 11",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371532,
+    "numero": "26155",
+    "local": "Sala 11",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371533,
+    "numero": "26183",
+    "local": "Sala 11",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371534,
+    "numero": "26147",
+    "local": "Sala 08",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371535,
+    "numero": "26129",
+    "local": "Sala 11",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371536,
+    "numero": "26146",
+    "local": "Sala 11",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371537,
+    "numero": "26096",
+    "local": "Sala 11",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371538,
+    "numero": "26150",
+    "local": "Sala 11",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371539,
+    "numero": "26089",
+    "local": "Não localizado",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371540,
+    "numero": "26095",
+    "local": "Sala 11",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371541,
+    "numero": "26075",
+    "local": "Sala 11",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371542,
+    "numero": "26100",
+    "local": "Sala 11",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371543,
+    "numero": "26141",
+    "local": "Sala 09",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371544,
+    "numero": "26151",
+    "local": "Não localizado",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371545,
+    "numero": "26101",
+    "local": "Não localizado",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371546,
+    "numero": "26132",
+    "local": "Sala 11",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371547,
+    "numero": "26125",
+    "local": "Sala 11",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371548,
+    "numero": "DE 16893",
+    "local": "Sala 12",
+    "descricao": "Armário"
+  },
+  {
+    "id": 1769106371549,
+    "numero": "19116",
+    "local": "Sala 12",
+    "descricao": "Armário"
+  },
+  {
+    "id": 1769106371550,
+    "numero": "34464",
+    "local": "Sala 11",
+    "descricao": "Armário"
+  },
+  {
+    "id": 1769106371551,
+    "numero": "PDDE 238",
+    "local": "Sala 12",
+    "descricao": "Prateleira"
+  },
+  {
+    "id": 1769106371552,
+    "numero": "34160",
+    "local": "Sala 12",
+    "descricao": "Ventilador"
+  },
+  {
+    "id": 1769106371553,
+    "numero": "21375",
+    "local": "Sala 12",
+    "descricao": "Ar Condicionado"
+  },
+  {
+    "id": 1769106371554,
+    "numero": "PDDE 211",
+    "local": "Não localizado",
+    "descricao": "Cadeira de Professor"
+  },
+  {
+    "id": 1769106371555,
+    "numero": "26149",
+    "local": "Sala 12",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371556,
+    "numero": "32302",
+    "local": "Sala 12",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371557,
+    "numero": "32266",
+    "local": "Sala 12",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371558,
+    "numero": "26117",
+    "local": "Sala 12",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371559,
+    "numero": "26174",
+    "local": "Sala 12",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371560,
+    "numero": "26169",
+    "local": "Sala 12",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371561,
+    "numero": "26116",
+    "local": "Sala 12",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371562,
+    "numero": "26168",
+    "local": "Não localizado",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371563,
+    "numero": "26173",
+    "local": "Não localizado",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371564,
+    "numero": "26114",
+    "local": "Sala 12",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371565,
+    "numero": "26136",
+    "local": "Sala 12",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371566,
+    "numero": "26076",
+    "local": "Sala 12",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371567,
+    "numero": "26153",
+    "local": "Sala 12",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371568,
+    "numero": "26085",
+    "local": "Sala 12",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371569,
+    "numero": "26171",
+    "local": "Sala 11",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371570,
+    "numero": "26081",
+    "local": "Sala 12",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371571,
+    "numero": "26165",
+    "local": "Sala 12",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371572,
+    "numero": "26177",
+    "local": "Sala 12",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371573,
+    "numero": "26078",
+    "local": "Sala 12",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371574,
+    "numero": "26269",
+    "local": "Sala 12",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371575,
+    "numero": "26164",
+    "local": "Sala 12",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371576,
+    "numero": "26170",
+    "local": "Sala 12",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371577,
+    "numero": "26087",
+    "local": "Sala 12",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371578,
+    "numero": "34477",
+    "local": "Sala 13",
+    "descricao": "Arquivo"
+  },
+  {
+    "id": 1769106371579,
+    "numero": "28637",
+    "local": "Sala 13",
+    "descricao": "Bebedouro"
+  },
+  {
+    "id": 1769106371580,
+    "numero": "PDDE 373",
+    "local": "Sala 13",
+    "descricao": "Suporte de Projetor"
+  },
+  {
+    "id": 1769106371581,
+    "numero": "PDDE 429",
+    "local": "Sala 13",
+    "descricao": "Lousa Digital"
+  },
+  {
+    "id": 1769106371582,
+    "numero": "25389",
+    "local": "Sala 13",
+    "descricao": "Cadeira"
+  },
+  {
+    "id": 1769106371583,
+    "numero": "PDDE 364",
+    "local": "Sala 13",
+    "descricao": "Mesa"
+  },
+  {
+    "id": 1769106371584,
+    "numero": "32282",
+    "local": "Sala 13",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371585,
+    "numero": "32267",
+    "local": "Sala 13",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371586,
+    "numero": "32280",
+    "local": "Sala 13",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371587,
+    "numero": "32283",
+    "local": "Sala 13",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371588,
+    "numero": "26094",
+    "local": "Sala 03",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371589,
+    "numero": "32285",
+    "local": "Sala 13",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371590,
+    "numero": "32286",
+    "local": "Sala 13",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371591,
+    "numero": "32279",
+    "local": "Sala 13",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371592,
+    "numero": "32281",
+    "local": "Sala 13",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371593,
+    "numero": "32265",
+    "local": "Sala 10",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371594,
+    "numero": "26086",
+    "local": "Sala 13",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371595,
+    "numero": "32284",
+    "local": "Sala 08",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371596,
+    "numero": "33002",
+    "local": "Sala 14",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371597,
+    "numero": "33010",
+    "local": "Sala 14",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371598,
+    "numero": "33007",
+    "local": "Sala 13",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371599,
+    "numero": "32296",
+    "local": "Sala 13",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371600,
+    "numero": "32270",
+    "local": "Sala 14",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371601,
+    "numero": "32277",
+    "local": "Sala 07",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371602,
+    "numero": "32275",
+    "local": "Sala 13",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371603,
+    "numero": "22542",
+    "local": "Sala 14",
+    "descricao": "Armário"
+  },
+  {
+    "id": 1769106371604,
+    "numero": "21919",
+    "local": "Sala 14",
+    "descricao": "Armário"
+  },
+  {
+    "id": 1769106371605,
+    "numero": "22548",
+    "local": "Sala 14",
+    "descricao": "Armário"
+  },
+  {
+    "id": 1769106371606,
+    "numero": "DE 16571",
+    "local": "Sala 14",
+    "descricao": "Armário"
+  },
+  {
+    "id": 1769106371607,
+    "numero": "21381",
+    "local": "Sala 14",
+    "descricao": "Ar Condicionado"
+  },
+  {
+    "id": 1769106371608,
+    "numero": "29284",
+    "local": "Sala 14",
+    "descricao": "TV"
+  },
+  {
+    "id": 1769106371609,
+    "numero": "20408",
+    "local": "Sala 14",
+    "descricao": "Ventilador"
+  },
+  {
+    "id": 1769106371610,
+    "numero": "DE 16578",
+    "local": "Sala 14",
+    "descricao": "Prateleira"
+  },
+  {
+    "id": 1769106371611,
+    "numero": "32984",
+    "local": "Sala 14",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371612,
+    "numero": "32983",
+    "local": "Sala 14",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371613,
+    "numero": "32988",
+    "local": "Sala 14",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371614,
+    "numero": "32987",
+    "local": "Sala 14",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371615,
+    "numero": "32982",
+    "local": "Sala 14",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371616,
+    "numero": "32986",
+    "local": "Sala 14",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371617,
+    "numero": "32960",
+    "local": "Sala 14",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371618,
+    "numero": "33000",
+    "local": "Sala 14",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371619,
+    "numero": "32980",
+    "local": "Sala 14",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371620,
+    "numero": "32999",
+    "local": "Sala 13",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371621,
+    "numero": "32981",
+    "local": "Sala 14",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371622,
+    "numero": "32998",
+    "local": "Sala 14",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371623,
+    "numero": "32997",
+    "local": "Sala 14",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371624,
+    "numero": "32995",
+    "local": "Sala 14",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371625,
+    "numero": "33037",
+    "local": "Sala 14",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371626,
+    "numero": "33038",
+    "local": "Sala 14",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371627,
+    "numero": "32996",
+    "local": "Sala 14",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371628,
+    "numero": "32978",
+    "local": "Sala 14",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371629,
+    "numero": "32979",
+    "local": "Sala 14",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371630,
+    "numero": "32989",
+    "local": "Sala 14",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371631,
+    "numero": "32990",
+    "local": "Sala 14",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371632,
+    "numero": "32974",
+    "local": "Sala 13",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371633,
+    "numero": "32975",
+    "local": "Sala 14",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371634,
+    "numero": "32992",
+    "local": "Sala 13",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371635,
+    "numero": "32991",
+    "local": "Sala 13",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371636,
+    "numero": "32977",
+    "local": "Sala 14",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371637,
+    "numero": "32976",
+    "local": "Sala 13",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371638,
+    "numero": "33001",
+    "local": "Sala 14",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371639,
+    "numero": "32993",
+    "local": "Sala 14",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371640,
+    "numero": "32994",
+    "local": "Sala 14",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371641,
+    "numero": "32985",
+    "local": "Sala 14",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371642,
+    "numero": "33087",
+    "local": "Sala 14",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371643,
+    "numero": "36377",
+    "local": "Direção",
+    "descricao": "Computador"
+  },
+  {
+    "id": 1769106371644,
+    "numero": "27097",
+    "local": "Direção",
+    "descricao": "Ventilador"
+  },
+  {
+    "id": 1769106371645,
+    "numero": "28759",
+    "local": "Direção",
+    "descricao": "WebCam"
+  },
+  {
+    "id": 1769106371646,
+    "numero": "PDDE 430",
+    "local": "Direção",
+    "descricao": "Impressora"
+  },
+  {
+    "id": 1769106371647,
+    "numero": "PDDE 258",
+    "local": "Direção",
+    "descricao": "Mesa"
+  },
+  {
+    "id": 1769106371648,
+    "numero": "PDDE 259",
+    "local": "Direção",
+    "descricao": "Mesa"
+  },
+  {
+    "id": 1769106371649,
+    "numero": "PDDE 261",
+    "local": "Direção",
+    "descricao": "Mesa"
+  },
+  {
+    "id": 1769106371650,
+    "numero": "34243",
+    "local": "Direção",
+    "descricao": "Roteador"
+  },
+  {
+    "id": 1769106371651,
+    "numero": "Sem Patrimônio",
+    "local": "Direção",
+    "descricao": "Armário"
+  },
+  {
+    "id": 1769106371652,
+    "numero": "PDDE 197",
+    "local": "Direção",
+    "descricao": "Cadeira"
+  },
+  {
+    "id": 1769106371653,
+    "numero": "36135",
+    "local": "Direção",
+    "descricao": "Monitor"
+  },
+  {
+    "id": 1769106371654,
+    "numero": "35875",
+    "local": "Vice-Direção",
+    "descricao": "Computador"
+  },
+  {
+    "id": 1769106371655,
+    "numero": "PDDE 297",
+    "local": "Vice-Direção",
+    "descricao": "Ventilador"
+  },
+  {
+    "id": 1769106371656,
+    "numero": "28791",
+    "local": "Vice-Direção",
+    "descricao": "WebCam"
+  },
+  {
+    "id": 1769106371657,
+    "numero": "36133",
+    "local": "Vice-Direção",
+    "descricao": "Monitor"
+  },
+  {
+    "id": 1769106371658,
+    "numero": "PDDE 345",
+    "local": "Vice-Direção",
+    "descricao": "Mesa"
+  },
+  {
+    "id": 1769106371659,
+    "numero": "PDDE 196",
+    "local": "Vice-Direção",
+    "descricao": "Cadeira"
+  },
+  {
+    "id": 1769106371660,
+    "numero": "22544",
+    "local": "Vice-Direção",
+    "descricao": "Armário"
+  },
+  {
+    "id": 1769106371661,
+    "numero": "25379",
+    "local": "Vice-Direção",
+    "descricao": "Cadeira"
+  },
+  {
+    "id": 1769106371662,
+    "numero": "25391",
+    "local": "Vice-Direção",
+    "descricao": "Cadeira"
+  },
+  {
+    "id": 1769106371663,
+    "numero": "29177",
+    "local": "Coordenação",
+    "descricao": "Computador"
+  },
+  {
+    "id": 1769106371664,
+    "numero": "28782",
+    "local": "Coordenação",
+    "descricao": "WebCam"
+  },
+  {
+    "id": 1769106371667,
+    "numero": "DE 16689",
+    "local": "Coordenação",
+    "descricao": "Armário"
+  },
+  {
+    "id": 1769106371668,
+    "numero": "35877",
+    "local": "Coordenação",
+    "descricao": "Computador"
+  },
+  {
+    "id": 1769106371669,
+    "numero": "36134",
+    "local": "Coordenação",
+    "descricao": "Monitor"
+  },
+  {
+    "id": 1769106371670,
+    "numero": "30394",
+    "local": "Coordenação",
+    "descricao": "Ventilador"
+  },
+  {
+    "id": 1769106371671,
+    "numero": "27096",
+    "local": "Coordenação",
+    "descricao": "Ventilador"
+  },
+  {
+    "id": 1769106371672,
+    "numero": "PDDE 198",
+    "local": "Coordenação",
+    "descricao": "Cadeira"
+  },
+  {
+    "id": 1769106371673,
+    "numero": "25396",
+    "local": "Coordenação",
+    "descricao": "Cadeira"
+  },
+  {
+    "id": 1769106371674,
+    "numero": "25382",
+    "local": "Coordenação",
+    "descricao": "Cadeira"
+  },
+  {
+    "id": 1769106371675,
+    "numero": "DE 16580",
+    "local": "Secretaria",
+    "descricao": "Armário"
+  },
+  {
+    "id": 1769106371676,
+    "numero": "DE 16632",
+    "local": "Secretaria",
+    "descricao": "Armário"
+  },
+  {
+    "id": 1769106371677,
+    "numero": "DE 16625",
+    "local": "Secretaria",
+    "descricao": "Arquivo"
+  },
+  {
+    "id": 1769106371678,
+    "numero": "PDDE 350",
+    "local": "Secretaria",
+    "descricao": "Arquivo"
+  },
+  {
+    "id": 1769106371679,
+    "numero": "22558",
+    "local": "Secretaria",
+    "descricao": "Arquivo"
+  },
+  {
+    "id": 1769106371680,
+    "numero": "34478",
+    "local": "Secretaria",
+    "descricao": "Arquivo"
+  },
+  {
+    "id": 1769106371681,
+    "numero": "DE 38185",
+    "local": "Secretaria",
+    "descricao": "Armário"
+  },
+  {
+    "id": 1769106371682,
+    "numero": "PDDE 374",
+    "local": "Secretaria",
+    "descricao": "Armário"
+  },
+  {
+    "id": 1769106371683,
+    "numero": "21402",
+    "local": "Secretaria",
+    "descricao": "Ar Condicionado"
+  },
+  {
+    "id": 1769106371684,
+    "numero": "29292",
+    "local": "Secretaria",
+    "descricao": "TV"
+  },
+  {
+    "id": 1769106371685,
+    "numero": "DE 16538",
+    "local": "Secretaria",
+    "descricao": "Ventilador"
+  },
+  {
+    "id": 1769106371686,
+    "numero": "28951",
+    "local": "Secretaria",
+    "descricao": "Headset"
+  },
+  {
+    "id": 1769106371687,
+    "numero": "28949",
+    "local": "Coordenação",
+    "descricao": "Headset"
+  },
+  {
+    "id": 1769106371688,
+    "numero": "PDDE 425",
+    "local": "Secretaria",
+    "descricao": "Plastificadora"
+  },
+  {
+    "id": 1769106371689,
+    "numero": "PDDE 310",
+    "local": "Secretaria",
+    "descricao": "Mesa"
+  },
+  {
+    "id": 1769106371690,
+    "numero": "PDDE 344",
+    "local": "Secretaria",
+    "descricao": "Mesa"
+  },
+  {
+    "id": 1769106371691,
+    "numero": "16704",
+    "local": "Secretaria",
+    "descricao": "Mesa"
+  },
+  {
+    "id": 1769106371692,
+    "numero": "35878",
+    "local": "Secretaria",
+    "descricao": "Computador"
+  },
+  {
+    "id": 1769106371693,
+    "numero": "35874",
+    "local": "Secretaria",
+    "descricao": "Computador"
+  },
+  {
+    "id": 1769106371694,
+    "numero": "35876",
+    "local": "Secretaria",
+    "descricao": "Computador"
+  },
+  {
+    "id": 1769106371695,
+    "numero": "28787",
+    "local": "Secretaria",
+    "descricao": "WebCam"
+  },
+  {
+    "id": 1769106371696,
+    "numero": "28761",
+    "local": "Secretaria",
+    "descricao": "WebCam"
+  },
+  {
+    "id": 1769106371697,
+    "numero": "PDDE 363",
+    "local": "Secretaria",
+    "descricao": "Impressora"
+  },
+  {
+    "id": 1769106371698,
+    "numero": "23762",
+    "local": "Secretaria",
+    "descricao": "Impressora"
+  },
+  {
+    "id": 1769106371699,
+    "numero": "DE 16883",
+    "local": "Secretaria",
+    "descricao": "Switch"
+  },
+  {
+    "id": 1769106371700,
+    "numero": "DE 16884",
+    "local": "Secretaria",
+    "descricao": "Switch"
+  },
+  {
+    "id": 1769106371701,
+    "numero": "25399",
+    "local": "Secretaria",
+    "descricao": "Cadeira"
+  },
+  {
+    "id": 1769106371702,
+    "numero": "25393",
+    "local": "Secretaria",
+    "descricao": "Cadeira"
+  },
+  {
+    "id": 1769106371703,
+    "numero": "25376",
+    "local": "Secretaria",
+    "descricao": "Cadeira"
+  },
+  {
+    "id": 1769106371704,
+    "numero": "25400",
+    "local": "Secretaria",
+    "descricao": "Cadeira"
+  },
+  {
+    "id": 1769106371705,
+    "numero": "36132",
+    "local": "Secretaria",
+    "descricao": "Monitor"
+  },
+  {
+    "id": 1769106371706,
+    "numero": "36130",
+    "local": "Secretaria",
+    "descricao": "Monitor"
+  },
+  {
+    "id": 1769106371707,
+    "numero": "36136",
+    "local": "Secretaria",
+    "descricao": "Monitor"
+  },
+  {
+    "id": 1769106371708,
+    "numero": "28752",
+    "local": "Secretaria",
+    "descricao": "HD Externo"
+  },
+  {
+    "id": 1769106371709,
+    "numero": "20022",
+    "local": "Sala dos Professores",
+    "descricao": "Microondas"
+  },
+  {
+    "id": 1769106371710,
+    "numero": "DE 16796",
+    "local": "Sala dos Professores",
+    "descricao": "Geladeira"
+  },
+  {
+    "id": 1769106371711,
+    "numero": "PDDE 370",
+    "local": "Sala dos Professores",
+    "descricao": "Bebedouro"
+  },
+  {
+    "id": 1769106371712,
+    "numero": "DE 16526",
+    "local": "Sala dos Professores",
+    "descricao": "Mesa"
+  },
+  {
+    "id": 1769106371713,
+    "numero": "25380",
+    "local": "Sala dos Professores",
+    "descricao": "Cadeira"
+  },
+  {
+    "id": 1769106371714,
+    "numero": "25387",
+    "local": "Sala dos Professores",
+    "descricao": "Cadeira"
+  },
+  {
+    "id": 1769106371715,
+    "numero": "25403",
+    "local": "Sala dos Professores",
+    "descricao": "Cadeira"
+  },
+  {
+    "id": 1769106371716,
+    "numero": "25377",
+    "local": "Sala dos Professores",
+    "descricao": "Cadeira"
+  },
+  {
+    "id": 1769106371717,
+    "numero": "25381",
+    "local": "Coordenação",
+    "descricao": "Cadeira"
+  },
+  {
+    "id": 1769106371718,
+    "numero": "25398",
+    "local": "Coordenação",
+    "descricao": "Cadeira"
+  },
+  {
+    "id": 1769106371719,
+    "numero": "25401",
+    "local": "Sala dos Professores",
+    "descricao": "Cadeira"
+  },
+  {
+    "id": 1769106371720,
+    "numero": "25395",
+    "local": "Sala dos Professores",
+    "descricao": "Cadeira"
+  },
+  {
+    "id": 1769106371722,
+    "numero": "25402",
+    "local": "Sala dos Professores",
+    "descricao": "Cadeira"
+  },
+  {
+    "id": 1769106371724,
+    "numero": "17346",
+    "local": "Biblioteca",
+    "descricao": "Mesa"
+  },
+  {
+    "id": 1769106371725,
+    "numero": "28954",
+    "local": "Biblioteca",
+    "descricao": "Headset"
+  },
+  {
+    "id": 1769106371726,
+    "numero": "26249",
+    "local": "Biblioteca",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371727,
+    "numero": "18952",
+    "local": "Biblioteca",
+    "descricao": "Prateleira"
+  },
+  {
+    "id": 1769106371728,
+    "numero": "18950",
+    "local": "Biblioteca",
+    "descricao": "Prateleira"
+  },
+  {
+    "id": 1769106371729,
+    "numero": "18953",
+    "local": "Biblioteca",
+    "descricao": "Prateleira"
+  },
+  {
+    "id": 1769106371730,
+    "numero": "18956",
+    "local": "Biblioteca",
+    "descricao": "Prateleira"
+  },
+  {
+    "id": 1769106371731,
+    "numero": "18957",
+    "local": "Biblioteca",
+    "descricao": "Prateleira"
+  },
+  {
+    "id": 1769106371732,
+    "numero": "18949",
+    "local": "Biblioteca",
+    "descricao": "Prateleira"
+  },
+  {
+    "id": 1769106371733,
+    "numero": "DE 16659",
+    "local": "Biblioteca",
+    "descricao": "Prateleira"
+  },
+  {
+    "id": 1769106371734,
+    "numero": "DE 16567",
+    "local": "Biblioteca",
+    "descricao": "Prateleira"
+  },
+  {
+    "id": 1769106371735,
+    "numero": "DE 16660",
+    "local": "Biblioteca",
+    "descricao": "Prateleira"
+  },
+  {
+    "id": 1769106371736,
+    "numero": "DE 16564",
+    "local": "Biblioteca",
+    "descricao": "Prateleira"
+  },
+  {
+    "id": 1769106371737,
+    "numero": "DE 16673",
+    "local": "Biblioteca",
+    "descricao": "Prateleira"
+  },
+  {
+    "id": 1769106371738,
+    "numero": "20716",
+    "local": "Sala do AEE",
+    "descricao": "Computador"
+  },
+  {
+    "id": 1769106371739,
+    "numero": "PDDE 365",
+    "local": "Sala do AEE",
+    "descricao": "Ar Condicionado"
+  },
+  {
+    "id": 1769106371740,
+    "numero": "PDDE 359",
+    "local": "Sala do AEE",
+    "descricao": "Cadeira"
+  },
+  {
+    "id": 1769106371741,
+    "numero": "PDDE 360",
+    "local": "Sala do AEE",
+    "descricao": "Cadeira"
+  },
+  {
+    "id": 1769106371742,
+    "numero": "PDDE 361",
+    "local": "Sala do AEE",
+    "descricao": "Cadeira"
+  },
+  {
+    "id": 1769106371743,
+    "numero": "PDDE 362",
+    "local": "Sala do AEE",
+    "descricao": "Cadeira"
+  },
+  {
+    "id": 1769106371744,
+    "numero": "26235",
+    "local": "Sala 10",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371745,
+    "numero": "22712",
+    "local": "Sala de Atendimento",
+    "descricao": "Computador"
+  },
+  {
+    "id": 1769106371746,
+    "numero": "27314",
+    "local": "Sala de Atendimento",
+    "descricao": "Ventilador"
+  },
+  {
+    "id": 1769106371747,
+    "numero": "20407",
+    "local": "Sala de Atendimento",
+    "descricao": "Ventilador"
+  },
+  {
+    "id": 1769106371748,
+    "numero": "33004",
+    "local": "Sala de Atendimento",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371749,
+    "numero": "33005",
+    "local": "Sala de Atendimento",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371750,
+    "numero": "33008",
+    "local": "Sala de Atendimento",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371751,
+    "numero": "33009",
+    "local": "Sala de Atendimento",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371752,
+    "numero": "33011",
+    "local": "Não localizado",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371753,
+    "numero": "33012",
+    "local": "Sala de Atendimento",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371754,
+    "numero": "33013",
+    "local": "Sala de Atendimento",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371755,
+    "numero": "33014",
+    "local": "Sala de Atendimento",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769106371756,
+    "numero": "32417",
+    "local": "Refeitório",
+    "descricao": "Mesa"
+  },
+  {
+    "id": 1769106371757,
+    "numero": "32421",
+    "local": "Refeitório",
+    "descricao": "Mesa"
+  },
+  {
+    "id": 1769106371758,
+    "numero": "32420",
+    "local": "Refeitório",
+    "descricao": "Mesa"
+  },
+  {
+    "id": 1769106371759,
+    "numero": "32418",
+    "local": "Refeitório",
+    "descricao": "Mesa"
+  },
+  {
+    "id": 1769106371760,
+    "numero": "32480",
+    "local": "Refeitório",
+    "descricao": "Mesa"
+  },
+  {
+    "id": 1769106371761,
+    "numero": "32481",
+    "local": "Refeitório",
+    "descricao": "Mesa"
+  },
+  {
+    "id": 1769106371762,
+    "numero": "32482",
+    "local": "Refeitório",
+    "descricao": "Mesa"
+  },
+  {
+    "id": 1769106371763,
+    "numero": "32483",
+    "local": "Refeitório",
+    "descricao": "Mesa"
+  },
+  {
+    "id": 1769106371764,
+    "numero": "32484",
+    "local": "Refeitório",
+    "descricao": "Mesa"
+  },
+  {
+    "id": 1769106371765,
+    "numero": "32423",
+    "local": "Refeitório",
+    "descricao": "Mesa"
+  },
+  {
+    "id": 1769106371766,
+    "numero": "32485",
+    "local": "Refeitório",
+    "descricao": "Mesa"
+  },
+  {
+    "id": 1769106371767,
+    "numero": "27315",
+    "local": "Refeitório",
+    "descricao": "Ventilador"
+  },
+  {
+    "id": 1769106371768,
+    "numero": "27363",
+    "local": "Refeitório",
+    "descricao": "Ventilador"
+  },
+  {
+    "id": 1769121017432,
+    "numero": "29206",
+    "local": "Sala de Informática",
+    "descricao": "Computador"
+  },
+  {
+    "id": 1769121022831,
+    "numero": "29179",
+    "local": "Sala de Informática",
+    "descricao": "Computador"
+  },
+  {
+    "id": 1769121027735,
+    "numero": "29204",
+    "local": "Sala de Informática",
+    "descricao": "Computador"
+  },
+  {
+    "id": 1769121032655,
+    "numero": "29209",
+    "local": "Sala de Informática",
+    "descricao": "Computador"
+  },
+  {
+    "id": 1769121037975,
+    "numero": "29208",
+    "local": "Sala de Informática",
+    "descricao": "Computador"
+  },
+  {
+    "id": 1769121043327,
+    "numero": "29203",
+    "local": "Sala de Informática",
+    "descricao": "Computador"
+  },
+  {
+    "id": 1769121048327,
+    "numero": "29178",
+    "local": "Sala de Informática",
+    "descricao": "Computador"
+  },
+  {
+    "id": 1769121055695,
+    "numero": "24038",
+    "local": "Sala de Informática",
+    "descricao": "Computador"
+  },
+  {
+    "id": 1769121062479,
+    "numero": "29872",
+    "local": "Sala de Informática",
+    "descricao": "Computador"
+  },
+  {
+    "id": 1769121066871,
+    "numero": "29205",
+    "local": "Sala de Informática",
+    "descricao": "Computador"
+  },
+  {
+    "id": 1769121072767,
+    "numero": "29214",
+    "local": "Sala de Informática",
+    "descricao": "Computador"
+  },
+  {
+    "id": 1769121076903,
+    "numero": "29210",
+    "local": "Sala de Informática",
+    "descricao": "Computador"
+  },
+  {
+    "id": 1769121089743,
+    "numero": "29180",
+    "local": "Sala de Informática",
+    "descricao": "Computador"
+  },
+  {
+    "id": 1769121094943,
+    "numero": "29181",
+    "local": "Sala de Informática",
+    "descricao": "Computador"
+  },
+  {
+    "id": 1769121107095,
+    "numero": "25404",
+    "local": "Sala de Informática",
+    "descricao": "Cadeira"
+  },
+  {
+    "id": 1769121112791,
+    "numero": "25392",
+    "local": "Sala de Informática",
+    "descricao": "Cadeira"
+  },
+  {
+    "id": 1769121118591,
+    "numero": "25385",
+    "local": "Sala de Informática",
+    "descricao": "Cadeira"
+  },
+  {
+    "id": 1769121131327,
+    "numero": "25383",
+    "local": "Sala de Informática",
+    "descricao": "Cadeira"
+  },
+  {
+    "id": 1769121184055,
+    "numero": "PDDE 256",
+    "local": "Sala de Informática",
+    "descricao": "Suporte"
+  },
+  {
+    "id": 1769202684655,
+    "numero": "36908",
+    "local": "Sala 07",
+    "descricao": "TV"
+  },
+  {
+    "id": 1769202735967,
+    "numero": "26134",
+    "local": "Sala 07",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769202857791,
+    "numero": "36785",
+    "local": "Sala 08",
+    "descricao": "TV"
+  },
+  {
+    "id": 1769202928543,
+    "numero": "26079",
+    "local": "Sala 08",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769203480390,
+    "numero": "36907",
+    "local": "Sala 09",
+    "descricao": "TV"
+  },
+  {
+    "id": 1769203497606,
+    "numero": "16682",
+    "local": "Sala 09",
+    "descricao": "Armário"
+  },
+  {
+    "id": 1769203574838,
+    "numero": "32320",
+    "local": "Sala 09",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769203778598,
+    "numero": "36906",
+    "local": "Sala 10",
+    "descricao": "TV"
+  },
+  {
+    "id": 1769204127958,
+    "numero": "36905",
+    "local": "Sala 11",
+    "descricao": "TV"
+  },
+  {
+    "id": 1769204253702,
+    "numero": "22541",
+    "local": "Sala 11",
+    "descricao": "Armário"
+  },
+  {
+    "id": 1769204688861,
+    "numero": "26172",
+    "local": "Sala 12",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769468897847,
+    "numero": "DE 16683",
+    "local": "Sala 01",
+    "descricao": "Armário"
+  },
+  {
+    "id": 1769469326582,
+    "numero": "33083",
+    "local": "Sala 13",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769469365870,
+    "numero": "19119",
+    "local": "Sala 14",
+    "descricao": "Armário"
+  },
+  {
+    "id": 1769469387910,
+    "numero": "25388",
+    "local": "Sala 03",
+    "descricao": "Cadeira"
+  },
+  {
+    "id": 1769469419270,
+    "numero": "36825",
+    "local": "Direção",
+    "descricao": "Ar Condicionado"
+  },
+  {
+    "id": 1769469433566,
+    "numero": "36824",
+    "local": "Vice-Direção",
+    "descricao": "Ar Condicionado"
+  },
+  {
+    "id": 1769469529334,
+    "numero": "28952",
+    "local": "Coordenação",
+    "descricao": "Headset"
+  },
+  {
+    "id": 1769469549654,
+    "numero": "36822",
+    "local": "Coordenação",
+    "descricao": "Ar Condicionado"
+  },
+  {
+    "id": 1769469611454,
+    "numero": "36823",
+    "local": "Sala dos Professores",
+    "descricao": "Ar Condicionado"
+  },
+  {
+    "id": 1769469645222,
+    "numero": "21864",
+    "local": "Biblioteca",
+    "descricao": "Fonte"
+  },
+  {
+    "id": 1769469668926,
+    "numero": "36131",
+    "local": "Biblioteca",
+    "descricao": "Computador"
+  },
+  {
+    "id": 1769469755318,
+    "numero": "33006",
+    "local": "Sala de Atendimento",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769469767958,
+    "numero": "02792",
+    "local": "Sala de Atendimento",
+    "descricao": "Armário"
+  },
+  {
+    "id": 1769530375500,
+    "numero": "37180",
+    "local": "Sala 13",
+    "descricao": "Ar Condicionado"
+  },
+  {
+    "id": 1769530461708,
+    "numero": "32230",
+    "local": "Sala 13",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769530504532,
+    "numero": "26083",
+    "local": "Sala 13",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769530539492,
+    "numero": "32274",
+    "local": "Sala 13",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769530579764,
+    "numero": "33003",
+    "local": "Sala 13",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769530678012,
+    "numero": "32038",
+    "local": "Sala 13",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769552076588,
+    "numero": "32271",
+    "local": "Sala 09",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769552122507,
+    "numero": "26082",
+    "local": "Sala 12",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769552148492,
+    "numero": "32273",
+    "local": "Sala 11",
+    "descricao": "Conjunto de carteira"
+  },
+  {
+    "id": 1769552247507,
+    "numero": "21860",
+    "local": "Sala de Informática",
+    "descricao": "Fonte"
+  }
+]

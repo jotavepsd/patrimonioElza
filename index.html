@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Relação Patrimonial - Controle Local</title>
+<style>
+  body { font-family: Arial, sans-serif; background: #f4f6f8; margin: 20px; color: #333; }
+  h1 { text-align: center; }
+  .form-container { background: #fff; padding: 15px; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 2px 6px rgba(0,0,0,.1); }
+  .form-group { margin-bottom: 10px; }
+  label { font-weight: bold; display: block; margin-bottom: 5px; }
+  input, select, button { width: 100%; padding: 10px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 5px; font-size: 14px; }
+  button { background: #2e7d32; color: #fff; border: none; cursor: pointer; font-weight: bold; transition: 0.2s; }
+  button:hover { background: #1b5e20; }
+  .modo-buttons { display: flex; gap: 10px; margin-bottom: 15px; }
+  .modo-buttons button { background: #455a64; flex: 1; }
+  .modo-buttons button.active { background: #1c313a; }
+  .btn-geral { background: #004d40 !important; }
+  table { width: 100%; border-collapse: collapse; background: #fff; margin-top: 10px; }
+  th, td { border: 1px solid #ccc; padding: 10px; text-align: center; }
+  th { background: #e0e0e0; }
+  .btn-edit { background: #0277bd; width: auto; padding: 5px 10px; margin-right: 5px; }
+  .btn-delete { background: #c62828; width: auto; padding: 5px 10px; }
+  .tab-buttons { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; }
+  .tab-buttons button { width: auto; background: #90a4ae; color: white; padding: 8px 15px; }
+  .tab-buttons button.active { background: #37474f; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+  .btn-print { background: #f57c00; width: auto; padding: 5px 15px; }
+  .btn-print:hover { background: #e65100; }
+</style>
+</head>
+<body>
+
+<h1>Relação Patrimonial</h1>
+
+<div class="form-container modo-buttons">
+  <button onclick="exportar()">Exportar Backup (JSON)</button>
+  <button onclick="document.getElementById('importFile').click()">Importar JSON</button>
+  <button class="btn-geral" onclick="gerarRelatorioGeral()">🖨️ Relatório Geral (Todos)</button>
+  <input type="file" id="importFile" hidden onchange="importar(event)">
+</div>
+
+<div class="form-container">
+  <div class="form-group" style="padding: 10px; background: #e3f2fd; border-radius: 4px; border-left: 5px solid #0277bd;">
+    <label>Pesquisar por Nº do Patrimônio (Busca Geral)</label>
+    <input id="pesquisa" placeholder="Digite o número para busca rápida..." oninput="renderizar()">
+  </div>
+
+  <div class="form-group" style="margin-top: 15px;">
+    <label>N° do Patrimônio</label>
+    <input id="numero" placeholder="Ex: 25123">
+  </div>
+
+  <div class="form-group">
+    <label>Local</label>
+    <select id="local">
+      <option value="">Selecione o Local</option>
+      <option>Sala 01</option><option>Sala 03</option><option>Sala 04</option>
+      <option>Sala 05</option><option>Sala 06</option><option>Sala 07</option>
+      <option>Sala 08</option><option>Sala 09</option><option>Sala 10</option>
+      <option>Sala 11</option><option>Sala 12</option><option>Sala 13</option>
+      <option>Sala 14</option><option>Sala de Informática</option>
+      <option>Secretaria</option><option>Direção</option>
+      <option>Vice-Direção</option><option>Coordenação</option>
+      <option>Biblioteca</option><option>Sala dos Professores</option>
+      <option>Sala do AEE</option><option>Sala de Atendimento</option>
+      <option>Refeitório</option><option>Depósito</option>
+      <option>Não localizado</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>Descrição</label>
+    <select id="descricao">
+      <option value="">Selecione o Item</option>
+      <option>Conjunto de carteira</option><option>Armário</option>
+      <option>Ar Condicionado</option><option>Cadeira</option>
+      <option>Ventilador</option><option>Mesa</option>
+      <option>Headset</option><option>WebCam</option>
+      <option>Computador</option><option>Monitor</option>
+      <option>Roteador</option><option>Impressora</option>
+      <option>Geladeira</option><option>Microondas</option>
+      <option>Arquivo</option><option>Prateleira</option>
+      <option>TV</option><option>Bebedouro</option>
+      <option>Lousa Digital</option><option>Plastificadora</option>
+      <option>Switch</option><option>Suporte</option>
+    </select>
+  </div>
+
+  <button onclick="adicionar()">Adicionar Patrimônio</button>
+</div>
+
+<div class="modo-buttons">
+  <button id="btnLocal" onclick="setModo('local')">Ver por Local</button>
+  <button id="btnDescricao" onclick="setModo('descricao')">Ver por Descrição</button>
+</div>
+
+<div class="tabs">
+  <div class="tab-buttons" id="tabButtons"></div>
+  <div id="tabContents"></div>
+</div>
+
+<script>
+let dados = JSON.parse(localStorage.getItem('patrimonio_dados')) || [];
+let modo = 'local';
+let abaAbertaRecentemente = null;
+
+const numeroInput = document.getElementById('numero');
+const localSelect = document.getElementById('local');
+const descricaoSelect = document.getElementById('descricao');
+const pesquisa = document.getElementById('pesquisa');
+const tabButtons = document.getElementById('tabButtons');
+const tabContents = document.getElementById('tabContents');
+const btnLocal = document.getElementById('btnLocal');
+const btnDescricao = document.getElementById('btnDescricao');
+
+function ordenarPatrimonios(a, b) {
+  const descA = a.descricao.toLowerCase();
+  const descB = b.descricao.toLowerCase();
+  const numA = String(a.numero);
+  const numB = String(b.numero);
+  const termoConjunto = "conjunto de carteira";
+
+  if (descA === termoConjunto && descB !== termoConjunto) return 1;
+  if (descA !== termoConjunto && descB === termoConjunto) return -1;
+  if (descA !== descB) return descA.localeCompare(descB);
+  return numA.localeCompare(numB, undefined, { numeric: true, sensitivity: 'base' });
+}
+
+function salvar() {
+  localStorage.setItem('patrimonio_dados', JSON.stringify(dados));
+  renderizar(abaAbertaRecentemente);
+}
+
+function setModo(m) {
+  modo = m;
+  abaAbertaRecentemente = null; 
+  btnLocal.classList.toggle('active', m === 'local');
+  btnDescricao.classList.toggle('active', m === 'descricao');
+  renderizar();
+}
+
+function adicionar() {
+  const numero = numeroInput.value.trim();
+  const local = localSelect.value;
+  const descricao = descricaoSelect.value;
+
+  if (!numero || !local || !descricao) {
+    alert("Por favor, preencha todos os campos.");
+    return;
+  }
+
+  if (dados.some(item => String(item.numero).toUpperCase() === String(numero).toUpperCase())) {
+    alert(`Erro: O patrimônio nº ${numero} já está cadastrado!`);
+    return;
+  }
+
+  abaAbertaRecentemente = (modo === 'local') ? local : descricao;
+  dados.push({ id: Date.now(), numero, local, descricao });
+  
+  numeroInput.value = '';
+  descricaoSelect.value = '';
+  
+  salvar();
+}
+
+function excluir(id) {
+  if (confirm("Excluir este item permanentemente?")) {
+    dados = dados.filter(d => d.id !== id);
+    salvar();
+  }
+}
+
+function editar(id) {
+  const item = dados.find(d => d.id === id);
+  if (!item) return;
+
+  const n = prompt("N° Patrimônio:", item.numero);
+  if (n === null) return;
+  if (n !== item.numero && dados.some(d => String(d.numero).toUpperCase() === String(n).toUpperCase())) {
+      alert("Este número de patrimônio já existe!");
+      return;
+  }
+
+  const l = prompt("Local:", item.local);
+  if (l === null) return;
+  const d = prompt("Descrição:", item.descricao);
+  if (d === null) return;
+
+  item.numero = n;
+  item.local = l;
+  item.descricao = d;
+  
+  salvar();
+}
+
+function gerarRelatorio(nomeGrupo) {
+  const campo = modo === 'local' ? 'local' : 'descricao';
+  const itens = dados
+    .filter(d => d[campo] === nomeGrupo)
+    .sort(ordenarPatrimonios);
+  
+  imprimirTemplate(`Setor/Item: ${nomeGrupo}`, itens, false);
+}
+
+function gerarRelatorioGeral() {
+  // Filtra removendo "Não localizado" e ordena por Local
+  const dadosFiltrados = dados.filter(d => d.local !== "Não localizado");
+
+  if (dadosFiltrados.length === 0) {
+    alert("Não há dados válidos (excluindo 'Não localizado') para gerar o relatório.");
+    return;
+  }
+
+  const itensGerais = [...dadosFiltrados].sort((a, b) => {
+    if (a.local.toLowerCase() < b.local.toLowerCase()) return -1;
+    if (a.local.toLowerCase() > b.local.toLowerCase()) return 1;
+    return ordenarPatrimonios(a, b);
+  });
+
+  imprimirTemplate("Relatório Geral (Consolidado)", itensGerais, true);
+}
+
+function imprimirTemplate(titulo, lista, isGeral) {
+  let htmlRelatorio = `
+    <html>
+    <head>
+      <title>${titulo}</title>
+      <style>
+        body { font-family: sans-serif; padding: 20px; }
+        h2 { text-align: center; border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 5px; }
+        h4 { text-align: center; margin-top: 0; color: #555; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #333; padding: 8px; text-align: left; font-size: 13px; }
+        th { background-color: #f2f2f2; text-align: center; }
+        .row-local-divider { background-color: #455a64; color: white; font-weight: bold; font-size: 14px; }
+        .footer { margin-top: 40px; font-size: 11px; text-align: right; border-top: 1px solid #ccc; padding-top: 5px; }
+        @media print { .no-print { display: none; } }
+      </style>
+    </head>
+    <body>
+      <h2>Relatório de Patrimônio</h2>
+      <h4>${titulo}</h4>
+      <table>
+        <thead>
+          <tr>
+            <th width="20%">Nº Patrimônio</th>
+            <th>Descrição do Item</th>
+          </tr>
+        </thead>
+        <tbody>
+  `;
+
+  let localAtual = "";
+
+  lista.forEach(item => {
+    // Se for o relatório geral, adiciona uma linha divisória ao mudar de local
+    if (isGeral && item.local !== localAtual) {
+      localAtual = item.local;
+      htmlRelatorio += `
+        <tr>
+          <td colspan="2" class="row-local-divider">📍 LOCAL: ${localAtual.toUpperCase()}</td>
+        </tr>
+      `;
+    }
+
+    htmlRelatorio += `
+      <tr>
+        <td style="text-align:center;">${item.numero}</td>
+        <td>${item.descricao}</td>
+      </tr>
+    `;
+  });
+
+  htmlRelatorio += `
+        </tbody>
+      </table>
+      <div class="footer">Extraído em: ${new Date().toLocaleString('pt-BR')} | Total de itens: ${lista.length}</div>
+      <script>window.print();<\/script>
+    </body>
+    </html>
+  `;
+
+  const win = window.open('', '_blank');
+  win.document.write(htmlRelatorio);
+  win.document.close();
+}
+
+function exportar() {
+  const blob = new Blob([JSON.stringify(dados, null, 2)], { type: "application/json" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "patrimonio_backup.json";
+  a.click();
+}
+
+function importar(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (event) => {
+    try {
+      let importados = JSON.parse(event.target.result);
+      if (confirm("Isso substituirá seus dados atuais. Continuar?")) {
+        dados = importados.map((item, index) => ({
+            id: item.id || (Date.now() + index),
+            numero: item.numero,
+            local: item.local,
+            descricao: item.descricao
+        }));
+        abaAbertaRecentemente = null;
+        salvar();
+      }
+    } catch (err) { alert("Arquivo inválido."); }
+  };
+  reader.readAsText(file);
+}
+
+function renderizar(abaParaFocar = null) {
+  const filtro = pesquisa.value.toLowerCase().trim();
+  const filtrados = dados
+    .filter(d => String(d.numero).toLowerCase().includes(filtro))
+    .sort(ordenarPatrimonios);
+
+  tabButtons.innerHTML = '';
+  tabContents.innerHTML = '';
+
+  if (filtrados.length === 0) {
+    tabContents.innerHTML = "<p style='text-align:center; padding:20px;'>Nenhum registro encontrado.</p>";
+    return;
+  }
+
+  if (filtro !== "") {
+    tabButtons.innerHTML = "<span style='padding: 10px; color: #0277bd; font-weight: bold;'>🔍 Resultados da busca:</span>";
+    const div = document.createElement('div');
+    div.className = 'tab-content active';
+    let t = `<table><thead><tr><th>N° Patrimônio</th><th>Local</th><th>Descrição</th><th>Ações</th></tr></thead><tbody>`;
+    filtrados.forEach(d => {
+      t += `<tr><td><strong>${d.numero}</strong></td><td>${d.local}</td><td>${d.descricao}</td><td>
+              <button class="btn-edit" onclick="editar(${d.id})">Editar</button>
+              <button class="btn-delete" onclick="excluir(${d.id})">Excluir</button>
+            </td></tr>`;
+    });
+    t += '</tbody></table>';
+    div.innerHTML = t;
+    tabContents.appendChild(div);
+    return;
+  }
+
+  const campo = modo === 'local' ? 'local' : 'descricao';
+  const grupos = [...new Set(filtrados.map(d => d[campo]))].sort();
+
+  let indiceAtivo = 0;
+  grupos.forEach((g, i) => {
+    if (abaParaFocar && g === abaParaFocar) indiceAtivo = i;
+    const b = document.createElement('button');
+    b.textContent = g;
+    b.onclick = () => { abaAbertaRecentemente = g; ativarAba(i); };
+    tabButtons.appendChild(b);
+
+    const div = document.createElement('div');
+    div.className = 'tab-content';
+    let t = `
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; background:#fff; padding:10px; border-radius:5px; border:1px solid #ddd;">
+        <strong style="font-size:1.1em; color:#1c313a;">📍 ${g}</strong>
+        <button class="btn-print" onclick="gerarRelatorio('${g}')">🖨️ Gerar tabela p/ impressão</button>
+      </div>
+      <table><thead><tr><th>N° Patrimônio</th><th>Local</th><th>Descrição</th><th>Ações</th></tr></thead><tbody>`;
+    
+    filtrados.filter(d => d[campo] === g).forEach(d => {
+      t += `<tr><td><strong>${d.numero}</strong></td><td>${d.local}</td><td>${d.descricao}</td><td>
+            <button class="btn-edit" onclick="editar(${d.id})">Editar</button>
+            <button class="btn-delete" onclick="excluir(${d.id})">Excluir</button>
+          </td></tr>`;
+    });
+    t += '</tbody></table>';
+    div.innerHTML = t;
+    tabContents.appendChild(div);
+  });
+  ativarAba(indiceAtivo);
+}
+
+function ativarAba(i) {
+  const buttons = document.querySelectorAll('.tab-buttons button');
+  const contents = document.querySelectorAll('.tab-content');
+  buttons.forEach((b, x) => b.classList.toggle('active', x === i));
+  contents.forEach((c, x) => c.classList.toggle('active', x === i));
+}
+
+setModo('local');
+</script>
+
+</body>
+</html>

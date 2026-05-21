@@ -2,16 +2,136 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Relação Patrimonial - Sistema Avançado</title>
+<title>Relação Patrimonial - Sistema com Login e Gestão de Usuários</title>
 <style>
   body { font-family: Arial, sans-serif; background: #f4f6f8; margin: 20px; color: #333; }
   h1 { text-align: center; }
+  
+  /* Login Screen */
+  .login-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+  }
+  .login-box {
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    width: 350px;
+    max-width: 90%;
+  }
+  .login-box h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+  }
+  .login-box input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+  .login-box button {
+    width: 100%;
+    padding: 12px;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  .login-box button:hover {
+    background: #5a67d8;
+  }
+  .login-box .error {
+    color: #e53e3e;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 14px;
+  }
+  .login-box .info {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 12px;
+    color: #666;
+  }
+  
+  /* Main App */
+  .main-app {
+    display: none;
+  }
+  .user-bar {
+    background: #2c3e50;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+  .user-role {
+    background: #e74c3c;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+  }
+  .user-role.admin {
+    background: #27ae60;
+  }
+  .btn-logout {
+    background: #e74c3c;
+    padding: 6px 15px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    width: auto;
+  }
+  .btn-logout:hover {
+    background: #c0392b;
+  }
+  .btn-admin {
+    background: #2980b9;
+    width: auto;
+    padding: 6px 15px;
+  }
+  .btn-admin:hover {
+    background: #1c638e;
+  }
+  
   .form-container { background: #fff; padding: 15px; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 2px 6px rgba(0,0,0,.1); }
   .form-group { margin-bottom: 10px; }
   label { font-weight: bold; display: block; margin-bottom: 5px; }
   input, select, button { width: 100%; padding: 10px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 5px; font-size: 14px; }
   button { background: #2e7d32; color: #fff; border: none; cursor: pointer; font-weight: bold; transition: 0.2s; }
   button:hover { background: #1b5e20; }
+  button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
   .modo-buttons { display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; }
   .modo-buttons button { background: #455a64; flex: 1; min-width: 120px; }
   .modo-buttons button.active { background: #1c313a; }
@@ -34,6 +154,8 @@
   .item-baixado { background-color: #ffebee !important; opacity: 0.7; text-decoration: line-through; }
   .item-analise { background-color: #fff9c4 !important; border-left: 4px solid #f9a825 !important; }
   .info-data { font-size: 11px; color: #666; margin-top: 5px; text-align: right; }
+  
+  /* Modais */
   .modal {
     display: none;
     position: fixed;
@@ -68,6 +190,7 @@
     color: #aaa;
   }
   .close:hover { color: #000; }
+  
   .cadastro-multiplo {
     background: #e8eaf6;
     padding: 15px;
@@ -87,6 +210,55 @@
   .status-analise::before {
     content: "⚠️ ";
   }
+  .action-buttons {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .btn-small {
+    width: auto;
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+  .user-list {
+    max-height: 300px;
+    overflow-y: auto;
+  }
+  .user-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  .user-item:last-child {
+    border-bottom: none;
+  }
+  .user-info-text {
+    flex: 1;
+  }
+  .user-role-badge {
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: bold;
+    margin-left: 10px;
+  }
+  .role-admin {
+    background: #27ae60;
+    color: white;
+  }
+  .role-user {
+    background: #e74c3c;
+    color: white;
+  }
+  .btn-delete-user {
+    background: #c62828;
+    width: auto;
+    padding: 5px 10px;
+    font-size: 12px;
+  }
 </style>
 
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
@@ -94,74 +266,100 @@
 </head>
 <body>
 
-<h1>Relação Patrimonial (Sistema Avançado)</h1>
-
-<div class="form-container modo-buttons">
-  <button onclick="exportar()">Exportar Backup (JSON)</button>
-  <button onclick="document.getElementById('importFile').click()">Importar JSON p/ Realtime</button>
-  <button class="btn-geral" onclick="gerarRelatorioGeral()">🖨️ Relatório Geral (Todos)</button>
-  <button class="btn-baixa" onclick="gerarRelatorioBaixados()">📋 Relatório de Baixados</button>
-  <input type="file" id="importFile" hidden onchange="importar(event)">
+<!-- Login Screen -->
+<div id="loginContainer" class="login-container">
+  <div class="login-box">
+    <h2>🔐 Sistema Patrimonial</h2>
+    <input type="text" id="loginUser" placeholder="Usuário" autocomplete="off">
+    <input type="password" id="loginPassword" placeholder="Senha">
+    <button onclick="fazerLogin()">Entrar</button>
+    <div class="info">
+      <strong>👑 Admin padrão:</strong> admin / admin123
+    </div>
+    <div id="loginError" class="error"></div>
+  </div>
 </div>
 
-<div class="form-container">
-  <div class="form-group" style="padding: 10px; background: #e3f2fd; border-radius: 4px; border-left: 5px solid #0277bd;">
-    <label>Pesquisar por Nº do Patrimônio (Busca Geral)</label>
-    <input id="pesquisa" placeholder="Digite o número para busca rápida..." oninput="renderizar()">
+<!-- Main Application -->
+<div id="mainApp" class="main-app">
+  <div class="user-bar">
+    <div class="user-info">
+      <span>👋 Olá, <strong id="userNameDisplay"></strong></span>
+      <span id="userRoleDisplay" class="user-role"></span>
+      <button id="btnGerenciarUsuarios" class="btn-admin" onclick="abrirModalUsuarios()" style="display:none;">👥 Gerenciar Usuários</button>
+    </div>
+    <button class="btn-logout" onclick="logout()">🚪 Sair</button>
   </div>
 
-  <div class="form-group" style="margin-top: 15px;">
-    <label>N° do Patrimônio (separar múltiplos por espaço: 123 456 789)</label>
-    <input id="numero" placeholder="Ex: 25123 25124 25125">
+  <h1>Relação Patrimonial (Sistema Avançado)</h1>
+
+  <div class="form-container modo-buttons">
+    <button onclick="exportar()">Exportar Backup (JSON)</button>
+    <button onclick="document.getElementById('importFile').click()">Importar JSON p/ Realtime</button>
+    <button class="btn-geral" onclick="gerarRelatorioGeral()">🖨️ Relatório Geral (Todos)</button>
+    <button class="btn-baixa" onclick="gerarRelatorioBaixados()">📋 Relatório de Baixados</button>
+    <input type="file" id="importFile" hidden onchange="importar(event)">
   </div>
 
-  <div class="form-group">
-    <label>Local</label>
-    <select id="local">
-      <option value="">Selecione o Local</option>
-      <option>Sala 01</option><option>Sala 02</option><option>Sala 03</option><option>Sala 04</option>
-      <option>Sala 05</option><option>Sala 06</option><option>Sala 07</option><option>Sala 08</option>
-      <option>Sala 09</option><option>Sala 10</option><option>Sala 11</option><option>Sala 12</option>
-      <option>Sala 13</option><option>Sala 14</option><option>Sala de Informática</option>
-      <option>Secretaria</option><option>Direção</option><option>Vice-Direção</option>
-      <option>Coordenação</option><option>Biblioteca</option><option>Sala dos Professores</option>
-      <option>Sala do AEE</option><option>Sala de Atendimento</option>
-      <option>Refeitório</option><option>Depósito</option><option>Não localizado</option>
-    </select>
+  <div class="form-container" id="formCadastro">
+    <div class="form-group" style="padding: 10px; background: #e3f2fd; border-radius: 4px; border-left: 5px solid #0277bd;">
+      <label>Pesquisar por Nº do Patrimônio (Busca Geral)</label>
+      <input id="pesquisa" placeholder="Digite o número para busca rápida..." oninput="renderizar()">
+    </div>
+
+    <div class="form-group" style="margin-top: 15px;">
+      <label>N° do Patrimônio (separar múltiplos por espaço: 123 456 789)</label>
+      <input id="numero" placeholder="Ex: 25123 25124 25125">
+    </div>
+
+    <div class="form-group">
+      <label>Local</label>
+      <select id="local">
+        <option value="">Selecione o Local</option>
+        <option>Sala 01</option><option>Sala 02</option><option>Sala 03</option><option>Sala 04</option>
+        <option>Sala 05</option><option>Sala 06</option><option>Sala 07</option><option>Sala 08</option>
+        <option>Sala 09</option><option>Sala 10</option><option>Sala 11</option><option>Sala 12</option>
+        <option>Sala 13</option><option>Sala 14</option><option>Sala de Informática</option>
+        <option>Secretaria</option><option>Direção</option><option>Vice-Direção</option>
+        <option>Coordenação</option><option>Biblioteca</option><option>Sala dos Professores</option>
+        <option>Sala do AEE</option><option>Sala de Atendimento</option>
+        <option>Refeitório</option><option>Depósito</option><option>Não localizado</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Descrição</label>
+      <select id="descricao">
+        <option value="">Selecione o Item</option>
+        <option>Conjunto de carteira</option><option>Armário</option><option>Ar Condicionado</option>
+        <option>Cadeira</option><option>Ventilador</option><option>Mesa</option><option>Headset</option>
+        <option>WebCam</option><option>Computador</option><option>Monitor</option><option>Roteador</option>
+        <option>Impressora</option><option>Geladeira</option><option>Microondas</option><option>Arquivo</option>
+        <option>Prateleira</option><option>TV</option><option>Bebedouro</option><option>Lousa Digital</option>
+        <option>Plastificadora</option><option>Switch</option><option>Suporte</option>
+      </select>
+    </div>
+
+    <div class="cadastro-multiplo">
+      <strong>📦 Cadastro Múltiplo:</strong> 
+      <span class="info-multiplo">Digite vários números separados por espaço no campo acima para cadastrar múltiplos itens iguais de uma vez!</span>
+    </div>
+
+    <button id="btnAdicionar" onclick="adicionar()" style="margin-top: 10px;">Adicionar Patrimônio(s)</button>
   </div>
 
-  <div class="form-group">
-    <label>Descrição</label>
-    <select id="descricao">
-      <option value="">Selecione o Item</option>
-      <option>Conjunto de carteira</option><option>Armário</option><option>Ar Condicionado</option>
-      <option>Cadeira</option><option>Ventilador</option><option>Mesa</option><option>Headset</option>
-      <option>WebCam</option><option>Computador</option><option>Monitor</option><option>Roteador</option>
-      <option>Impressora</option><option>Geladeira</option><option>Microondas</option><option>Arquivo</option>
-      <option>Prateleira</option><option>TV</option><option>Bebedouro</option><option>Lousa Digital</option>
-      <option>Plastificadora</option><option>Switch</option><option>Suporte</option>
-    </select>
+  <div class="modo-buttons">
+    <button id="btnLocal" onclick="setModo('local')">Ver por Local</button>
+    <button id="btnDescricao" onclick="setModo('descricao')">Ver por Descrição</button>
   </div>
 
-  <div class="cadastro-multiplo">
-    <strong>📦 Cadastro Múltiplo:</strong> 
-    <span class="info-multiplo">Digite vários números separados por espaço no campo acima para cadastrar múltiplos itens iguais de uma vez!</span>
+  <div class="tabs">
+    <div class="tab-buttons" id="tabButtons"></div>
+    <div id="tabContents"></div>
   </div>
-
-  <button onclick="adicionar()" style="margin-top: 10px;">Adicionar Patrimônio(s)</button>
 </div>
 
-<div class="modo-buttons">
-  <button id="btnLocal" onclick="setModo('local')">Ver por Local</button>
-  <button id="btnDescricao" onclick="setModo('descricao')">Ver por Descrição</button>
-</div>
-
-<div class="tabs">
-  <div class="tab-buttons" id="tabButtons"></div>
-  <div id="tabContents"></div>
-</div>
-
-<!-- Modal de Edição -->
+<!-- Modal de Edição de Patrimônio -->
 <div id="editModal" class="modal">
   <div class="modal-content">
     <div class="modal-header">
@@ -204,11 +402,53 @@
         <option value="baixado">Baixado (Descartado)</option>
       </select>
     </div>
-    <button onclick="salvarEdicao()">Salvar Alterações</button>
+    <button id="btnSalvarEdicao" onclick="salvarEdicao()">Salvar Alterações</button>
+  </div>
+</div>
+
+<!-- Modal de Gerenciamento de Usuários -->
+<div id="userModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>👥 Gerenciar Usuários</h3>
+      <span class="close" onclick="fecharModalUsuarios()">&times;</span>
+    </div>
+    
+    <div style="margin-bottom: 20px; padding: 15px; background: #f0f0f0; border-radius: 8px;">
+      <h4>➕ Cadastrar Novo Usuário</h4>
+      <div class="form-group">
+        <label>Usuário (login)</label>
+        <input type="text" id="newUsername" placeholder="Ex: joaosilva">
+      </div>
+      <div class="form-group">
+        <label>Senha</label>
+        <input type="password" id="newPassword" placeholder="Senha">
+      </div>
+      <div class="form-group">
+        <label>Nome Completo</label>
+        <input type="text" id="newName" placeholder="Ex: João Silva">
+      </div>
+      <div class="form-group">
+        <label>Tipo de Usuário</label>
+        <select id="newRole">
+          <option value="user">👤 Usuário Comum (Apenas visualização)</option>
+          <option value="admin">👑 Administrador (Acesso total)</option>
+        </select>
+      </div>
+      <button onclick="cadastrarUsuario()">✅ Cadastrar Usuário</button>
+    </div>
+    
+    <div>
+      <h4>📋 Usuários Cadastrados</h4>
+      <div id="userList" class="user-list">
+        <!-- Lista de usuários será carregada aqui -->
+      </div>
+    </div>
   </div>
 </div>
 
 <script>
+// Configuração do Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyC6UbTClmCouKf9GBR-nUjWfIsMk9qhPdM",
   authDomain: "controlepatrimonio-f26a4.firebaseapp.com",
@@ -223,6 +463,233 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
+// Sistema de Autenticação
+let currentUser = null;
+let usersDb = {};
+
+// Usuário admin padrão (será criado se não existir)
+const defaultAdmin = {
+  'admin': { password: 'admin123', role: 'admin', name: 'Administrador Master' }
+};
+
+// Carregar usuários do Firebase
+function carregarUsuarios() {
+  return new Promise((resolve) => {
+    db.ref("usuarios").on("value", (snapshot) => {
+      const val = snapshot.val();
+      if (val) {
+        usersDb = val;
+      } else {
+        // Criar admin padrão se não existir
+        usersDb = defaultAdmin;
+        db.ref("usuarios").set(defaultAdmin);
+      }
+      resolve(usersDb);
+    });
+  });
+}
+
+async function fazerLogin() {
+  const username = document.getElementById('loginUser').value.trim();
+  const password = document.getElementById('loginPassword').value;
+  const errorDiv = document.getElementById('loginError');
+  
+  if (!username || !password) {
+    errorDiv.textContent = 'Preencha usuário e senha!';
+    return;
+  }
+  
+  await carregarUsuarios();
+  
+  const user = usersDb[username];
+  if (user && user.password === password) {
+    currentUser = {
+      username: username,
+      role: user.role,
+      name: user.name
+    };
+    
+    sessionStorage.setItem('currentUser', JSON.stringify(currentUser));
+    
+    document.getElementById('loginContainer').style.display = 'none';
+    document.getElementById('mainApp').style.display = 'block';
+    
+    document.getElementById('userNameDisplay').textContent = currentUser.name;
+    const roleSpan = document.getElementById('userRoleDisplay');
+    roleSpan.textContent = currentUser.role === 'admin' ? '👑 ADMINISTRADOR' : '👤 USUÁRIO';
+    roleSpan.classList.toggle('admin', currentUser.role === 'admin');
+    
+    // Mostrar botão de gerenciar usuários apenas para admin
+    const btnGerenciar = document.getElementById('btnGerenciarUsuarios');
+    if (currentUser.role === 'admin') {
+      btnGerenciar.style.display = 'inline-block';
+    } else {
+      btnGerenciar.style.display = 'none';
+    }
+    
+    aplicarRestricoesPorPapel();
+    errorDiv.textContent = '';
+  } else {
+    errorDiv.textContent = 'Usuário ou senha inválidos!';
+  }
+}
+
+function logout() {
+  currentUser = null;
+  sessionStorage.removeItem('currentUser');
+  document.getElementById('loginContainer').style.display = 'flex';
+  document.getElementById('mainApp').style.display = 'none';
+  document.getElementById('loginUser').value = '';
+  document.getElementById('loginPassword').value = '';
+  document.getElementById('loginError').textContent = '';
+}
+
+function aplicarRestricoesPorPapel() {
+  const isAdmin = currentUser && currentUser.role === 'admin';
+  
+  const formCadastro = document.getElementById('formCadastro');
+  const btnAdicionar = document.getElementById('btnAdicionar');
+  const inputsForm = formCadastro.querySelectorAll('input, select');
+  
+  if (!isAdmin) {
+    inputsForm.forEach(input => {
+      if (input.id !== 'pesquisa') {
+        input.disabled = true;
+      }
+    });
+    btnAdicionar.disabled = true;
+    btnAdicionar.style.opacity = '0.5';
+    btnAdicionar.style.cursor = 'not-allowed';
+    btnAdicionar.title = 'Apenas administradores podem cadastrar itens';
+  } else {
+    inputsForm.forEach(input => {
+      input.disabled = false;
+    });
+    btnAdicionar.disabled = false;
+    btnAdicionar.style.opacity = '1';
+    btnAdicionar.style.cursor = 'pointer';
+  }
+}
+
+// Gerenciamento de Usuários
+function abrirModalUsuarios() {
+  if (currentUser && currentUser.role === 'admin') {
+    carregarListaUsuarios();
+    document.getElementById('userModal').style.display = 'block';
+  } else {
+    alert('Apenas administradores podem gerenciar usuários!');
+  }
+}
+
+function fecharModalUsuarios() {
+  document.getElementById('userModal').style.display = 'none';
+  document.getElementById('newUsername').value = '';
+  document.getElementById('newPassword').value = '';
+  document.getElementById('newName').value = '';
+}
+
+async function carregarListaUsuarios() {
+  await carregarUsuarios();
+  const userListDiv = document.getElementById('userList');
+  userListDiv.innerHTML = '';
+  
+  for (const [username, userData] of Object.entries(usersDb)) {
+    const userItem = document.createElement('div');
+    userItem.className = 'user-item';
+    userItem.innerHTML = `
+      <div class="user-info-text">
+        <strong>${userData.name}</strong><br>
+        <small>@${username}</small>
+        <span class="user-role-badge ${userData.role === 'admin' ? 'role-admin' : 'role-user'}">
+          ${userData.role === 'admin' ? '👑 Admin' : '👤 Usuário'}
+        </span>
+      </div>
+      ${username !== 'admin' ? `<button class="btn-delete-user" onclick="deletarUsuario('${username}')">🗑️ Excluir</button>` : '<small style="color:#999;">(Usuário padrão)</small>'}
+    `;
+    userListDiv.appendChild(userItem);
+  }
+}
+
+async function cadastrarUsuario() {
+  const username = document.getElementById('newUsername').value.trim();
+  const password = document.getElementById('newPassword').value;
+  const name = document.getElementById('newName').value.trim();
+  const role = document.getElementById('newRole').value;
+  
+  if (!username || !password || !name) {
+    alert('Preencha todos os campos!');
+    return;
+  }
+  
+  if (username.length < 3) {
+    alert('Usuário deve ter pelo menos 3 caracteres!');
+    return;
+  }
+  
+  if (password.length < 4) {
+    alert('Senha deve ter pelo menos 4 caracteres!');
+    return;
+  }
+  
+  await carregarUsuarios();
+  
+  if (usersDb[username]) {
+    alert('Este nome de usuário já existe!');
+    return;
+  }
+  
+  usersDb[username] = {
+    password: password,
+    role: role,
+    name: name
+  };
+  
+  await db.ref("usuarios").set(usersDb);
+  alert(`Usuário ${username} cadastrado com sucesso!`);
+  
+  document.getElementById('newUsername').value = '';
+  document.getElementById('newPassword').value = '';
+  document.getElementById('newName').value = '';
+  
+  carregarListaUsuarios();
+}
+
+async function deletarUsuario(username) {
+  if (username === 'admin') {
+    alert('Não é possível excluir o usuário administrador padrão!');
+    return;
+  }
+  
+  if (confirm(`Tem certeza que deseja excluir o usuário "${username}"?`)) {
+    delete usersDb[username];
+    await db.ref("usuarios").set(usersDb);
+    alert('Usuário excluído com sucesso!');
+    carregarListaUsuarios();
+  }
+}
+
+function verificarSessao() {
+  const savedUser = sessionStorage.getItem('currentUser');
+  if (savedUser) {
+    currentUser = JSON.parse(savedUser);
+    document.getElementById('loginContainer').style.display = 'none';
+    document.getElementById('mainApp').style.display = 'block';
+    document.getElementById('userNameDisplay').textContent = currentUser.name;
+    const roleSpan = document.getElementById('userRoleDisplay');
+    roleSpan.textContent = currentUser.role === 'admin' ? '👑 ADMINISTRADOR' : '👤 USUÁRIO';
+    roleSpan.classList.toggle('admin', currentUser.role === 'admin');
+    
+    const btnGerenciar = document.getElementById('btnGerenciarUsuarios');
+    if (currentUser.role === 'admin') {
+      btnGerenciar.style.display = 'inline-block';
+    }
+    
+    aplicarRestricoesPorPapel();
+    carregarUsuarios();
+  }
+}
+
+// ========== CÓDIGO DO PATRIMÔNIO (MANTIDO) ==========
 let dados = [];
 let modo = 'local';
 let abaAbertaRecentemente = null;
@@ -237,7 +704,6 @@ const tabContents = document.getElementById('tabContents');
 const btnLocal = document.getElementById('btnLocal');
 const btnDescricao = document.getElementById('btnDescricao');
 
-// Escuta o Realtime Database
 db.ref("patrimonios").on("value", (snapshot) => {
   const val = snapshot.val();
   if (val) {
@@ -249,7 +715,6 @@ db.ref("patrimonios").on("value", (snapshot) => {
 });
 
 function ordenarPatrimonios(a, b) {
-  // Ordem de prioridade: ativo (normal) > em análise > baixado
   const statusOrder = { 'ativo': 1, 'analise': 2, 'baixado': 3 };
   const orderA = statusOrder[a.status] || 1;
   const orderB = statusOrder[b.status] || 1;
@@ -277,6 +742,11 @@ function setModo(m) {
 }
 
 function adicionar() {
+  if (!currentUser || currentUser.role !== 'admin') {
+    alert("Apenas administradores podem cadastrar patrimônios!");
+    return;
+  }
+  
   const numerosStr = numeroInput.value.trim();
   const local = localSelect.value;
   const descricao = descricaoSelect.value;
@@ -287,18 +757,15 @@ function adicionar() {
   }
 
   const numeros = numerosStr.split(/\s+/);
-  const numerosDuplicados = [];
   const numerosJaExistentes = [];
   const numerosValidos = [];
 
-  // Verificar duplicatas no próprio input
   const uniqueNumeros = [...new Set(numeros)];
   if (uniqueNumeros.length !== numeros.length) {
     alert("Erro: Existem números repetidos na lista! Remova as duplicatas.");
     return;
   }
 
-  // Verificar se já existem no banco
   for (let num of numeros) {
     if (dados.some(item => String(item.numero).toUpperCase() === String(num).toUpperCase())) {
       numerosJaExistentes.push(num);
@@ -318,7 +785,6 @@ function adicionar() {
 
   const dataAtual = new Date().toISOString();
   
-  // Cadastrar cada número válido
   numerosValidos.forEach(numero => {
     db.ref("patrimonios").push({ 
       numero: numero, 
@@ -326,7 +792,8 @@ function adicionar() {
       descricao: descricao,
       status: 'ativo',
       dataCadastro: dataAtual,
-      dataModificacao: dataAtual
+      dataModificacao: dataAtual,
+      cadastradoPor: currentUser.username
     });
   });
 
@@ -339,13 +806,21 @@ function adicionar() {
 }
 
 function excluir(id) {
+  if (!currentUser || currentUser.role !== 'admin') {
+    alert("Apenas administradores podem excluir patrimônios!");
+    return;
+  }
   if (confirm("Excluir este item permanentemente?")) {
     db.ref("patrimonios").child(id).remove();
   }
 }
 
 function colocarEmAnalise(id) {
-  if (confirm("Marcar este patrimônio como 'Em análise de integridade'? Ele ficará com destaque amarelo.")) {
+  if (!currentUser || currentUser.role !== 'admin') {
+    alert("Apenas administradores podem alterar o status!");
+    return;
+  }
+  if (confirm("Marcar este patrimônio como 'Em análise de integridade'?")) {
     const dataModificacao = new Date().toISOString();
     db.ref("patrimonios").child(id).update({
       status: 'analise',
@@ -356,7 +831,11 @@ function colocarEmAnalise(id) {
 }
 
 function darBaixa(id) {
-  if (confirm("Dar baixa neste patrimônio? Ele será marcado como descartado e irá para o final da lista.")) {
+  if (!currentUser || currentUser.role !== 'admin') {
+    alert("Apenas administradores podem dar baixa em patrimônios!");
+    return;
+  }
+  if (confirm("Dar baixa neste patrimônio?")) {
     const dataModificacao = new Date().toISOString();
     db.ref("patrimonios").child(id).update({
       status: 'baixado',
@@ -367,6 +846,10 @@ function darBaixa(id) {
 }
 
 function reativar(id) {
+  if (!currentUser || currentUser.role !== 'admin') {
+    alert("Apenas administradores podem reativar patrimônios!");
+    return;
+  }
   if (confirm("Reativar este patrimônio?")) {
     const dataModificacao = new Date().toISOString();
     db.ref("patrimonios").child(id).update({
@@ -377,6 +860,10 @@ function reativar(id) {
 }
 
 function editar(id) {
+  if (!currentUser || currentUser.role !== 'admin') {
+    alert("Apenas administradores podem editar patrimônios!");
+    return;
+  }
   const item = dados.find(d => d.id === id);
   if (!item) return;
   
@@ -395,6 +882,11 @@ function fecharModal() {
 }
 
 function salvarEdicao() {
+  if (!currentUser || currentUser.role !== 'admin') {
+    alert("Apenas administradores podem editar patrimônios!");
+    fecharModal();
+    return;
+  }
   if (!editandoId) return;
   
   const numero = document.getElementById('editNumero').value.trim();
@@ -407,7 +899,6 @@ function salvarEdicao() {
     return;
   }
   
-  // Verificar duplicidade de número (excluindo o próprio item)
   if (dados.some(item => item.id !== editandoId && String(item.numero).toUpperCase() === String(numero).toUpperCase())) {
     alert(`Erro: O patrimônio nº ${numero} já está cadastrado!`);
     return;
@@ -502,7 +993,7 @@ function imprimirTemplate(titulo, lista, isGeral) {
       <td>${item.local}</td>
       <td>${statusText}</td>
       <td class="data-info">${formatarData(item.dataModificacao)}</td>
-     </tr>`;
+    </tr>`;
   });
   
   htmlRelatorio += `</tbody></table>
@@ -560,11 +1051,13 @@ function renderizar(abaParaFocar = null) {
     return;
   }
 
+  const isAdmin = currentUser && currentUser.role === 'admin';
+
   if (filtro !== "") {
     tabButtons.innerHTML = "<span style='padding: 10px; color: #0277bd; font-weight: bold;'>🔍 Resultados:</span>";
     const div = document.createElement('div');
     div.className = 'tab-content active';
-    let t = `<table><thead><tr><th>N°</th><th>Local</th><th>Descrição</th><th>Status</th><th>Última Modificação</th><th>Ações</th></tr></thead><tbody>`;
+    let t = `<table><thead><tr><th>N°</th><th>Local</th><th>Descrição</th><th>Status</th><th>Última Modificação</th>${isAdmin ? '<th>Ações</th>' : ''}</tr></thead><tbody>`;
     filtrados.forEach(d => {
       let rowClass = '';
       let statusDisplay = '';
@@ -582,20 +1075,22 @@ function renderizar(abaParaFocar = null) {
         <td>${d.local}</td>
         <td>${d.descricao}</td>
         <td class="${d.status === 'analise' ? 'status-analise' : ''}">${statusDisplay}</td>
-        <td><small>${formatarData(d.dataModificacao)}</small></td>
-        <td>
-          <button class="btn-edit" onclick="editar('${d.id}')">Editar</button>
+        <td><small>${formatarData(d.dataModificacao)}</small></td>`;
+      if (isAdmin) {
+        t += `<td class="action-buttons">
+          <button class="btn-edit btn-small" onclick="editar('${d.id}')">Editar</button>
           ${d.status === 'baixado' ? 
-            `<button class="btn-edit" onclick="reativar('${d.id}')" style="background:#4caf50;">Reativar</button>` : 
+            `<button class="btn-edit btn-small" onclick="reativar('${d.id}')" style="background:#4caf50;">Reativar</button>` : 
             d.status === 'analise' ?
-            `<button class="btn-edit" onclick="reativar('${d.id}')" style="background:#4caf50;">Aprovar</button>
-             <button class="btn-baixa-status" onclick="darBaixa('${d.id}')">Dar Baixa</button>` :
-            `<button class="btn-baixa-status" onclick="colocarEmAnalise('${d.id}')" style="background:#f9a825;">⚠️ Em Análise</button>
-             <button class="btn-baixa-status" onclick="darBaixa('${d.id}')">Dar Baixa</button>`
+            `<button class="btn-edit btn-small" onclick="reativar('${d.id}')" style="background:#4caf50;">Aprovar</button>
+             <button class="btn-baixa-status btn-small" onclick="darBaixa('${d.id}')">Dar Baixa</button>` :
+            `<button class="btn-baixa-status btn-small" onclick="colocarEmAnalise('${d.id}')" style="background:#f9a825;">⚠️ Análise</button>
+             <button class="btn-baixa-status btn-small" onclick="darBaixa('${d.id}')">Dar Baixa</button>`
           }
-          <button class="btn-delete" onclick="excluir('${d.id}')">Excluir</button>
-        </td>
-       </tr>`;
+          <button class="btn-delete btn-small" onclick="excluir('${d.id}')">Excluir</button>
+          </td>`;
+      }
+      t += `</tr>`;
     });
     t += '</tbody></table>';
     div.innerHTML = t;
@@ -627,7 +1122,7 @@ function renderizar(abaParaFocar = null) {
       <div class="info-data">🕒 Última alteração: ${dataUltimaMod}</div></div>
       <button class="btn-print" onclick="gerarRelatorio('${g}')">🖨️ Imprimir</button>
     </div>
-    <table><thead><tr><th>N°</th><th>Local</th><th>Descrição</th><th>Status</th><th>Última Modificação</th><th>Ações</th></tr></thead><tbody>`;
+    <table><thead><tr><th>N°</th><th>Local</th><th>Descrição</th><th>Status</th><th>Última Modificação</th>${isAdmin ? '<th>Ações</th>' : ''}</tr></thead><tbody>`;
     
     itensGrupo.forEach(d => {
       let rowClass = '';
@@ -646,20 +1141,22 @@ function renderizar(abaParaFocar = null) {
         <td>${d.local}</td>
         <td>${d.descricao}</td>
         <td class="${d.status === 'analise' ? 'status-analise' : ''}">${statusDisplay}</td>
-        <td><small>${formatarData(d.dataModificacao)}</small></td>
-        <td>
-          <button class="btn-edit" onclick="editar('${d.id}')">Editar</button>
+        <td><small>${formatarData(d.dataModificacao)}</small></td>`;
+      if (isAdmin) {
+        t += `<td class="action-buttons">
+          <button class="btn-edit btn-small" onclick="editar('${d.id}')">Editar</button>
           ${d.status === 'baixado' ? 
-            `<button class="btn-edit" onclick="reativar('${d.id}')" style="background:#4caf50;">Reativar</button>` : 
+            `<button class="btn-edit btn-small" onclick="reativar('${d.id}')" style="background:#4caf50;">Reativar</button>` : 
             d.status === 'analise' ?
-            `<button class="btn-edit" onclick="reativar('${d.id}')" style="background:#4caf50;">Aprovar</button>
-             <button class="btn-baixa-status" onclick="darBaixa('${d.id}')">Dar Baixa</button>` :
-            `<button class="btn-baixa-status" onclick="colocarEmAnalise('${d.id}')" style="background:#f9a825;">⚠️ Em Análise</button>
-             <button class="btn-baixa-status" onclick="darBaixa('${d.id}')">Dar Baixa</button>`
+            `<button class="btn-edit btn-small" onclick="reativar('${d.id}')" style="background:#4caf50;">Aprovar</button>
+             <button class="btn-baixa-status btn-small" onclick="darBaixa('${d.id}')">Dar Baixa</button>` :
+            `<button class="btn-baixa-status btn-small" onclick="colocarEmAnalise('${d.id}')" style="background:#f9a825;">⚠️ Análise</button>
+             <button class="btn-baixa-status btn-small" onclick="darBaixa('${d.id}')">Dar Baixa</button>`
           }
-          <button class="btn-delete" onclick="excluir('${d.id}')">Excluir</button>
-        </td>
-       </tr>`;
+          <button class="btn-delete btn-small" onclick="excluir('${d.id}')">Excluir</button>
+          </td>`;
+      }
+      t += `</tr>`;
     });
     t += '</tbody></table>';
     div.innerHTML = t;
@@ -675,13 +1172,18 @@ function ativarAba(i) {
   contents.forEach((c, x) => c.classList.toggle('active', x === i));
 }
 
+// Inicializar
+verificarSessao();
 setModo('local');
 
-// Fechar modal clicando fora
 window.onclick = function(event) {
   const modal = document.getElementById('editModal');
+  const userModal = document.getElementById('userModal');
   if (event.target == modal) {
     fecharModal();
+  }
+  if (event.target == userModal) {
+    fecharModalUsuarios();
   }
 }
 </script>

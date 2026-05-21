@@ -2,12 +2,28 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Relação Patrimonial - Sistema com Login e Gestão de Usuários</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<meta name="theme-color" content="#2c3e50">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Patrimônio Mobile - Sistema</title>
 <style>
-  body { font-family: Arial, sans-serif; background: #f4f6f8; margin: 20px; color: #333; }
-  h1 { text-align: center; }
-  
-  /* Login Screen */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background: #f0f2f5;
+    color: #333;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  /* Login Screen - Mobile First */
   .login-container {
     position: fixed;
     top: 0;
@@ -19,143 +35,308 @@
     justify-content: center;
     align-items: center;
     z-index: 2000;
+    padding: 16px;
   }
+
   .login-box {
     background: white;
-    padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-    width: 350px;
-    max-width: 90%;
+    padding: 24px 20px;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    width: 100%;
+    max-width: 320px;
   }
+
   .login-box h2 {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 24px;
+    font-size: 24px;
     color: #333;
   }
+
   .login-box input {
     width: 100%;
-    padding: 12px;
-    margin: 10px 0;
+    padding: 14px;
+    margin: 8px 0;
     border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 14px;
+    border-radius: 12px;
+    font-size: 16px;
+    -webkit-appearance: none;
   }
+
   .login-box button {
     width: 100%;
-    padding: 12px;
+    padding: 14px;
     background: #667eea;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 12px;
     font-size: 16px;
+    font-weight: bold;
     cursor: pointer;
-    margin-top: 10px;
+    margin-top: 8px;
   }
-  .login-box button:hover {
-    background: #5a67d8;
-  }
-  .login-box .error {
-    color: #e53e3e;
-    text-align: center;
-    margin-top: 10px;
-    font-size: 14px;
-  }
+
   .login-box .info {
     text-align: center;
     margin-top: 20px;
-    font-size: 12px;
+    font-size: 11px;
     color: #666;
   }
-  
-  /* Main App */
+
+  /* Main App - Mobile First */
   .main-app {
     display: none;
+    padding: 12px;
+    max-width: 600px;
+    margin: 0 auto;
   }
+
+  /* User Bar - Mobile */
   .user-bar {
-    background: #2c3e50;
+    background: linear-gradient(135deg, #2c3e50 0%, #1a252f 100%);
     color: white;
-    padding: 10px 20px;
-    border-radius: 8px;
-    margin-bottom: 20px;
+    padding: 12px 16px;
+    border-radius: 16px;
+    margin-bottom: 16px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
+    gap: 10px;
   }
+
   .user-info {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 10px;
     flex-wrap: wrap;
+    font-size: 14px;
   }
+
   .user-role {
     background: #e74c3c;
-    padding: 4px 12px;
+    padding: 4px 10px;
     border-radius: 20px;
-    font-size: 12px;
+    font-size: 10px;
     font-weight: bold;
   }
+
   .user-role.admin {
     background: #27ae60;
   }
+
   .btn-logout {
     background: #e74c3c;
-    padding: 6px 15px;
+    padding: 6px 16px;
     border: none;
-    border-radius: 5px;
+    border-radius: 20px;
     color: white;
     cursor: pointer;
-    font-size: 14px;
-    width: auto;
+    font-size: 13px;
+    font-weight: bold;
   }
-  .btn-logout:hover {
-    background: #c0392b;
+
+  /* Dashboard Cards - Mobile Grid */
+  .dashboard {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 16px;
   }
-  .btn-admin {
-    background: #2980b9;
-    width: auto;
-    padding: 6px 15px;
+
+  .card {
+    background: white;
+    padding: 14px;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: transform 0.2s;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
   }
-  .btn-admin:hover {
-    background: #1c638e;
+
+  .card:active {
+    transform: scale(0.98);
   }
-  
-  .form-container { background: #fff; padding: 15px; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 2px 6px rgba(0,0,0,.1); }
-  .form-group { margin-bottom: 10px; }
-  label { font-weight: bold; display: block; margin-bottom: 5px; }
-  input, select, button { width: 100%; padding: 10px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 5px; font-size: 14px; }
-  button { background: #2e7d32; color: #fff; border: none; cursor: pointer; font-weight: bold; transition: 0.2s; }
-  button:hover { background: #1b5e20; }
+
+  .card-icon {
+    font-size: 28px;
+    margin-bottom: 8px;
+  }
+
+  .card-title {
+    font-size: 11px;
+    color: #666;
+    margin-bottom: 4px;
+  }
+
+  .card-value {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+  }
+
+  /* Forms - Mobile */
+  .form-container {
+    background: white;
+    padding: 16px;
+    border-radius: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+
+  .form-group {
+    margin-bottom: 12px;
+  }
+
+  label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 6px;
+    font-size: 13px;
+    color: #555;
+  }
+
+  input, select, button {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    font-size: 16px;
+    -webkit-appearance: none;
+    background: white;
+  }
+
+  button {
+    background: #27ae60;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s;
+  }
+
+  button:active {
+    transform: scale(0.98);
+  }
+
   button:disabled {
     background: #ccc;
     cursor: not-allowed;
-    opacity: 0.6;
   }
-  .modo-buttons { display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; }
-  .modo-buttons button { background: #455a64; flex: 1; min-width: 120px; }
-  .modo-buttons button.active { background: #1c313a; }
-  .btn-geral { background: #004d40 !important; }
-  .btn-baixa { background: #ff6f00 !important; }
-  .btn-baixa:hover { background: #e65100 !important; }
-  table { width: 100%; border-collapse: collapse; background: #fff; margin-top: 10px; }
-  th, td { border: 1px solid #ccc; padding: 10px; text-align: center; }
-  th { background: #e0e0e0; }
-  .btn-edit { background: #0277bd; width: auto; padding: 5px 10px; margin-right: 5px; }
-  .btn-delete { background: #c62828; width: auto; padding: 5px 10px; }
-  .btn-baixa-status { background: #ff8f00; width: auto; padding: 5px 10px; margin-right: 5px; }
-  .tab-buttons { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; }
-  .tab-buttons button { width: auto; background: #90a4ae; color: white; padding: 8px 15px; }
-  .tab-buttons button.active { background: #37474f; }
-  .tab-content { display: none; }
-  .tab-content.active { display: block; }
-  .btn-print { background: #f57c00; width: auto; padding: 5px 15px; }
-  .btn-print:hover { background: #e65100; }
-  .item-baixado { background-color: #ffebee !important; opacity: 0.7; text-decoration: line-through; }
-  .item-analise { background-color: #fff9c4 !important; border-left: 4px solid #f9a825 !important; }
-  .info-data { font-size: 11px; color: #666; margin-top: 5px; text-align: right; }
-  
-  /* Modais */
+
+  /* Modo Buttons - Mobile Scroll Horizontal */
+  .modo-buttons {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .modo-buttons button {
+    flex: 0 0 auto;
+    padding: 10px 20px;
+    background: #7f8c8d;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  .modo-buttons button.active {
+    background: #2c3e50;
+  }
+
+  /* Tabela - Mobile (Scroll Horizontal) */
+  .tabs {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  table {
+    width: 100%;
+    min-width: 500px;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+
+  th, td {
+    padding: 12px 8px;
+    text-align: left;
+    font-size: 12px;
+    border-bottom: 1px solid #eee;
+  }
+
+  th {
+    background: #34495e;
+    color: white;
+    font-weight: 600;
+    font-size: 12px;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  /* Ações em Mobile - Botões pequenos */
+  .action-buttons {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+  }
+
+  .btn-small {
+    width: auto;
+    padding: 6px 10px;
+    font-size: 11px;
+    border-radius: 8px;
+    margin: 2px;
+  }
+
+  .btn-edit { background: #3498db; }
+  .btn-delete { background: #e74c3c; }
+  .btn-baixa { background: #f39c12; }
+  .btn-react { background: #27ae60; }
+
+  /* Status Colors */
+  .item-analise { background: #fff9c4; }
+  .item-baixado { background: #ffebee; opacity: 0.7; text-decoration: line-through; }
+
+  /* Tabs - Mobile */
+  .tab-buttons {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .tab-buttons button {
+    background: #bdc3c7;
+    padding: 8px 16px;
+    font-size: 12px;
+    white-space: nowrap;
+    flex: 0 0 auto;
+  }
+
+  .tab-buttons button.active {
+    background: #2c3e50;
+  }
+
+  .tab-content {
+    display: none;
+  }
+
+  .tab-content.active {
+    display: block;
+  }
+
+  /* Modal - Mobile */
   .modal {
     display: none;
     position: fixed;
@@ -164,190 +345,222 @@
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.5);
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(4px);
   }
+
   .modal-content {
-    background-color: #fff;
-    margin: 10% auto;
+    background: white;
+    margin: 20px auto;
     padding: 20px;
-    border-radius: 8px;
-    width: 90%;
-    max-width: 500px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    border-radius: 20px;
+    width: calc(100% - 40px);
+    max-width: 400px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
   }
-  .modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    border-bottom: 2px solid #ccc;
-    padding-bottom: 10px;
-  }
+
   .close {
-    cursor: pointer;
+    float: right;
     font-size: 28px;
     font-weight: bold;
-    color: #aaa;
+    cursor: pointer;
+    color: #999;
   }
-  .close:hover { color: #000; }
-  
-  .cadastro-multiplo {
-    background: #e8eaf6;
-    padding: 15px;
-    border-radius: 8px;
-    margin-top: 15px;
-    border-left: 4px solid #3949ab;
+
+  /* Pesquisa */
+  #pesquisa {
+    font-size: 16px;
   }
-  .info-multiplo {
-    font-size: 12px;
-    color: #555;
-    margin-top: 5px;
+
+  /* Loading e mensagens */
+  .loading {
+    text-align: center;
+    padding: 40px;
+    color: #666;
   }
-  .status-analise {
-    color: #f57f17;
-    font-weight: bold;
+
+  /* Ajustes para telas muito pequenas */
+  @media (max-width: 480px) {
+    .main-app {
+      padding: 8px;
+    }
+    
+    .dashboard {
+      gap: 8px;
+    }
+    
+    .card {
+      padding: 10px;
+    }
+    
+    .card-icon {
+      font-size: 24px;
+    }
+    
+    .card-value {
+      font-size: 20px;
+    }
+    
+    th, td {
+      padding: 8px 6px;
+      font-size: 11px;
+    }
+    
+    .btn-small {
+      padding: 4px 8px;
+      font-size: 10px;
+    }
   }
-  .status-analise::before {
-    content: "⚠️ ";
+
+  /* Landscape mode */
+  @media (min-width: 768px) {
+    .main-app {
+      max-width: 1200px;
+      padding: 20px;
+    }
+    
+    .dashboard {
+      grid-template-columns: repeat(5, 1fr);
+      gap: 15px;
+    }
+    
+    table {
+      min-width: auto;
+    }
   }
-  .action-buttons {
-    display: flex;
-    gap: 5px;
-    flex-wrap: wrap;
-    justify-content: center;
+
+  /* Touch optimizations */
+  button, 
+  .tab-buttons button,
+  .modo-buttons button,
+  .card {
+    cursor: pointer;
+    touch-action: manipulation;
   }
-  .btn-small {
-    width: auto;
-    padding: 5px 10px;
-    font-size: 12px;
+
+  /* Scrollbar personalizada */
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
   }
-  .user-list {
-    max-height: 300px;
-    overflow-y: auto;
+
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
   }
-  .user-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-  }
-  .user-item:last-child {
-    border-bottom: none;
-  }
-  .user-info-text {
-    flex: 1;
-  }
-  .user-role-badge {
-    padding: 2px 8px;
-    border-radius: 12px;
-    font-size: 11px;
-    font-weight: bold;
-    margin-left: 10px;
-  }
-  .role-admin {
-    background: #27ae60;
-    color: white;
-  }
-  .role-user {
-    background: #e74c3c;
-    color: white;
-  }
-  .btn-delete-user {
-    background: #c62828;
-    width: auto;
-    padding: 5px 10px;
-    font-size: 12px;
+
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
   }
 </style>
-
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
 </head>
 <body>
 
-<!-- Login Screen -->
+<!-- TELA DE LOGIN MOBILE -->
 <div id="loginContainer" class="login-container">
   <div class="login-box">
-    <h2>🔐 Sistema Patrimonial</h2>
+    <h2>📱 Patrimônio Mobile</h2>
     <input type="text" id="loginUser" placeholder="Usuário" autocomplete="off">
     <input type="password" id="loginPassword" placeholder="Senha">
-    <button onclick="fazerLogin()">Entrar</button>
-    <div id="loginError" class="error"></div>
+    <button onclick="fazerLogin()">🔐 Entrar</button>
+    <div class="info">
+      👑 Admin: admin / admin123<br>
+      👤 User: user / user123
+    </div>
+    <div id="loginError" style="color:#e74c3c; text-align:center; margin-top:10px; font-size:12px;"></div>
   </div>
 </div>
 
-<!-- Main Application -->
+<!-- SISTEMA PRINCIPAL MOBILE -->
 <div id="mainApp" class="main-app">
+  <!-- BARRA DO USUÁRIO -->
   <div class="user-bar">
     <div class="user-info">
-      <span>👋 Olá, <strong id="userNameDisplay"></strong></span>
+      <span>👋 <strong id="userNameDisplay"></strong></span>
       <span id="userRoleDisplay" class="user-role"></span>
-      <button id="btnGerenciarUsuarios" class="btn-admin" onclick="abrirModalUsuarios()" style="display:none;">👥 Gerenciar Usuários</button>
     </div>
     <button class="btn-logout" onclick="logout()">🚪 Sair</button>
   </div>
 
-  <h1>Relação Patrimonial (Sistema Avançado)</h1>
+  <!-- DASHBOARD CARDS -->
+  <div class="dashboard">
+    <div class="card" onclick="filtrarPorStatus('todos')">
+      <div class="card-icon">📦</div>
+      <div class="card-title">Total</div>
+      <div class="card-value" id="totalItens">0</div>
+    </div>
+    <div class="card" onclick="filtrarPorStatus('ativo')" style="border-left: 3px solid #27ae60;">
+      <div class="card-icon">✅</div>
+      <div class="card-title">Ativos</div>
+      <div class="card-value" id="totalAtivos">0</div>
+    </div>
+    <div class="card" onclick="filtrarPorStatus('analise')" style="border-left: 3px solid #f39c12;">
+      <div class="card-icon">⚠️</div>
+      <div class="card-title">Análise</div>
+      <div class="card-value" id="totalAnalise">0</div>
+    </div>
+    <div class="card" onclick="filtrarPorStatus('baixado')" style="border-left: 3px solid #e74c3c;">
+      <div class="card-icon">🗑️</div>
+      <div class="card-title">Baixados</div>
+      <div class="card-value" id="totalBaixados">0</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">📍</div>
+      <div class="card-title">Locais</div>
+      <div class="card-value" id="totalLocais">0</div>
+    </div>
+  </div>
 
-  <div class="form-container modo-buttons">
-    <button onclick="exportar()">Exportar Backup (JSON)</button>
-    <button onclick="document.getElementById('importFile').click()">Importar JSON p/ Realtime</button>
-    <button class="btn-geral" onclick="gerarRelatorioGeral()">🖨️ Relatório Geral (Todos)</button>
-    <button class="btn-baixa" onclick="gerarRelatorioBaixados()">📋 Relatório de Baixados</button>
+  <!-- BOTÕES RÁPIDOS -->
+  <div class="modo-buttons">
+    <button onclick="exportar()">📥 Backup</button>
+    <button onclick="document.getElementById('importFile').click()">📤 Importar</button>
+    <button onclick="gerarRelatorioGeral()">🖨️ Geral</button>
+    <button onclick="gerarRelatorioBaixados()">📋 Baixados</button>
     <input type="file" id="importFile" hidden onchange="importar(event)">
   </div>
 
+  <!-- FORMULÁRIO -->
   <div class="form-container" id="formCadastro">
-    <div class="form-group" style="padding: 10px; background: #e3f2fd; border-radius: 4px; border-left: 5px solid #0277bd;">
-      <label>Pesquisar por Nº do Patrimônio (Busca Geral)</label>
-      <input id="pesquisa" placeholder="Digite o número para busca rápida..." oninput="renderizar()">
-    </div>
-
-    <div class="form-group" style="margin-top: 15px;">
-      <label>N° do Patrimônio (separar múltiplos por espaço: 123 456 789)</label>
-      <input id="numero" placeholder="Ex: 25123 25124 25125">
-    </div>
-
     <div class="form-group">
-      <label>Local</label>
+      <label>🔍 Pesquisar</label>
+      <input id="pesquisa" placeholder="Nº do patrimônio...">
+    </div>
+    <div class="form-group">
+      <label>📝 N° (espaço para múltiplos)</label>
+      <input id="numero" placeholder="Ex: 123 456">
+    </div>
+    <div class="form-group">
+      <label>📍 Local</label>
       <select id="local">
-        <option value="">Selecione o Local</option>
-        <option>Sala 01</option><option>Sala 02</option><option>Sala 03</option><option>Sala 04</option>
-        <option>Sala 05</option><option>Sala 06</option><option>Sala 07</option><option>Sala 08</option>
-        <option>Sala 09</option><option>Sala 10</option><option>Sala 11</option><option>Sala 12</option>
-        <option>Sala 13</option><option>Sala 14</option><option>Sala de Informática</option>
-        <option>Secretaria</option><option>Direção</option><option>Vice-Direção</option>
-        <option>Coordenação</option><option>Biblioteca</option><option>Sala dos Professores</option>
-        <option>Sala do AEE</option><option>Sala de Atendimento</option>
-        <option>Refeitório</option><option>Depósito</option><option>Não localizado</option>
+        <option value="">Selecione</option>
+        <option>Sala 01</option><option>Sala 02</option><option>Sala 03</option>
+        <option>Sala 04</option><option>Sala 05</option><option>Secretaria</option>
+        <option>Direção</option><option>Biblioteca</option><option>Sala Informática</option>
+        <option>Depósito</option><option>Não localizado</option>
       </select>
     </div>
-
     <div class="form-group">
-      <label>Descrição</label>
+      <label>📦 Descrição</label>
       <select id="descricao">
-        <option value="">Selecione o Item</option>
-        <option>Conjunto de carteira</option><option>Armário</option><option>Ar Condicionado</option>
-        <option>Cadeira</option><option>Ventilador</option><option>Mesa</option><option>Headset</option>
-        <option>WebCam</option><option>Computador</option><option>Monitor</option><option>Roteador</option>
-        <option>Impressora</option><option>Geladeira</option><option>Microondas</option><option>Arquivo</option>
-        <option>Prateleira</option><option>TV</option><option>Bebedouro</option><option>Lousa Digital</option>
-        <option>Plastificadora</option><option>Switch</option><option>Suporte</option>
+        <option value="">Selecione</option>
+        <option>Computador</option><option>Monitor</option><option>Cadeira</option>
+        <option>Mesa</option><option>Armário</option><option>Impressora</option>
+        <option>Ar Condicionado</option><option>Ventilador</option><option>TV</option>
       </select>
     </div>
-
-    <div class="cadastro-multiplo">
-      <strong>📦 Cadastro Múltiplo:</strong> 
-      <span class="info-multiplo">Digite vários números separados por espaço no campo acima para cadastrar múltiplos itens iguais de uma vez!</span>
-    </div>
-
-    <button id="btnAdicionar" onclick="adicionar()" style="margin-top: 10px;">Adicionar Patrimônio(s)</button>
+    <button id="btnAdicionar" onclick="adicionar()">➕ Adicionar</button>
   </div>
 
+  <!-- VISUALIZAÇÃO -->
   <div class="modo-buttons">
-    <button id="btnLocal" onclick="setModo('local')">Ver por Local</button>
-    <button id="btnDescricao" onclick="setModo('descricao')">Ver por Descrição</button>
+    <button id="btnLocal" onclick="setModo('local')">📂 Por Local</button>
+    <button id="btnDescricao" onclick="setModo('descricao')">🏷️ Por Descrição</button>
   </div>
 
   <div class="tabs">
@@ -356,178 +569,70 @@
   </div>
 </div>
 
-<!-- Modal de Edição de Patrimônio -->
+<!-- MODAL EDIÇÃO -->
 <div id="editModal" class="modal">
   <div class="modal-content">
-    <div class="modal-header">
-      <h3>Editar Patrimônio</h3>
-      <span class="close" onclick="fecharModal()">&times;</span>
-    </div>
-    <div class="form-group">
-      <label>N° do Patrimônio</label>
-      <input type="text" id="editNumero" class="edit-input">
-    </div>
-    <div class="form-group">
-      <label>Local</label>
-      <select id="editLocal" class="edit-input">
-        <option>Sala 01</option><option>Sala 02</option><option>Sala 03</option><option>Sala 04</option>
-        <option>Sala 05</option><option>Sala 06</option><option>Sala 07</option><option>Sala 08</option>
-        <option>Sala 09</option><option>Sala 10</option><option>Sala 11</option><option>Sala 12</option>
-        <option>Sala 13</option><option>Sala 14</option><option>Sala de Informática</option>
-        <option>Secretaria</option><option>Direção</option><option>Vice-Direção</option>
-        <option>Coordenação</option><option>Biblioteca</option><option>Sala dos Professores</option>
-        <option>Sala do AEE</option><option>Sala de Atendimento</option>
-        <option>Refeitório</option><option>Depósito</option><option>Não localizado</option>
+    <span class="close" onclick="fecharModal()">&times;</span>
+    <h3 style="margin-bottom: 16px;">✏️ Editar</h3>
+    <div class="form-group"><label>Número</label><input id="editNumero" type="text"></div>
+    <div class="form-group"><label>Local</label><select id="editLocal"></select></div>
+    <div class="form-group"><label>Descrição</label><select id="editDescricao"></select></div>
+    <div class="form-group"><label>Status</label>
+      <select id="editStatus">
+        <option value="ativo">✅ Ativo</option>
+        <option value="analise">⚠️ Em Análise</option>
+        <option value="baixado">🗑️ Baixado</option>
       </select>
     </div>
-    <div class="form-group">
-      <label>Descrição</label>
-      <select id="editDescricao" class="edit-input">
-        <option>Conjunto de carteira</option><option>Armário</option><option>Ar Condicionado</option>
-        <option>Cadeira</option><option>Ventilador</option><option>Mesa</option><option>Headset</option>
-        <option>WebCam</option><option>Computador</option><option>Monitor</option><option>Roteador</option>
-        <option>Impressora</option><option>Geladeira</option><option>Microondas</option><option>Arquivo</option>
-        <option>Prateleira</option><option>TV</option><option>Bebedouro</option><option>Lousa Digital</option>
-        <option>Plastificadora</option><option>Switch</option><option>Suporte</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label>Status</label>
-      <select id="editStatus" class="edit-input">
-        <option value="ativo">Ativo</option>
-        <option value="analise">Em análise de integridade</option>
-        <option value="baixado">Baixado (Descartado)</option>
-      </select>
-    </div>
-    <button id="btnSalvarEdicao" onclick="salvarEdicao()">Salvar Alterações</button>
-  </div>
-</div>
-
-<!-- Modal de Gerenciamento de Usuários -->
-<div id="userModal" class="modal">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h3>👥 Gerenciar Usuários</h3>
-      <span class="close" onclick="fecharModalUsuarios()">&times;</span>
-    </div>
-    
-    <div style="margin-bottom: 20px; padding: 15px; background: #f0f0f0; border-radius: 8px;">
-      <h4>➕ Cadastrar Novo Usuário</h4>
-      <div class="form-group">
-        <label>Usuário (login)</label>
-        <input type="text" id="newUsername" placeholder="Ex: joaosilva">
-      </div>
-      <div class="form-group">
-        <label>Senha</label>
-        <input type="password" id="newPassword" placeholder="Senha">
-      </div>
-      <div class="form-group">
-        <label>Nome Completo</label>
-        <input type="text" id="newName" placeholder="Ex: João Silva">
-      </div>
-      <div class="form-group">
-        <label>Tipo de Usuário</label>
-        <select id="newRole">
-          <option value="user">👤 Usuário Comum (Apenas visualização)</option>
-          <option value="admin">👑 Administrador (Acesso total)</option>
-        </select>
-      </div>
-      <button onclick="cadastrarUsuario()">✅ Cadastrar Usuário</button>
-    </div>
-    
-    <div>
-      <h4>📋 Usuários Cadastrados</h4>
-      <div id="userList" class="user-list">
-        <!-- Lista de usuários será carregada aqui -->
-      </div>
-    </div>
+    <button onclick="salvarEdicao()">💾 Salvar</button>
   </div>
 </div>
 
 <script>
-// Configuração do Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyC6UbTClmCouKf9GBR-nUjWfIsMk9qhPdM",
   authDomain: "controlepatrimonio-f26a4.firebaseapp.com",
   databaseURL: "https://controlepatrimonio-f26a4-default-rtdb.firebaseio.com",
   projectId: "controlepatrimonio-f26a4",
-  storageBucket: "controlepatrimonio-f26a4.firebasestorage.app",
-  messagingSenderId: "392708288984",
-  appId: "1:392708288984:web:e2fddf80ce7f45f274c2ad",
-  measurementId: "G-DC62JR2ZDC"
+  storageBucket: "controlepatrimonio-f26a4.firebasestorage.app"
 };
 
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
-// Sistema de Autenticação
+// USUÁRIOS
 let currentUser = null;
-let usersDb = {};
-
-// Usuário admin padrão (será criado se não existir)
-const defaultAdmin = {
-  'admin': { password: 'admin123', role: 'admin', name: 'Administrador Master' }
+const users = {
+  'admin': { password: 'admin123', role: 'admin', name: 'Admin' },
+  'user': { password: 'user123', role: 'user', name: 'Usuário' }
 };
 
-// Carregar usuários do Firebase
-function carregarUsuarios() {
-  return new Promise((resolve) => {
-    db.ref("usuarios").on("value", (snapshot) => {
-      const val = snapshot.val();
-      if (val) {
-        usersDb = val;
-      } else {
-        // Criar admin padrão se não existir
-        usersDb = defaultAdmin;
-        db.ref("usuarios").set(defaultAdmin);
-      }
-      resolve(usersDb);
-    });
-  });
-}
+let dados = [];
+let modo = 'local';
+let editandoId = null;
 
-async function fazerLogin() {
+// LOGIN
+function fazerLogin() {
   const username = document.getElementById('loginUser').value.trim();
   const password = document.getElementById('loginPassword').value;
-  const errorDiv = document.getElementById('loginError');
+  const user = users[username];
   
-  if (!username || !password) {
-    errorDiv.textContent = 'Preencha usuário e senha!';
-    return;
-  }
-  
-  await carregarUsuarios();
-  
-  const user = usersDb[username];
   if (user && user.password === password) {
-    currentUser = {
-      username: username,
-      role: user.role,
-      name: user.name
-    };
-    
+    currentUser = { username, role: user.role, name: user.name };
     sessionStorage.setItem('currentUser', JSON.stringify(currentUser));
     
     document.getElementById('loginContainer').style.display = 'none';
     document.getElementById('mainApp').style.display = 'block';
-    
     document.getElementById('userNameDisplay').textContent = currentUser.name;
+    
     const roleSpan = document.getElementById('userRoleDisplay');
-    roleSpan.textContent = currentUser.role === 'admin' ? '👑 ADMINISTRADOR' : '👤 USUÁRIO';
+    roleSpan.textContent = currentUser.role === 'admin' ? 'ADMIN' : 'USER';
     roleSpan.classList.toggle('admin', currentUser.role === 'admin');
     
-    // Mostrar botão de gerenciar usuários apenas para admin
-    const btnGerenciar = document.getElementById('btnGerenciarUsuarios');
-    if (currentUser.role === 'admin') {
-      btnGerenciar.style.display = 'inline-block';
-    } else {
-      btnGerenciar.style.display = 'none';
-    }
-    
-    aplicarRestricoesPorPapel();
-    errorDiv.textContent = '';
+    aplicarRestricoes();
+    document.getElementById('loginError').textContent = '';
   } else {
-    errorDiv.textContent = 'Usuário ou senha inválidos!';
+    document.getElementById('loginError').textContent = 'Usuário/senha inválidos';
   }
 }
 
@@ -536,340 +641,114 @@ function logout() {
   sessionStorage.removeItem('currentUser');
   document.getElementById('loginContainer').style.display = 'flex';
   document.getElementById('mainApp').style.display = 'none';
-  document.getElementById('loginUser').value = '';
-  document.getElementById('loginPassword').value = '';
-  document.getElementById('loginError').textContent = '';
 }
 
-function aplicarRestricoesPorPapel() {
-  const isAdmin = currentUser && currentUser.role === 'admin';
+function aplicarRestricoes() {
+  const isAdmin = currentUser?.role === 'admin';
+  const inputs = document.querySelectorAll('#formCadastro input, #formCadastro select');
+  const btnAdd = document.getElementById('btnAdicionar');
   
-  const formCadastro = document.getElementById('formCadastro');
-  const btnAdicionar = document.getElementById('btnAdicionar');
-  const inputsForm = formCadastro.querySelectorAll('input, select');
-  
-  if (!isAdmin) {
-    inputsForm.forEach(input => {
-      if (input.id !== 'pesquisa') {
-        input.disabled = true;
-      }
-    });
-    btnAdicionar.disabled = true;
-    btnAdicionar.style.opacity = '0.5';
-    btnAdicionar.style.cursor = 'not-allowed';
-    btnAdicionar.title = 'Apenas administradores podem cadastrar itens';
-  } else {
-    inputsForm.forEach(input => {
-      input.disabled = false;
-    });
-    btnAdicionar.disabled = false;
-    btnAdicionar.style.opacity = '1';
-    btnAdicionar.style.cursor = 'pointer';
-  }
-}
-
-// Gerenciamento de Usuários
-function abrirModalUsuarios() {
-  if (currentUser && currentUser.role === 'admin') {
-    carregarListaUsuarios();
-    document.getElementById('userModal').style.display = 'block';
-  } else {
-    alert('Apenas administradores podem gerenciar usuários!');
-  }
-}
-
-function fecharModalUsuarios() {
-  document.getElementById('userModal').style.display = 'none';
-  document.getElementById('newUsername').value = '';
-  document.getElementById('newPassword').value = '';
-  document.getElementById('newName').value = '';
-}
-
-async function carregarListaUsuarios() {
-  await carregarUsuarios();
-  const userListDiv = document.getElementById('userList');
-  userListDiv.innerHTML = '';
-  
-  for (const [username, userData] of Object.entries(usersDb)) {
-    const userItem = document.createElement('div');
-    userItem.className = 'user-item';
-    userItem.innerHTML = `
-      <div class="user-info-text">
-        <strong>${userData.name}</strong><br>
-        <small>@${username}</small>
-        <span class="user-role-badge ${userData.role === 'admin' ? 'role-admin' : 'role-user'}">
-          ${userData.role === 'admin' ? '👑 Admin' : '👤 Usuário'}
-        </span>
-      </div>
-      ${username !== 'admin' ? `<button class="btn-delete-user" onclick="deletarUsuario('${username}')">🗑️ Excluir</button>` : '<small style="color:#999;">(Usuário padrão)</small>'}
-    `;
-    userListDiv.appendChild(userItem);
-  }
-}
-
-async function cadastrarUsuario() {
-  const username = document.getElementById('newUsername').value.trim();
-  const password = document.getElementById('newPassword').value;
-  const name = document.getElementById('newName').value.trim();
-  const role = document.getElementById('newRole').value;
-  
-  if (!username || !password || !name) {
-    alert('Preencha todos os campos!');
-    return;
-  }
-  
-  if (username.length < 3) {
-    alert('Usuário deve ter pelo menos 3 caracteres!');
-    return;
-  }
-  
-  if (password.length < 4) {
-    alert('Senha deve ter pelo menos 4 caracteres!');
-    return;
-  }
-  
-  await carregarUsuarios();
-  
-  if (usersDb[username]) {
-    alert('Este nome de usuário já existe!');
-    return;
-  }
-  
-  usersDb[username] = {
-    password: password,
-    role: role,
-    name: name
-  };
-  
-  await db.ref("usuarios").set(usersDb);
-  alert(`Usuário ${username} cadastrado com sucesso!`);
-  
-  document.getElementById('newUsername').value = '';
-  document.getElementById('newPassword').value = '';
-  document.getElementById('newName').value = '';
-  
-  carregarListaUsuarios();
-}
-
-async function deletarUsuario(username) {
-  if (username === 'admin') {
-    alert('Não é possível excluir o usuário administrador padrão!');
-    return;
-  }
-  
-  if (confirm(`Tem certeza que deseja excluir o usuário "${username}"?`)) {
-    delete usersDb[username];
-    await db.ref("usuarios").set(usersDb);
-    alert('Usuário excluído com sucesso!');
-    carregarListaUsuarios();
-  }
+  inputs.forEach(input => { if (input.id !== 'pesquisa') input.disabled = !isAdmin; });
+  btnAdd.disabled = !isAdmin;
+  if (!isAdmin) btnAdd.style.opacity = '0.5';
 }
 
 function verificarSessao() {
-  const savedUser = sessionStorage.getItem('currentUser');
-  if (savedUser) {
-    currentUser = JSON.parse(savedUser);
+  const saved = sessionStorage.getItem('currentUser');
+  if (saved) {
+    currentUser = JSON.parse(saved);
     document.getElementById('loginContainer').style.display = 'none';
     document.getElementById('mainApp').style.display = 'block';
     document.getElementById('userNameDisplay').textContent = currentUser.name;
     const roleSpan = document.getElementById('userRoleDisplay');
-    roleSpan.textContent = currentUser.role === 'admin' ? '👑 ADMINISTRADOR' : '👤 USUÁRIO';
+    roleSpan.textContent = currentUser.role === 'admin' ? 'ADMIN' : 'USER';
     roleSpan.classList.toggle('admin', currentUser.role === 'admin');
-    
-    const btnGerenciar = document.getElementById('btnGerenciarUsuarios');
-    if (currentUser.role === 'admin') {
-      btnGerenciar.style.display = 'inline-block';
-    }
-    
-    aplicarRestricoesPorPapel();
-    carregarUsuarios();
+    aplicarRestricoes();
   }
 }
 
-// ========== CÓDIGO DO PATRIMÔNIO (MANTIDO) ==========
-let dados = [];
-let modo = 'local';
-let abaAbertaRecentemente = null;
-let editandoId = null;
-
-const numeroInput = document.getElementById('numero');
-const localSelect = document.getElementById('local');
-const descricaoSelect = document.getElementById('descricao');
-const pesquisa = document.getElementById('pesquisa');
-const tabButtons = document.getElementById('tabButtons');
-const tabContents = document.getElementById('tabContents');
-const btnLocal = document.getElementById('btnLocal');
-const btnDescricao = document.getElementById('btnDescricao');
-
+// FIREBASE
 db.ref("patrimonios").on("value", (snapshot) => {
   const val = snapshot.val();
-  if (val) {
-    dados = Object.keys(val).map(key => ({ id: key, ...val[key] }));
-  } else {
-    dados = [];
-  }
-  renderizar(abaAbertaRecentemente);
+  dados = val ? Object.keys(val).map(key => ({ id: key, ...val[key] })) : [];
+  renderizar();
+  atualizarDashboard();
 });
 
-function ordenarPatrimonios(a, b) {
-  const statusOrder = { 'ativo': 1, 'analise': 2, 'baixado': 3 };
-  const orderA = statusOrder[a.status] || 1;
-  const orderB = statusOrder[b.status] || 1;
-  
-  if (orderA !== orderB) return orderA - orderB;
-  
-  const descA = a.descricao.toLowerCase();
-  const descB = b.descricao.toLowerCase();
-  const numA = String(a.numero);
-  const numB = String(b.numero);
-  const termoConjunto = "conjunto de carteira";
-  
-  if (descA === termoConjunto && descB !== termoConjunto) return 1;
-  if (descA !== termoConjunto && descB === termoConjunto) return -1;
-  if (descA !== descB) return descA.localeCompare(descB);
-  return numA.localeCompare(numB, undefined, { numeric: true, sensitivity: 'base' });
+function atualizarDashboard() {
+  document.getElementById('totalItens').textContent = dados.length;
+  document.getElementById('totalAtivos').textContent = dados.filter(d => d.status === 'ativo').length;
+  document.getElementById('totalAnalise').textContent = dados.filter(d => d.status === 'analise').length;
+  document.getElementById('totalBaixados').textContent = dados.filter(d => d.status === 'baixado').length;
+  document.getElementById('totalLocais').textContent = [...new Set(dados.map(d => d.local))].length;
 }
 
-function setModo(m) {
-  modo = m;
-  abaAbertaRecentemente = null; 
-  btnLocal.classList.toggle('active', m === 'local');
-  btnDescricao.classList.toggle('active', m === 'descricao');
-  renderizar();
+function filtrarPorStatus(status) {
+  if (status === 'todos') {
+    document.getElementById('pesquisa').value = '';
+    renderizar();
+  } else {
+    alert(`📱 Filtro: ${status === 'ativo' ? 'Ativos' : status === 'analise' ? 'Em Análise' : 'Baixados'}\nUse a busca para filtrar`);
+  }
 }
 
+// CRUD
 function adicionar() {
-  if (!currentUser || currentUser.role !== 'admin') {
-    alert("Apenas administradores podem cadastrar patrimônios!");
-    return;
-  }
+  if (currentUser?.role !== 'admin') return alert('Apenas administradores!');
   
-  const numerosStr = numeroInput.value.trim();
-  const local = localSelect.value;
-  const descricao = descricaoSelect.value;
-
-  if (!numerosStr || !local || !descricao) {
-    alert("Por favor, preencha todos os campos.");
-    return;
-  }
-
+  const numerosStr = document.getElementById('numero').value.trim();
+  const local = document.getElementById('local').value;
+  const descricao = document.getElementById('descricao').value;
+  
+  if (!numerosStr || !local || !descricao) return alert('Preencha todos os campos!');
+  
   const numeros = numerosStr.split(/\s+/);
-  const numerosJaExistentes = [];
-  const numerosValidos = [];
-
-  const uniqueNumeros = [...new Set(numeros)];
-  if (uniqueNumeros.length !== numeros.length) {
-    alert("Erro: Existem números repetidos na lista! Remova as duplicatas.");
-    return;
-  }
-
-  for (let num of numeros) {
-    if (dados.some(item => String(item.numero).toUpperCase() === String(num).toUpperCase())) {
-      numerosJaExistentes.push(num);
-    } else {
-      numerosValidos.push(num);
-    }
-  }
-
-  if (numerosJaExistentes.length > 0) {
-    alert(`Os seguintes patrimônios já existem e não serão cadastrados:\n${numerosJaExistentes.join(', ')}`);
-  }
-
-  if (numerosValidos.length === 0) {
-    alert("Nenhum número válido para cadastrar.");
-    return;
-  }
-
-  const dataAtual = new Date().toISOString();
+  const validos = numeros.filter(num => !dados.some(d => String(d.numero) === num));
   
-  numerosValidos.forEach(numero => {
-    db.ref("patrimonios").push({ 
-      numero: numero, 
-      local: local, 
-      descricao: descricao,
-      status: 'ativo',
-      dataCadastro: dataAtual,
-      dataModificacao: dataAtual,
-      cadastradoPor: currentUser.username
+  if (validos.length === 0) return alert('Todos os números já existem!');
+  
+  validos.forEach(num => {
+    db.ref("patrimonios").push({
+      numero: num, local, descricao, status: 'ativo',
+      dataCadastro: new Date().toISOString(),
+      dataModificacao: new Date().toISOString()
     });
   });
-
-  abaAbertaRecentemente = (modo === 'local') ? local : descricao;
-  alert(`${numerosValidos.length} patrimônio(s) cadastrado(s) com sucesso!`);
   
-  numeroInput.value = '';
-  descricaoSelect.value = '';
-  localSelect.value = '';
+  alert(`✅ ${validos.length} item(ns) cadastrado(s)!`);
+  document.getElementById('numero').value = '';
 }
 
 function excluir(id) {
-  if (!currentUser || currentUser.role !== 'admin') {
-    alert("Apenas administradores podem excluir patrimônios!");
-    return;
-  }
-  if (confirm("Excluir este item permanentemente?")) {
-    db.ref("patrimonios").child(id).remove();
-  }
+  if (currentUser?.role !== 'admin') return alert('Apenas administradores!');
+  if (confirm('Excluir permanentemente?')) db.ref("patrimonios").child(id).remove();
 }
 
 function colocarEmAnalise(id) {
-  if (!currentUser || currentUser.role !== 'admin') {
-    alert("Apenas administradores podem alterar o status!");
-    return;
-  }
-  if (confirm("Marcar este patrimônio como 'Em análise de integridade'?")) {
-    const dataModificacao = new Date().toISOString();
-    db.ref("patrimonios").child(id).update({
-      status: 'analise',
-      dataAnalise: dataModificacao,
-      dataModificacao: dataModificacao
-    });
-  }
+  if (currentUser?.role !== 'admin') return alert('Apenas administradores!');
+  db.ref("patrimonios").child(id).update({ status: 'analise', dataModificacao: new Date().toISOString() });
 }
 
 function darBaixa(id) {
-  if (!currentUser || currentUser.role !== 'admin') {
-    alert("Apenas administradores podem dar baixa em patrimônios!");
-    return;
-  }
-  if (confirm("Dar baixa neste patrimônio?")) {
-    const dataModificacao = new Date().toISOString();
-    db.ref("patrimonios").child(id).update({
-      status: 'baixado',
-      dataBaixa: dataModificacao,
-      dataModificacao: dataModificacao
-    });
-  }
+  if (currentUser?.role !== 'admin') return alert('Apenas administradores!');
+  db.ref("patrimonios").child(id).update({ status: 'baixado', dataModificacao: new Date().toISOString() });
 }
 
 function reativar(id) {
-  if (!currentUser || currentUser.role !== 'admin') {
-    alert("Apenas administradores podem reativar patrimônios!");
-    return;
-  }
-  if (confirm("Reativar este patrimônio?")) {
-    const dataModificacao = new Date().toISOString();
-    db.ref("patrimonios").child(id).update({
-      status: 'ativo',
-      dataModificacao: dataModificacao
-    });
-  }
+  if (currentUser?.role !== 'admin') return alert('Apenas administradores!');
+  db.ref("patrimonios").child(id).update({ status: 'ativo', dataModificacao: new Date().toISOString() });
 }
 
 function editar(id) {
-  if (!currentUser || currentUser.role !== 'admin') {
-    alert("Apenas administradores podem editar patrimônios!");
-    return;
-  }
+  if (currentUser?.role !== 'admin') return alert('Apenas administradores!');
   const item = dados.find(d => d.id === id);
   if (!item) return;
   
   editandoId = id;
   document.getElementById('editNumero').value = item.numero;
-  document.getElementById('editLocal').value = item.local;
-  document.getElementById('editDescricao').value = item.descricao;
-  document.getElementById('editStatus').value = item.status || 'ativo';
-  
+  document.getElementById('editLocal').innerHTML = `<option>${item.local}</option>` + document.getElementById('local').innerHTML;
+  document.getElementById('editDescricao').innerHTML = `<option>${item.descricao}</option>` + document.getElementById('descricao').innerHTML;
+  document.getElementById('editStatus').value = item.status;
   document.getElementById('editModal').style.display = 'block';
 }
 
@@ -879,134 +758,63 @@ function fecharModal() {
 }
 
 function salvarEdicao() {
-  if (!currentUser || currentUser.role !== 'admin') {
-    alert("Apenas administradores podem editar patrimônios!");
-    fecharModal();
-    return;
-  }
   if (!editandoId) return;
-  
-  const numero = document.getElementById('editNumero').value.trim();
-  const local = document.getElementById('editLocal').value;
-  const descricao = document.getElementById('editDescricao').value;
-  const status = document.getElementById('editStatus').value;
-  
-  if (!numero || !local || !descricao) {
-    alert("Preencha todos os campos!");
-    return;
-  }
-  
-  if (dados.some(item => item.id !== editandoId && String(item.numero).toUpperCase() === String(numero).toUpperCase())) {
-    alert(`Erro: O patrimônio nº ${numero} já está cadastrado!`);
-    return;
-  }
-  
-  const dataModificacao = new Date().toISOString();
-  
   db.ref("patrimonios").child(editandoId).update({
-    numero: numero,
-    local: local,
-    descricao: descricao,
-    status: status,
-    dataModificacao: dataModificacao
+    numero: document.getElementById('editNumero').value,
+    local: document.getElementById('editLocal').value,
+    descricao: document.getElementById('editDescricao').value,
+    status: document.getElementById('editStatus').value,
+    dataModificacao: new Date().toISOString()
   });
-  
   fecharModal();
-  alert("Patrimônio atualizado com sucesso!");
+  alert('✅ Atualizado!');
 }
 
 function formatarData(dataISO) {
-  if (!dataISO) return 'Não registrado';
-  const data = new Date(dataISO);
-  return data.toLocaleString('pt-BR');
+  return dataISO ? new Date(dataISO).toLocaleString('pt-BR') : 'N/A';
 }
 
-function gerarRelatorio(nomeGrupo) {
-  const campo = modo === 'local' ? 'local' : 'descricao';
-  const itens = dados.filter(d => d[campo] === nomeGrupo && d.status !== 'baixado').sort(ordenarPatrimonios);
-  imprimirTemplate(`Setor/Item: ${nomeGrupo} (Ativos e em Análise)`, itens, false);
-}
-
+// RELATÓRIOS
 function gerarRelatorioGeral() {
-  const dadosFiltrados = dados.filter(d => d.local !== "Não localizado" && d.status !== 'baixado');
-  if (dadosFiltrados.length === 0) {
-    alert("Não há dados válidos para gerar o relatório.");
-    return;
-  }
-  const itensGerais = [...dadosFiltrados].sort((a, b) => {
-    if (a.local.toLowerCase() < b.local.toLowerCase()) return -1;
-    if (a.local.toLowerCase() > b.local.toLowerCase()) return 1;
-    return ordenarPatrimonios(a, b);
-  });
-  imprimirTemplate("Relatório Geral (Ativos e em Análise)", itensGerais, true);
+  const ativos = dados.filter(d => d.status !== 'baixado');
+  imprimirRelatorio('Relatório Geral - Ativos', ativos);
 }
 
 function gerarRelatorioBaixados() {
-  const baixados = dados.filter(d => d.status === 'baixado').sort(ordenarPatrimonios);
-  if (baixados.length === 0) {
-    alert("Não há itens baixados/descartados.");
-    return;
-  }
-  imprimirTemplate("Relatório de Itens Baixados/Descartados", baixados, false);
+  const baixados = dados.filter(d => d.status === 'baixado');
+  imprimirRelatorio('Relatório de Baixados', baixados);
 }
 
-function imprimirTemplate(titulo, lista, isGeral) {
-  let htmlRelatorio = `<html><head><title>${titulo}</title><style>
-    body { font-family: sans-serif; padding: 20px; }
-    h2 { text-align: center; border-bottom: 2px solid #000; padding-bottom: 10px; }
-    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-    th, td { border: 1px solid #333; padding: 8px; text-align: left; font-size: 12px; }
-    th { background-color: #f2f2f2; text-align: center; }
-    .row-local-divider { background-color: #455a64; color: white; font-weight: bold; }
-    .row-baixado { background-color: #ffebee; text-decoration: line-through; }
-    .row-analise { background-color: #fff9c4; }
-    .footer { margin-top: 40px; font-size: 11px; text-align: right; }
-    .data-info { font-size: 10px; color: #666; }
-  </style></head><body>
-  <h2>Relatório de Patrimônio</h2>
-  <h4>${titulo}</h4>
-  <table><thead><tr><th width="15%">Nº</th><th width="25%">Descrição</th><th width="20%">Local</th><th width="20%">Status</th><th width="20%">Última Modificação</th></tr></thead><tbody>`;
-  
-  let localAtual = "";
-  lista.forEach(item => {
-    if (isGeral && item.local !== localAtual && item.status !== 'baixado') {
-      localAtual = item.local;
-      htmlRelatorio += `<tr><td colspan="5" class="row-local-divider">📍 LOCAL: ${localAtual.toUpperCase()}</td></tr>`;
-    }
-    let rowClass = '';
-    let statusText = '';
-    if (item.status === 'baixado') {
-      rowClass = 'row-baixado';
-      statusText = 'BAIXADO/DESCARTADO';
-    } else if (item.status === 'analise') {
-      rowClass = 'row-analise';
-      statusText = '⚠️ EM ANÁLISE DE INTEGRIDADE';
-    } else {
-      statusText = 'ATIVO';
-    }
-    htmlRelatorio += `<tr class="${rowClass}">
-      <td style="text-align:center;">${item.numero}</td>
-      <td>${item.descricao}</td>
-      <td>${item.local}</td>
-      <td>${statusText}</td>
-      <td class="data-info">${formatarData(item.dataModificacao)}</td>
-    </tr>`;
+function imprimirRelatorio(titulo, lista) {
+  let html = `<html><head><title>${titulo}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body{font-family:sans-serif;padding:16px}
+    table{width:100%;border-collapse:collapse}
+    th,td{border:1px solid #ccc;padding:10px;text-align:left}
+    th{background:#f0f0f0}
+    @media (max-width: 600px){th,td{font-size:12px;padding:6px}}
+  </style>
+  </head><body>
+  <h2>${titulo}</h2>
+  <p>Gerado: ${new Date().toLocaleString()}</p>
+  <table><thead><tr><th>Nº</th><th>Descrição</th><th>Local</th><th>Status</th></tr></thead><tbody>`;
+  lista.forEach(i => {
+    let statusText = i.status === 'analise' ? '⚠️ Análise' : i.status === 'baixado' ? '❌ Baixado' : '✅ Ativo';
+    html += `<tr><td>${i.numero}</td><td>${i.descricao}</td><td>${i.local}</td><td>${statusText}</td></tr>`;
   });
-  
-  htmlRelatorio += `</tbody></table>
-  <div class="footer">Gerado em: ${new Date().toLocaleString('pt-BR')} | Total: ${lista.length}</div>
-  <script>window.print();<\/script></body></html>`;
-  
+  html += `</tbody></table><script>window.print()<\/script></body></html>`;
   const win = window.open('', '_blank');
-  win.document.write(htmlRelatorio);
+  win.document.write(html);
   win.document.close();
 }
 
+// EXPORT/IMPORT
 function exportar() {
   const blob = new Blob([JSON.stringify(dados, null, 2)], { type: "application/json" });
-  const a = document.createElement("a");
+  const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = "patrimonio_realtime_backup.json";
+  a.download = `patrimonio_${new Date().toISOString().slice(0,19)}.json`;
   a.click();
 }
 
@@ -1014,174 +822,109 @@ function importar(e) {
   const file = e.target.files[0];
   if (!file) return;
   const reader = new FileReader();
-  reader.onload = (event) => {
+  reader.onload = (ev) => {
     try {
-      let importados = JSON.parse(event.target.result);
-      if (confirm(`Isso enviará ${importados.length} itens para o Realtime Database. Continuar?`)) {
-        const ref = db.ref("patrimonios");
-        importados.forEach(item => {
-          ref.push({ 
-            numero: item.numero, 
-            local: item.local, 
-            descricao: item.descricao,
-            status: item.status || 'ativo',
-            dataCadastro: item.dataCadastro || new Date().toISOString(),
-            dataModificacao: new Date().toISOString()
-          });
-        });
-        alert("Importação concluída com sucesso!");
+      const importados = JSON.parse(ev.target.result);
+      if (confirm(`Importar ${importados.length} itens?`)) {
+        importados.forEach(item => db.ref("patrimonios").push(item));
+        alert('✅ Importado!');
       }
-    } catch (err) { alert("Arquivo inválido."); }
+    } catch(err) { alert('Arquivo inválido'); }
   };
   reader.readAsText(file);
 }
 
-function renderizar(abaParaFocar = null) {
-  const filtro = pesquisa.value.toLowerCase().trim();
-  let filtrados = dados.filter(d => String(d.numero).toLowerCase().includes(filtro)).sort(ordenarPatrimonios);
+// RENDERIZAÇÃO
+function setModo(m) {
+  modo = m;
+  document.getElementById('btnLocal').classList.toggle('active', m === 'local');
+  document.getElementById('btnDescricao').classList.toggle('active', m === 'descricao');
+  renderizar();
+}
+
+function renderizar() {
+  const filtro = document.getElementById('pesquisa').value.toLowerCase();
+  let filtrados = dados.filter(d => String(d.numero).toLowerCase().includes(filtro));
   
+  const tabButtons = document.getElementById('tabButtons');
+  const tabContents = document.getElementById('tabContents');
   tabButtons.innerHTML = '';
   tabContents.innerHTML = '';
-
+  
   if (filtrados.length === 0) {
-    tabContents.innerHTML = "<p style='text-align:center; padding:20px;'>Nenhum registro encontrado.</p>";
+    tabContents.innerHTML = '<div style="text-align:center;padding:40px;">📭 Nenhum resultado</div>';
     return;
   }
-
-  const isAdmin = currentUser && currentUser.role === 'admin';
-
-  if (filtro !== "") {
-    tabButtons.innerHTML = "<span style='padding: 10px; color: #0277bd; font-weight: bold;'>🔍 Resultados:</span>";
-    const div = document.createElement('div');
-    div.className = 'tab-content active';
-    let t = `<table><thead><tr><th>N°</th><th>Local</th><th>Descrição</th><th>Status</th><th>Última Modificação</th>${isAdmin ? '<th>Ações</th>' : ''}</tr></thead><tbody>`;
-    filtrados.forEach(d => {
-      let rowClass = '';
-      let statusDisplay = '';
-      if (d.status === 'baixado') {
-        rowClass = 'item-baixado';
-        statusDisplay = '❌ BAIXADO';
-      } else if (d.status === 'analise') {
-        rowClass = 'item-analise';
-        statusDisplay = '⚠️ EM ANÁLISE';
-      } else {
-        statusDisplay = '✅ ATIVO';
-      }
-      t += `<tr class="${rowClass}">
-        <td><strong>${d.numero}</strong></td>
-        <td>${d.local}</td>
-        <td>${d.descricao}</td>
-        <td class="${d.status === 'analise' ? 'status-analise' : ''}">${statusDisplay}</td>
-        <td><small>${formatarData(d.dataModificacao)}</small></td>`;
-      if (isAdmin) {
-        t += `<td class="action-buttons">
-          <button class="btn-edit btn-small" onclick="editar('${d.id}')">Editar</button>
-          ${d.status === 'baixado' ? 
-            `<button class="btn-edit btn-small" onclick="reativar('${d.id}')" style="background:#4caf50;">Reativar</button>` : 
-            d.status === 'analise' ?
-            `<button class="btn-edit btn-small" onclick="reativar('${d.id}')" style="background:#4caf50;">Aprovar</button>
-             <button class="btn-baixa-status btn-small" onclick="darBaixa('${d.id}')">Dar Baixa</button>` :
-            `<button class="btn-baixa-status btn-small" onclick="colocarEmAnalise('${d.id}')" style="background:#f9a825;">⚠️ Análise</button>
-             <button class="btn-baixa-status btn-small" onclick="darBaixa('${d.id}')">Dar Baixa</button>`
-          }
-          <button class="btn-delete btn-small" onclick="excluir('${d.id}')">Excluir</button>
-          </td>`;
-      }
-      t += `</tr>`;
-    });
-    t += '</tbody></table>';
-    div.innerHTML = t;
-    tabContents.appendChild(div);
-    return;
-  }
-
+  
+  const isAdmin = currentUser?.role === 'admin';
   const campo = modo === 'local' ? 'local' : 'descricao';
   const grupos = [...new Set(filtrados.map(d => d[campo]))].sort();
-  let indiceAtivo = 0;
   
-  grupos.forEach((g, i) => {
-    if (abaParaFocar && g === abaParaFocar) indiceAtivo = i;
-    const b = document.createElement('button');
-    b.textContent = g;
-    b.onclick = () => { abaAbertaRecentemente = g; ativarAba(i); };
-    tabButtons.appendChild(b);
+  grupos.forEach((grupo, idx) => {
+    const btn = document.createElement('button');
+    btn.textContent = grupo.length > 20 ? grupo.substring(0, 17) + '...' : grupo;
+    btn.onclick = () => ativarAba(idx);
+    tabButtons.appendChild(btn);
     
     const div = document.createElement('div');
     div.className = 'tab-content';
+    const itens = filtrados.filter(d => d[campo] === grupo);
     
-    const itensGrupo = filtrados.filter(d => d[campo] === g);
-    const ultimaModificacao = itensGrupo.length > 0 ? 
-      Math.max(...itensGrupo.map(d => d.dataModificacao ? new Date(d.dataModificacao).getTime() : 0)) : 0;
-    const dataUltimaMod = ultimaModificacao > 0 ? formatarData(new Date(ultimaModificacao).toISOString()) : 'Nunca';
+    let html = `<div style="overflow-x:auto;"><table><thead><tr>
+      <th>Nº</th><th>Local</th><th>Descrição</th><th>Status</th><th>Modif</th>${isAdmin ? '<th>Ações</th>' : ''}
+    </tr></thead><tbody>`;
     
-    let t = `<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; background:#fff; padding:10px; border-radius:5px; border:1px solid #ddd;">
-      <div><strong style="color:#1c313a;">📍 ${g}</strong>
-      <div class="info-data">🕒 Última alteração: ${dataUltimaMod}</div></div>
-      <button class="btn-print" onclick="gerarRelatorio('${g}')">🖨️ Imprimir</button>
-    </div>
-    <table><thead><tr><th>N°</th><th>Local</th><th>Descrição</th><th>Status</th><th>Última Modificação</th>${isAdmin ? '<th>Ações</th>' : ''}</tr></thead><tbody>`;
-    
-    itensGrupo.forEach(d => {
+    itens.forEach(d => {
       let rowClass = '';
-      let statusDisplay = '';
-      if (d.status === 'baixado') {
-        rowClass = 'item-baixado';
-        statusDisplay = '❌ BAIXADO';
-      } else if (d.status === 'analise') {
-        rowClass = 'item-analise';
-        statusDisplay = '⚠️ EM ANÁLISE';
-      } else {
-        statusDisplay = '✅ ATIVO';
-      }
-      t += `<tr class="${rowClass}">
+      let statusText = '';
+      if (d.status === 'baixado') { rowClass = 'item-baixado'; statusText = '🗑️'; }
+      else if (d.status === 'analise') { rowClass = 'item-analise'; statusText = '⚠️'; }
+      else statusText = '✅';
+      
+      html += `<tr class="${rowClass}">
         <td><strong>${d.numero}</strong></td>
-        <td>${d.local}</td>
-        <td>${d.descricao}</td>
-        <td class="${d.status === 'analise' ? 'status-analise' : ''}">${statusDisplay}</td>
-        <td><small>${formatarData(d.dataModificacao)}</small></td>`;
+        <td>${d.local.length > 12 ? d.local.substring(0, 10) + '..' : d.local}</td>
+        <td>${d.descricao.length > 12 ? d.descricao.substring(0, 10) + '..' : d.descricao}</td>
+        <td>${statusText}</td>
+        <td><small>${formatarData(d.dataModificacao).slice(0,10)}</small></td>`;
       if (isAdmin) {
-        t += `<td class="action-buttons">
-          <button class="btn-edit btn-small" onclick="editar('${d.id}')">Editar</button>
+        html += `<td class="action-buttons">
+          <button class="btn-small btn-edit" onclick="editar('${d.id}')">✏️</button>
           ${d.status === 'baixado' ? 
-            `<button class="btn-edit btn-small" onclick="reativar('${d.id}')" style="background:#4caf50;">Reativar</button>` : 
+            `<button class="btn-small btn-react" onclick="reativar('${d.id}')">🔄</button>` :
             d.status === 'analise' ?
-            `<button class="btn-edit btn-small" onclick="reativar('${d.id}')" style="background:#4caf50;">Aprovar</button>
-             <button class="btn-baixa-status btn-small" onclick="darBaixa('${d.id}')">Dar Baixa</button>` :
-            `<button class="btn-baixa-status btn-small" onclick="colocarEmAnalise('${d.id}')" style="background:#f9a825;">⚠️ Análise</button>
-             <button class="btn-baixa-status btn-small" onclick="darBaixa('${d.id}')">Dar Baixa</button>`
+            `<button class="btn-small btn-react" onclick="reativar('${d.id}')">✔️</button>
+             <button class="btn-small btn-baixa" onclick="darBaixa('${d.id}')">🗑️</button>` :
+            `<button class="btn-small btn-baixa" onclick="colocarEmAnalise('${d.id}')">⚠️</button>
+             <button class="btn-small btn-baixa" onclick="darBaixa('${d.id}')">🗑️</button>`
           }
-          <button class="btn-delete btn-small" onclick="excluir('${d.id}')">Excluir</button>
-          </td>`;
+          <button class="btn-small btn-delete" onclick="excluir('${d.id}')">❌</button>
+         </td>`;
       }
-      t += `</tr>`;
+      html += `</tr>`;
     });
-    t += '</tbody></table>';
-    div.innerHTML = t;
+    html += `</tbody></table></div>`;
+    div.innerHTML = html;
     tabContents.appendChild(div);
   });
-  ativarAba(indiceAtivo);
+  ativarAba(0);
 }
 
 function ativarAba(i) {
-  const buttons = document.querySelectorAll('.tab-buttons button');
+  const btns = document.querySelectorAll('.tab-buttons button');
   const contents = document.querySelectorAll('.tab-content');
-  buttons.forEach((b, x) => b.classList.toggle('active', x === i));
-  contents.forEach((c, x) => c.classList.toggle('active', x === i));
+  btns.forEach((b, idx) => b.classList.toggle('active', idx === i));
+  contents.forEach((c, idx) => c.classList.toggle('active', idx === i));
 }
 
-// Inicializar
+// INICIAR
 verificarSessao();
 setModo('local');
 
+// Fechar modal ao clicar fora
 window.onclick = function(event) {
   const modal = document.getElementById('editModal');
-  const userModal = document.getElementById('userModal');
-  if (event.target == modal) {
-    fecharModal();
-  }
-  if (event.target == userModal) {
-    fecharModalUsuarios();
-  }
+  if (event.target === modal) fecharModal();
 }
 </script>
 </body>

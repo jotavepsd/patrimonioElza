@@ -32,6 +32,7 @@
   .btn-print { background: #f57c00; width: auto; padding: 5px 15px; }
   .btn-print:hover { background: #e65100; }
   .item-baixado { background-color: #ffebee !important; opacity: 0.7; text-decoration: line-through; }
+  .item-analise { background-color: #fff9c4 !important; border-left: 4px solid #f9a825 !important; }
   .info-data { font-size: 11px; color: #666; margin-top: 5px; text-align: right; }
   .modal {
     display: none;
@@ -78,6 +79,13 @@
     font-size: 12px;
     color: #555;
     margin-top: 5px;
+  }
+  .status-analise {
+    color: #f57f17;
+    font-weight: bold;
+  }
+  .status-analise::before {
+    content: "⚠️ ";
   }
 </style>
 
@@ -192,6 +200,7 @@
       <label>Status</label>
       <select id="editStatus" class="edit-input">
         <option value="ativo">Ativo</option>
+        <option value="analise">Em análise de integridade</option>
         <option value="baixado">Baixado (Descartado)</option>
       </select>
     </div>
@@ -240,9 +249,12 @@ db.ref("patrimonios").on("value", (snapshot) => {
 });
 
 function ordenarPatrimonios(a, b) {
-  // Itens baixados vão para o final
-  if (a.status === 'baixado' && b.status !== 'baixado') return 1;
-  if (a.status !== 'baixado' && b.status === 'baixado') return -1;
+  // Ordem de prioridade: ativo (normal) > em análise > baixado
+  const statusOrder = { 'ativo': 1, 'analise': 2, 'baixado': 3 };
+  const orderA = statusOrder[a.status] || 1;
+  const orderB = statusOrder[b.status] || 1;
+  
+  if (orderA !== orderB) return orderA - orderB;
   
   const descA = a.descricao.toLowerCase();
   const descB = b.descricao.toLowerCase();
@@ -332,6 +344,17 @@ function excluir(id) {
   }
 }
 
+function colocarEmAnalise(id) {
+  if (confirm("Marcar este patrimônio como 'Em análise de integridade'? Ele ficará com destaque amarelo.")) {
+    const dataModificacao = new Date().toISOString();
+    db.ref("patrimonios").child(id).update({
+      status: 'analise',
+      dataAnalise: dataModificacao,
+      dataModificacao: dataModificacao
+    });
+  }
+}
+
 function darBaixa(id) {
   if (confirm("Dar baixa neste patrimônio? Ele será marcado como descartado e irá para o final da lista.")) {
     const dataModificacao = new Date().toISOString();
@@ -413,7 +436,7 @@ function formatarData(dataISO) {
 function gerarRelatorio(nomeGrupo) {
   const campo = modo === 'local' ? 'local' : 'descricao';
   const itens = dados.filter(d => d[campo] === nomeGrupo && d.status !== 'baixado').sort(ordenarPatrimonios);
-  imprimirTemplate(`Setor/Item: ${nomeGrupo} (Ativos)`, itens, false);
+  imprimirTemplate(`Setor/Item: ${nomeGrupo} (Ativos e em Análise)`, itens, false);
 }
 
 function gerarRelatorioGeral() {
@@ -427,7 +450,7 @@ function gerarRelatorioGeral() {
     if (a.local.toLowerCase() > b.local.toLowerCase()) return 1;
     return ordenarPatrimonios(a, b);
   });
-  imprimirTemplate("Relatório Geral (Ativos)", itensGerais, true);
+  imprimirTemplate("Relatório Geral (Ativos e em Análise)", itensGerais, true);
 }
 
 function gerarRelatorioBaixados() {
@@ -448,6 +471,7 @@ function imprimirTemplate(titulo, lista, isGeral) {
     th { background-color: #f2f2f2; text-align: center; }
     .row-local-divider { background-color: #455a64; color: white; font-weight: bold; }
     .row-baixado { background-color: #ffebee; text-decoration: line-through; }
+    .row-analise { background-color: #fff9c4; }
     .footer { margin-top: 40px; font-size: 11px; text-align: right; }
     .data-info { font-size: 10px; color: #666; }
   </style></head><body>
@@ -461,14 +485,24 @@ function imprimirTemplate(titulo, lista, isGeral) {
       localAtual = item.local;
       htmlRelatorio += `<tr><td colspan="5" class="row-local-divider">📍 LOCAL: ${localAtual.toUpperCase()}</td></tr>`;
     }
-    const rowClass = item.status === 'baixado' ? 'row-baixado' : '';
+    let rowClass = '';
+    let statusText = '';
+    if (item.status === 'baixado') {
+      rowClass = 'row-baixado';
+      statusText = 'BAIXADO/DESCARTADO';
+    } else if (item.status === 'analise') {
+      rowClass = 'row-analise';
+      statusText = '⚠️ EM ANÁLISE DE INTEGRIDADE';
+    } else {
+      statusText = 'ATIVO';
+    }
     htmlRelatorio += `<tr class="${rowClass}">
       <td style="text-align:center;">${item.numero}</td>
       <td>${item.descricao}</td>
       <td>${item.local}</td>
-      <td>${item.status === 'baixado' ? 'BAIXADO/DESCARTADO' : 'ATIVO'}</td>
+      <td>${statusText}</td>
       <td class="data-info">${formatarData(item.dataModificacao)}</td>
-    </tr>`;
+     </tr>`;
   });
   
   htmlRelatorio += `</tbody></table>
@@ -532,22 +566,36 @@ function renderizar(abaParaFocar = null) {
     div.className = 'tab-content active';
     let t = `<table><thead><tr><th>N°</th><th>Local</th><th>Descrição</th><th>Status</th><th>Última Modificação</th><th>Ações</th></tr></thead><tbody>`;
     filtrados.forEach(d => {
-      const rowClass = d.status === 'baixado' ? 'item-baixado' : '';
+      let rowClass = '';
+      let statusDisplay = '';
+      if (d.status === 'baixado') {
+        rowClass = 'item-baixado';
+        statusDisplay = '❌ BAIXADO';
+      } else if (d.status === 'analise') {
+        rowClass = 'item-analise';
+        statusDisplay = '⚠️ EM ANÁLISE';
+      } else {
+        statusDisplay = '✅ ATIVO';
+      }
       t += `<tr class="${rowClass}">
         <td><strong>${d.numero}</strong></td>
         <td>${d.local}</td>
         <td>${d.descricao}</td>
-        <td>${d.status === 'baixado' ? '❌ BAIXADO' : '✅ ATIVO'}</td>
+        <td class="${d.status === 'analise' ? 'status-analise' : ''}">${statusDisplay}</td>
         <td><small>${formatarData(d.dataModificacao)}</small></td>
         <td>
           <button class="btn-edit" onclick="editar('${d.id}')">Editar</button>
           ${d.status === 'baixado' ? 
             `<button class="btn-edit" onclick="reativar('${d.id}')" style="background:#4caf50;">Reativar</button>` : 
-            `<button class="btn-baixa-status" onclick="darBaixa('${d.id}')">Dar Baixa</button>`
+            d.status === 'analise' ?
+            `<button class="btn-edit" onclick="reativar('${d.id}')" style="background:#4caf50;">Aprovar</button>
+             <button class="btn-baixa-status" onclick="darBaixa('${d.id}')">Dar Baixa</button>` :
+            `<button class="btn-baixa-status" onclick="colocarEmAnalise('${d.id}')" style="background:#f9a825;">⚠️ Em Análise</button>
+             <button class="btn-baixa-status" onclick="darBaixa('${d.id}')">Dar Baixa</button>`
           }
           <button class="btn-delete" onclick="excluir('${d.id}')">Excluir</button>
         </td>
-      </tr>`;
+       </tr>`;
     });
     t += '</tbody></table>';
     div.innerHTML = t;
@@ -582,22 +630,36 @@ function renderizar(abaParaFocar = null) {
     <table><thead><tr><th>N°</th><th>Local</th><th>Descrição</th><th>Status</th><th>Última Modificação</th><th>Ações</th></tr></thead><tbody>`;
     
     itensGrupo.forEach(d => {
-      const rowClass = d.status === 'baixado' ? 'item-baixado' : '';
+      let rowClass = '';
+      let statusDisplay = '';
+      if (d.status === 'baixado') {
+        rowClass = 'item-baixado';
+        statusDisplay = '❌ BAIXADO';
+      } else if (d.status === 'analise') {
+        rowClass = 'item-analise';
+        statusDisplay = '⚠️ EM ANÁLISE';
+      } else {
+        statusDisplay = '✅ ATIVO';
+      }
       t += `<tr class="${rowClass}">
         <td><strong>${d.numero}</strong></td>
         <td>${d.local}</td>
         <td>${d.descricao}</td>
-        <td>${d.status === 'baixado' ? '❌ BAIXADO' : '✅ ATIVO'}</td>
+        <td class="${d.status === 'analise' ? 'status-analise' : ''}">${statusDisplay}</td>
         <td><small>${formatarData(d.dataModificacao)}</small></td>
         <td>
           <button class="btn-edit" onclick="editar('${d.id}')">Editar</button>
           ${d.status === 'baixado' ? 
             `<button class="btn-edit" onclick="reativar('${d.id}')" style="background:#4caf50;">Reativar</button>` : 
-            `<button class="btn-baixa-status" onclick="darBaixa('${d.id}')">Dar Baixa</button>`
+            d.status === 'analise' ?
+            `<button class="btn-edit" onclick="reativar('${d.id}')" style="background:#4caf50;">Aprovar</button>
+             <button class="btn-baixa-status" onclick="darBaixa('${d.id}')">Dar Baixa</button>` :
+            `<button class="btn-baixa-status" onclick="colocarEmAnalise('${d.id}')" style="background:#f9a825;">⚠️ Em Análise</button>
+             <button class="btn-baixa-status" onclick="darBaixa('${d.id}')">Dar Baixa</button>`
           }
           <button class="btn-delete" onclick="excluir('${d.id}')">Excluir</button>
         </td>
-      </tr>`;
+       </tr>`;
     });
     t += '</tbody></table>';
     div.innerHTML = t;

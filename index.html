@@ -1108,6 +1108,1183 @@ function renderizar(abaParaFocar = null) {
     const div = document.createElement('div');
     div.className = 'tab-content';
     
+    <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+<title>Relação Patrimonial - Sistema Avançado</title>
+<style>
+  * {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  body { 
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; 
+    background: #f4f6f8; 
+    margin: 0;
+    padding: 16px;
+    color: #333; 
+  }
+  
+  h1 { 
+    text-align: center; 
+    font-size: 1.5rem;
+    margin: 0 0 16px 0;
+  }
+  
+  .form-container { 
+    background: #fff; 
+    padding: 16px; 
+    border-radius: 12px; 
+    margin-bottom: 16px; 
+    box-shadow: 0 2px 6px rgba(0,0,0,.1); 
+  }
+  
+  .form-group { 
+    margin-bottom: 12px; 
+  }
+  
+  label { 
+    font-weight: bold; 
+    display: block; 
+    margin-bottom: 6px; 
+    font-size: 14px;
+  }
+  
+  input, select, button { 
+    width: 100%; 
+    padding: 12px; 
+    box-sizing: border-box; 
+    border: 1px solid #ccc; 
+    border-radius: 8px; 
+    font-size: 16px;
+    font-family: inherit;
+  }
+  
+  button { 
+    background: #2e7d32; 
+    color: #fff; 
+    border: none; 
+    cursor: pointer; 
+    font-weight: bold; 
+    transition: 0.2s; 
+  }
+  
+  button:hover { 
+    background: #1b5e20; 
+  }
+  
+  button:active {
+    transform: scale(0.98);
+  }
+  
+  .modo-buttons { 
+    display: flex; 
+    gap: 10px; 
+    margin-bottom: 16px; 
+    flex-wrap: wrap; 
+  }
+  
+  .modo-buttons button { 
+    background: #455a64; 
+    flex: 1; 
+    min-width: 120px; 
+  }
+  
+  .modo-buttons button.active { 
+    background: #1c313a; 
+  }
+  
+  .btn-geral { 
+    background: #004d40 !important; 
+  }
+  
+  .btn-baixa { 
+    background: #ff6f00 !important; 
+  }
+  
+  .btn-baixa:hover { 
+    background: #e65100 !important; 
+  }
+  
+  /* TABELA - Responsiva sem scroll horizontal forçado */
+  .table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 0 -8px;
+    padding: 0 8px;
+  }
+  
+  table { 
+    width: 100%; 
+    min-width: 500px;
+    border-collapse: collapse; 
+    background: #fff; 
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  
+  th, td { 
+    border: 1px solid #ccc; 
+    padding: 10px 8px; 
+    text-align: center; 
+    font-size: 13px;
+  }
+  
+  th { 
+    background: #e0e0e0; 
+    font-weight: bold;
+  }
+  
+  .btn-edit { 
+    background: #0277bd; 
+    width: auto; 
+    padding: 6px 12px; 
+    margin: 2px;
+    font-size: 12px;
+    display: inline-block;
+  }
+  
+  .btn-delete { 
+    background: #c62828; 
+    width: auto; 
+    padding: 6px 12px; 
+    margin: 2px;
+    font-size: 12px;
+    display: inline-block;
+  }
+  
+  .btn-baixa-status { 
+    background: #ff8f00; 
+    width: auto; 
+    padding: 6px 12px; 
+    margin: 2px;
+    font-size: 12px;
+    display: inline-block;
+  }
+  
+  .tab-buttons { 
+    display: flex; 
+    flex-wrap: wrap; 
+    gap: 8px; 
+    margin-bottom: 16px; 
+  }
+  
+  .tab-buttons button { 
+    width: auto; 
+    background: #90a4ae; 
+    color: white; 
+    padding: 10px 18px; 
+    font-size: 14px;
+    white-space: nowrap;
+  }
+  
+  .tab-buttons button.active { 
+    background: #37474f; 
+  }
+  
+  .tab-content { 
+    display: none; 
+  }
+  
+  .tab-content.active { 
+    display: block; 
+  }
+  
+  .btn-print { 
+    background: #f57c00; 
+    width: auto; 
+    padding: 8px 16px; 
+  }
+  
+  .btn-print:hover { 
+    background: #e65100; 
+  }
+  
+  .item-baixado { 
+    background-color: #ffebee !important; 
+    opacity: 0.7; 
+    text-decoration: line-through; 
+  }
+  
+  .item-analise { 
+    background-color: #fff9c4 !important; 
+  }
+  
+  .info-data { 
+    font-size: 11px; 
+    color: #666; 
+    margin-top: 5px; 
+    text-align: right; 
+  }
+  
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+  }
+  
+  .modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  }
+  
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 10px;
+  }
+  
+  .close {
+    cursor: pointer;
+    font-size: 28px;
+    font-weight: bold;
+    color: #aaa;
+  }
+  
+  .close:hover { color: #000; }
+  
+  .cadastro-multiplo {
+    background: #e8eaf6;
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 12px;
+    border-left: 4px solid #3949ab;
+    font-size: 13px;
+  }
+  
+  .info-multiplo {
+    font-size: 12px;
+    color: #555;
+    margin-top: 5px;
+  }
+  
+  .status-analise {
+    color: #f57f17;
+    font-weight: bold;
+  }
+  
+  .status-analise::before {
+    content: "⚠️ ";
+  }
+  
+  .action-buttons {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  /* User Bar */
+  .user-bar {
+    background: #2c3e50;
+    color: white;
+    padding: 12px 16px;
+    border-radius: 12px;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  
+  .user-role {
+    background: #e74c3c;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
+  }
+  
+  .user-role.admin {
+    background: #27ae60;
+  }
+  
+  .btn-logout {
+    background: #e74c3c;
+    padding: 6px 16px;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    width: auto;
+  }
+  
+  /* Dashboard Cards */
+  .dashboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  
+  .card {
+    background: white;
+    padding: 16px;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .card:active {
+    transform: scale(0.97);
+  }
+  
+  .card-value {
+    font-size: 28px;
+    font-weight: bold;
+    color: #2c3e50;
+  }
+  
+  .card-label {
+    font-size: 12px;
+    color: #666;
+    margin-top: 4px;
+  }
+  
+  /* Login Screen */
+  .login-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    padding: 20px;
+  }
+  
+  .login-box {
+    background: white;
+    padding: 32px 24px;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    width: 100%;
+    max-width: 320px;
+  }
+  
+  .login-box h2 {
+    text-align: center;
+    margin-bottom: 24px;
+    font-size: 24px;
+  }
+  
+  .login-box input {
+    margin: 8px 0;
+  }
+  
+  /* Desktop ajustes */
+  @media (min-width: 768px) {
+    body {
+      padding: 20px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    
+    .dashboard {
+      grid-template-columns: repeat(5, 1fr);
+    }
+    
+    .table-wrapper {
+      margin: 0;
+      padding: 0;
+    }
+    
+    table {
+      min-width: auto;
+    }
+  }
+  
+  /* Ajustes para telas muito pequenas */
+  @media (max-width: 480px) {
+    body {
+      padding: 12px;
+    }
+    
+    .modo-buttons button {
+      min-width: 100px;
+      font-size: 13px;
+    }
+    
+    .tab-buttons button {
+      padding: 8px 14px;
+      font-size: 13px;
+    }
+    
+    th, td {
+      padding: 8px 6px;
+      font-size: 12px;
+    }
+    
+    .card-value {
+      font-size: 24px;
+    }
+  }
+</style>
+
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+</head>
+<body>
+
+<div id="loginContainer" class="login-container">
+  <div class="login-box">
+    <h2>🔐 Sistema Patrimonial</h2>
+    <input type="text" id="loginUser" placeholder="Usuário" autocomplete="off">
+    <input type="password" id="loginPassword" placeholder="Senha">
+    <button onclick="fazerLogin()">Entrar</button>
+    <div class="info" style="text-align:center; margin-top:16px; font-size:12px; color:#666;">
+    </div>
+    <div id="loginError" style="color:#e74c3c; text-align:center; margin-top:12px; font-size:13px;"></div>
+  </div>
+</div>
+
+<div id="mainApp" class="main-app" style="display:none;">
+  <div class="user-bar">
+    <div class="user-info">
+      <span>👋 Olá, <strong id="userNameDisplay"></strong></span>
+      <span id="userRoleDisplay" class="user-role"></span>
+    </div>
+    <button class="btn-logout" onclick="logout()">🚪 Sair</button>
+  </div>
+
+  <div class="dashboard">
+    <div class="card" onclick="filtrarTodos()">
+      <div class="card-value" id="totalItens">0</div>
+      <div class="card-label">📦 Total</div>
+    </div>
+    <div class="card" onclick="filtrarAtivos()">
+      <div class="card-value" id="totalAtivos">0</div>
+      <div class="card-label">✅ Ativos</div>
+    </div>
+    <div class="card" onclick="filtrarAnalise()">
+      <div class="card-value" id="totalAnalise">0</div>
+      <div class="card-label">⚠️ Em Análise</div>
+    </div>
+    <div class="card" onclick="filtrarBaixados()">
+      <div class="card-value" id="totalBaixados">0</div>
+      <div class="card-label">🗑️ Baixados</div>
+    </div>
+    <div class="card">
+      <div class="card-value" id="totalLocais">0</div>
+      <div class="card-label">📍 Locais</div>
+    </div>
+  </div>
+
+  <div class="form-container modo-buttons">
+    <button onclick="exportar()">Exportar Backup (JSON)</button>
+    <button onclick="document.getElementById('importFile').click()">Importar JSON</button>
+    <button class="btn-geral" onclick="gerarRelatorioGeral()">🖨️ Relatório Geral</button>
+    <button class="btn-baixa" onclick="abrirModalRelatorioBaixados()">📋 Relatório Baixados</button>
+    <input type="file" id="importFile" hidden onchange="importar(event)">
+  </div>
+
+  <div class="form-container">
+    <div class="form-group" style="padding: 10px; background: #e3f2fd; border-radius: 8px; border-left: 5px solid #0277bd;">
+      <label>Pesquisar por Nº do Patrimônio</label>
+      <input id="pesquisa" placeholder="Digite o número para busca rápida..." oninput="renderizar()">
+    </div>
+
+    <div class="form-group">
+      <label>N° do Patrimônio (separar múltiplos por espaço)</label>
+      <input id="numero" placeholder="Ex: 25123 25124 25125">
+    </div>
+
+    <div class="form-group">
+      <label>Local</label>
+      <select id="local">
+        <option value="">Selecione o Local</option>
+        <option>Sala 01</option><option>Sala 02</option><option>Sala 03</option><option>Sala 04</option>
+        <option>Sala 05</option><option>Sala 06</option><option>Sala 07</option><option>Sala 08</option>
+        <option>Sala 09</option><option>Sala 10</option><option>Sala 11</option><option>Sala 12</option>
+        <option>Sala 13</option><option>Sala 14</option><option>Sala de Informática</option>
+        <option>Secretaria</option><option>Direção</option><option>Vice-Direção</option>
+        <option>Coordenação</option><option>Biblioteca</option><option>Sala dos Professores</option>
+        <option>Sala do AEE</option><option>Sala de Atendimento</option>
+        <option>Refeitório</option><option>Depósito</option><option>Não localizado</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Descrição</label>
+      <select id="descricao">
+        <option value="">Selecione o Item</option>
+        <option>Conjunto de carteira</option><option>Armário</option><option>Ar Condicionado</option>
+        <option>Cadeira</option><option>Ventilador</option><option>Mesa</option><option>Headset</option>
+        <option>WebCam</option><option>Computador</option><option>Monitor</option><option>Roteador</option>
+        <option>Impressora</option><option>Geladeira</option><option>Microondas</option><option>Arquivo</option>
+        <option>Prateleira</option><option>TV</option><option>Bebedouro</option><option>Lousa Digital</option>
+        <option>Plastificadora</option><option>Switch</option><option>Suporte</option>
+      </select>
+    </div>
+
+    <div class="cadastro-multiplo">
+      <strong>📦 Cadastro Múltiplo:</strong> 
+      <span class="info-multiplo">Digite vários números separados por espaço no campo acima para cadastrar múltiplos itens de uma vez!</span>
+    </div>
+
+    <button id="btnAdicionar" onclick="adicionar()" style="margin-top: 10px;">Adicionar Patrimônio(s)</button>
+  </div>
+
+  <div class="modo-buttons">
+    <button id="btnLocal" onclick="setModo('local')">Ver por Local</button>
+    <button id="btnDescricao" onclick="setModo('descricao')">Ver por Descrição</button>
+  </div>
+
+  <div class="tabs">
+    <div class="tab-buttons" id="tabButtons"></div>
+    <div id="tabContents"></div>
+  </div>
+</div>
+
+<div id="editModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>Editar Patrimônio</h3>
+      <span class="close" onclick="fecharModal()">&times;</span>
+    </div>
+    <div class="form-group">
+      <label>N° do Patrimônio</label>
+      <input type="text" id="editNumero">
+    </div>
+    <div class="form-group">
+      <label>Local</label>
+      <select id="editLocal"></select>
+    </div>
+    <div class="form-group">
+      <label>Descrição</label>
+      <select id="editDescricao"></select>
+    </div>
+    <div class="form-group">
+      <label>Status</label>
+      <select id="editStatus">
+        <option value="ativo">Ativo</option>
+        <option value="analise">Em análise de integridade</option>
+        <option value="baixado">Baixado (Descartado)</option>
+      </select>
+    </div>
+    <button onclick="salvarEdicao()">Salvar Alterações</button>
+  </div>
+</div>
+
+<div id="dateFilterModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>Filtrar Relatório de Baixados</h3>
+      <span class="close" onclick="fecharModalData()">&times;</span>
+    </div>
+    <div class="form-group">
+      <label>Data Inicial:</label>
+      <input type="date" id="filtroDataInicio">
+    </div>
+    <div class="form-group">
+      <label>Data Final:</label>
+      <input type="date" id="filtroDataFim">
+    </div>
+    <div style="display: flex; gap: 10px; margin-top: 15px;">
+      <button onclick="definirPeriodoRapido(7)" style="background: #455a64; font-size: 13px; padding: 8px;">Últimos 7 dias</button>
+      <button onclick="definirPeriodoRapido(30)" style="background: #455a64; font-size: 13px; padding: 8px;">Últimos 30 dias</button>
+    </div>
+    <button onclick="confirmarRelatorioBaixados()" style="margin-top: 20px; background: #ff6f00;">Gerar Relatório</button>
+  </div>
+</div>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyC6UbTClmCouKf9GBR-nUjWfIsMk9qhPdM",
+  authDomain: "controlepatrimonio-f26a4.firebaseapp.com",
+  databaseURL: "https://controlepatrimonio-f26a4-default-rtdb.firebaseio.com",
+  projectId: "controlepatrimonio-f26a4",
+  storageBucket: "controlepatrimonio-f26a4.firebasestorage.app"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+// Autenticação
+let currentUser = null;
+const users = {
+  'admin': { password: 'patrimonioElza', role: 'admin', name: 'Administrador' },
+  'user': { password: 'user123', role: 'user', name: 'Usuário' }
+};
+
+function fazerLogin() {
+  const username = document.getElementById('loginUser').value.trim();
+  const password = document.getElementById('loginPassword').value;
+  const user = users[username];
+  
+  if (user && user.password === password) {
+    currentUser = { username, role: user.role, name: user.name };
+    sessionStorage.setItem('currentUser', JSON.stringify(currentUser));
+    
+    document.getElementById('loginContainer').style.display = 'none';
+    document.getElementById('mainApp').style.display = 'block';
+    document.getElementById('userNameDisplay').textContent = currentUser.name;
+    
+    const roleSpan = document.getElementById('userRoleDisplay');
+    roleSpan.textContent = currentUser.role === 'admin' ? '👑 ADMIN' : '👤 USUÁRIO';
+    roleSpan.classList.toggle('admin', currentUser.role === 'admin');
+    
+    aplicarRestricoes();
+    document.getElementById('loginError').textContent = '';
+  } else {
+    document.getElementById('loginError').textContent = 'Usuário ou senha inválidos!';
+  }
+}
+
+function logout() {
+  currentUser = null;
+  sessionStorage.removeItem('currentUser');
+  document.getElementById('loginContainer').style.display = 'flex';
+  document.getElementById('mainApp').style.display = 'none';
+}
+
+function aplicarRestricoes() {
+  const isAdmin = currentUser?.role === 'admin';
+  const inputs = document.querySelectorAll('#formCadastro input, #formCadastro select');
+  const btnAdd = document.getElementById('btnAdicionar');
+  
+  inputs.forEach(input => { 
+    if (input.id !== 'pesquisa') input.disabled = !isAdmin; 
+  });
+  btnAdd.disabled = !isAdmin;
+  if (!isAdmin) btnAdd.style.opacity = '0.5';
+}
+
+function verificarSessao() {
+  const saved = sessionStorage.getItem('currentUser');
+  if (saved) {
+    currentUser = JSON.parse(saved);
+    document.getElementById('loginContainer').style.display = 'none';
+    document.getElementById('mainApp').style.display = 'block';
+    document.getElementById('userNameDisplay').textContent = currentUser.name;
+    const roleSpan = document.getElementById('userRoleDisplay');
+    roleSpan.textContent = currentUser.role === 'admin' ? '👑 ADMIN' : '👤 USUÁRIO';
+    roleSpan.classList.toggle('admin', currentUser.role === 'admin');
+    aplicarRestricoes();
+  }
+}
+
+let dados = [];
+let modo = 'local';
+let abaAbertaRecentemente = null;
+let editandoId = null;
+let filtroStatus = 'todos';
+
+function atualizarDashboard() {
+  document.getElementById('totalItens').textContent = dados.length;
+  document.getElementById('totalAtivos').textContent = dados.filter(d => d.status === 'ativo').length;
+  document.getElementById('totalAnalise').textContent = dados.filter(d => d.status === 'analise').length;
+  document.getElementById('totalBaixados').textContent = dados.filter(d => d.status === 'baixado').length;
+  document.getElementById('totalLocais').textContent = [...new Set(dados.map(d => d.local))].length;
+}
+
+function filtrarTodos() {
+  filtroStatus = 'todos';
+  document.getElementById('pesquisa').value = '';
+  renderizar();
+}
+
+function filtrarAtivos() {
+  filtroStatus = 'ativo';
+  document.getElementById('pesquisa').value = '';
+  renderizar();
+}
+
+function filtrarAnalise() {
+  filtroStatus = 'analise';
+  document.getElementById('pesquisa').value = '';
+  renderizar();
+}
+
+function filtrarBaixados() {
+  filtroStatus = 'baixado';
+  document.getElementById('pesquisa').value = '';
+  renderizar();
+}
+
+db.ref("patrimonios").on("value", (snapshot) => {
+  const val = snapshot.val();
+  if (val) {
+    dados = Object.keys(val).map(key => ({ id: key, ...val[key] }));
+  } else {
+    dados = [];
+  }
+  atualizarDashboard();
+  renderizar(abaAbertaRecentemente);
+});
+
+function ordenarPatrimonios(a, b) {
+  const statusOrder = { 'ativo': 1, 'analise': 2, 'baixado': 3 };
+  const orderA = statusOrder[a.status] || 1;
+  const orderB = statusOrder[b.status] || 1;
+  
+  if (orderA !== orderB) return orderA - orderB;
+  
+  const descA = a.descricao.toLowerCase();
+  const descB = b.descricao.toLowerCase();
+  const numA = String(a.numero);
+  const numB = String(b.numero);
+  const termoConjunto = "conjunto de carteira";
+  
+  if (descA === termoConjunto && descB !== termoConjunto) return 1;
+  if (descA !== termoConjunto && descB === termoConjunto) return -1;
+  if (descA !== descB) return descA.localeCompare(descB);
+  return numA.localeCompare(numB, undefined, { numeric: true, sensitivity: 'base' });
+}
+
+function setModo(m) {
+  modo = m;
+  abaAbertaRecentemente = null; 
+  document.getElementById('btnLocal').classList.toggle('active', m === 'local');
+  document.getElementById('btnDescricao').classList.toggle('active', m === 'descricao');
+  renderizar();
+}
+
+function adicionar() {
+  if (currentUser?.role !== 'admin') {
+    alert("Apenas administradores podem cadastrar patrimônios!");
+    return;
+  }
+  
+  const numerosStr = document.getElementById('numero').value.trim();
+  const local = document.getElementById('local').value;
+  const descricao = document.getElementById('descricao').value;
+
+  if (!numerosStr || !local || !descricao) {
+    alert("Por favor, preencha todos os campos.");
+    return;
+  }
+
+  const numeros = numerosStr.split(/\s+/);
+  const numerosJaExistentes = [];
+  const numerosValidos = [];
+
+  const uniqueNumeros = [...new Set(numeros)];
+  if (uniqueNumeros.length !== numeros.length) {
+    alert("Erro: Existem números repetidos na lista! Remova as duplicatas.");
+    return;
+  }
+
+  for (let num of numeros) {
+    if (dados.some(item => String(item.numero).toUpperCase() === String(num).toUpperCase())) {
+      numerosJaExistentes.push(num);
+    } else {
+      numerosValidos.push(num);
+    }
+  }
+
+  if (numerosJaExistentes.length > 0) {
+    alert(`Os seguintes patrimônios já existem:\n${numerosJaExistentes.join(', ')}`);
+  }
+
+  if (numerosValidos.length === 0) {
+    alert("Nenhum número válido para cadastrar.");
+    return;
+  }
+
+  const dataAtual = new Date().toISOString();
+  
+  numerosValidos.forEach(numero => {
+    db.ref("patrimonios").push({ 
+      numero: numero, 
+      local: local, 
+      descricao: descricao,
+      status: 'ativo',
+      dataCadastro: dataAtual,
+      dataModificacao: dataAtual
+    });
+  });
+
+  abaAbertaRecentemente = (modo === 'local') ? local : descricao;
+  alert(`${numerosValidos.length} patrimônio(s) cadastrado(s)!`);
+  
+  document.getElementById('numero').value = '';
+}
+
+function excluir(id) {
+  if (currentUser?.role !== 'admin') {
+    alert("Apenas administradores podem excluir!");
+    return;
+  }
+  if (confirm("Excluir permanentemente?")) {
+    db.ref("patrimonios").child(id).remove();
+  }
+}
+
+function colocarEmAnalise(id) {
+  if (currentUser?.role !== 'admin') {
+    alert("Apenas administradores podem alterar status!");
+    return;
+  }
+  if (confirm("Marcar como 'Em análise de integridade'?")) {
+    db.ref("patrimonios").child(id).update({
+      status: 'analise',
+      dataModificacao: new Date().toISOString()
+    });
+  }
+}
+
+function darBaixa(id) {
+  if (currentUser?.role !== 'admin') {
+    alert("Apenas administradores podem dar baixa!");
+    return;
+  }
+  if (confirm("Dar baixa neste patrimônio?")) {
+    db.ref("patrimonios").child(id).update({
+      status: 'baixado',
+      dataBaixa: new Date().toISOString(),
+      dataModificacao: new Date().toISOString()
+    });
+  }
+}
+
+function reativar(id) {
+  if (currentUser?.role !== 'admin') {
+    alert("Apenas administradores podem reativar!");
+    return;
+  }
+  if (confirm("Reativar este patrimônio?")) {
+    db.ref("patrimonios").child(id).update({
+      status: 'ativo',
+      dataModificacao: new Date().toISOString()
+    });
+  }
+}
+
+function editar(id) {
+  if (currentUser?.role !== 'admin') {
+    alert("Apenas administradores podem editar!");
+    return;
+  }
+  const item = dados.find(d => d.id === id);
+  if (!item) return;
+  
+  editandoId = id;
+  document.getElementById('editNumero').value = item.numero;
+  document.getElementById('editLocal').innerHTML = `<option>${item.local}</option>` + document.getElementById('local').innerHTML;
+  document.getElementById('editDescricao').innerHTML = `<option>${item.descricao}</option>` + document.getElementById('descricao').innerHTML;
+  document.getElementById('editStatus').value = item.status || 'ativo';
+  
+  document.getElementById('editModal').style.display = 'block';
+}
+
+function fecharModal() {
+  document.getElementById('editModal').style.display = 'none';
+  editandoId = null;
+}
+
+function salvarEdicao() {
+  if (!editandoId) return;
+  
+  const numero = document.getElementById('editNumero').value.trim();
+  const local = document.getElementById('editLocal').value;
+  const descricao = document.getElementById('editDescricao').value;
+  const status = document.getElementById('editStatus').value;
+  
+  if (!numero || !local || !descricao) {
+    alert("Preencha todos os campos!");
+    return;
+  }
+  
+  if (dados.some(item => item.id !== editandoId && String(item.numero).toUpperCase() === String(numero).toUpperCase())) {
+    alert(`Erro: Patrimônio nº ${numero} já existe!`);
+    return;
+  }
+  
+  db.ref("patrimonios").child(editandoId).update({
+    numero: numero,
+    local: local,
+    descricao: descricao,
+    status: status,
+    dataModificacao: new Date().toISOString()
+  });
+  
+  fecharModal();
+  alert("Atualizado com sucesso!");
+}
+
+function formatarData(dataISO) {
+  if (!dataISO) return 'Não registrado';
+  const data = new Date(dataISO);
+  return data.toLocaleString('pt-BR');
+}
+
+function gerarRelatorio(nomeGrupo) {
+  const campo = modo === 'local' ? 'local' : 'descricao';
+  const itens = dados.filter(d => d[campo] === nomeGrupo && d.status !== 'baixado').sort(ordenarPatrimonios);
+  imprimirTemplate(`Setor/Item: ${nomeGrupo}`, itens, false);
+}
+
+function gerarRelatorioGeral() {
+  const dadosFiltrados = dados.filter(d => d.local !== "Não localizado" && d.status !== 'baixado');
+  if (dadosFiltrados.length === 0) {
+    alert("Não há dados para o relatório.");
+    return;
+  }
+  const itensGerais = [...dadosFiltrados].sort((a, b) => {
+    if (a.local.toLowerCase() < b.local.toLowerCase()) return -1;
+    if (a.local.toLowerCase() > b.local.toLowerCase()) return 1;
+    return ordenarPatrimonios(a, b);
+  });
+  imprimirTemplate("Relatório Geral (Ativos)", itensGerais, true);
+}
+
+// Novas funções para gerenciamento do modal de datas do relatório de baixados
+function abrirModalRelatorioBaixados() {
+  const hoje = new Date().toISOString().split('T')[0];
+  document.getElementById('filtroDataFim').value = hoje;
+  document.getElementById('filtroDataInicio').value = '';
+  document.getElementById('dateFilterModal').style.display = 'block';
+}
+
+function fecharModalData() {
+  document.getElementById('dateFilterModal').style.display = 'none';
+}
+
+function definirPeriodoRapido(dias) {
+  const hoje = new Date();
+  const dataPassada = new Date();
+  dataPassada.setDate(hoje.getDate() - dias);
+  
+  document.getElementById('filtroDataFim').value = hoje.toISOString().split('T')[0];
+  document.getElementById('filtroDataInicio').value = dataPassada.toISOString().split('T')[0];
+}
+
+function confirmarRelatorioBaixados() {
+  const dataInicioStr = document.getElementById('filtroDataInicio').value;
+  const dataFimStr = document.getElementById('filtroDataFim').value;
+  
+  if (!dataInicioStr || !dataFimStr) {
+    alert("Por favor, selecione ambas as datas (Início e Fim).");
+    return;
+  }
+  
+  const dataInicio = new Date(dataInicioStr + "T00:00:00");
+  const dataFim = new Date(dataFimStr + "T23:59:59");
+  
+  if (dataInicio > dataFim) {
+    alert("A data inicial não pode ser maior que a data final!");
+    return;
+  }
+  
+  fecharModalData();
+  gerarRelatorioBaixadosComFiltro(dataInicio, dataFim);
+}
+
+function gerarRelatorioBaixadosComFiltro(dataInicio, dataFim) {
+  const baixados = dados.filter(d => {
+    if (d.status !== 'baixado' || !d.dataBaixa) return false;
+    const dataDoItem = new Date(d.dataBaixa);
+    return dataDoItem >= dataInicio && dataDoItem <= dataFim;
+  }).sort(ordenarPatrimonios);
+  
+  if (baixados.length === 0) {
+    alert(`Nenhum item baixado encontrado no período de ${dataInicio.toLocaleDateString('pt-BR')} até ${dataFim.toLocaleDateString('pt-BR')}.`);
+    return;
+  }
+  
+  const tituloComData = `Relatório de Itens Baixados (${dataInicio.toLocaleDateString('pt-BR')} a ${dataFim.toLocaleDateString('pt-BR')})`;
+  imprimirTemplate(tituloComData, baixados, false);
+}
+
+function imprimirTemplate(titulo, lista, isGeral) {
+  let htmlRelatorio = `<html><head><title>${titulo}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    h2 { text-align: center; border-bottom: 2px solid #000; padding-bottom: 10px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #333; padding: 8px; text-align: left; font-size: 12px; }
+    th { background-color: #f2f2f2; text-align: center; }
+    .row-local-divider { background-color: #455a64; color: white; font-weight: bold; }
+    .row-baixado { background-color: #ffebee; text-decoration: line-through; }
+    .row-analise { background-color: #fff9c4; }
+    .footer { margin-top: 40px; font-size: 11px; text-align: right; }
+    @media (max-width: 600px) {
+      th, td { font-size: 10px; padding: 6px; }
+    }
+  </style></head><body>
+  <h2>Relatório de Patrimônio</h2>
+  <h4>${titulo}</h4>
+  <div style="overflow-x:auto;"><table><thead><tr><th width="15%">Nº</th><th width="25%">Descrição</th><th width="20%">Local</th><th width="20%">Status</th><th width="20%">Modificação</th></tr></thead><tbody>`;
+  
+  let localAtual = "";
+  lista.forEach(item => {
+    if (isGeral && item.local !== localAtual && item.status !== 'baixado') {
+      localAtual = item.local;
+      htmlRelatorio += `<tr><td colspan="5" class="row-local-divider">📍 LOCAL: ${localAtual.toUpperCase()}</td></tr>`;
+    }
+    let rowClass = '';
+    let statusText = '';
+    if (item.status === 'baixado') {
+      rowClass = 'row-baixado';
+      statusText = 'BAIXADO';
+    } else if (item.status === 'analise') {
+      rowClass = 'row-analise';
+      statusText = '⚠️ EM ANÁLISE';
+    } else {
+      statusText = 'ATIVO';
+    }
+    htmlRelatorio += `<tr class="${rowClass}">
+      <td style="text-align:center;">${item.numero}</td>
+      <td>${item.descricao}</td>
+      <td>${item.local}</td>
+      <td>${statusText}</td>
+      <td class="data-info">${formatarData(item.dataModificacao)}</td>
+    </tr>`;
+  });
+  
+  htmlRelatorio += `</tbody></table></div>
+  <div class="footer">Gerado em: ${new Date().toLocaleString('pt-BR')} | Total: ${lista.length}</div>
+  <script>window.print();<\/script></body></html>`;
+  
+  const win = window.open('', '_blank');
+  win.document.write(htmlRelatorio);
+  win.document.close();
+}
+
+function exportar() {
+  const blob = new Blob([JSON.stringify(dados, null, 2)], { type: "application/json" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `patrimonio_backup_${new Date().toISOString().slice(0,19)}.json`;
+  a.click();
+}
+
+function importar(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (event) => {
+    try {
+      let importados = JSON.parse(event.target.result);
+      if (confirm(`Importar ${importados.length} itens?`)) {
+        const ref = db.ref("patrimonios");
+        importados.forEach(item => {
+          ref.push({ 
+            numero: item.numero, 
+            local: item.local, 
+            descricao: item.descricao,
+            status: item.status || 'ativo',
+            dataCadastro: item.dataCadastro || new Date().toISOString(),
+            dataModificacao: new Date().toISOString()
+          });
+        });
+        alert("Importação concluída!");
+      }
+    } catch (err) { alert("Arquivo inválido."); }
+  };
+  reader.readAsText(file);
+}
+
+function renderizar(abaParaFocar = null) {
+  let filtrados = dados.filter(d => {
+    const matchPesquisa = String(d.numero).toLowerCase().includes(document.getElementById('pesquisa').value.toLowerCase());
+    const matchStatus = filtroStatus === 'todos' ? true : d.status === filtroStatus;
+    return matchPesquisa && matchStatus;
+  }).sort(ordenarPatrimonios);
+  
+  const tabButtons = document.getElementById('tabButtons');
+  const tabContents = document.getElementById('tabContents');
+  tabButtons.innerHTML = '';
+  tabContents.innerHTML = '';
+
+  if (filtrados.length === 0) {
+    tabContents.innerHTML = "<p style='text-align:center; padding:40px;'>Nenhum registro encontrado.</p>";
+    return;
+  }
+
+  const isAdmin = currentUser?.role === 'admin';
+
+  if (document.getElementById('pesquisa').value !== "" || filtroStatus !== 'todos') {
+    tabButtons.innerHTML = "<span style='padding: 10px; color: #0277bd; font-weight: bold;'>🔍 Resultados da Busca:</span>";
+    const div = document.createElement('div');
+    div.className = 'tab-content active';
+    let t = `<div class="table-wrapper"><table><thead><tr><th>N°</th><th>Local</th><th>Descrição</th><th>Status</th><th>Modificação</th>${isAdmin ? '<th>Ações</th>' : ''}</tr></thead><tbody>`;
+    filtrados.forEach(d => {
+      let rowClass = '';
+      let statusDisplay = '';
+      if (d.status === 'baixado') {
+        rowClass = 'item-baixado';
+        statusDisplay = '❌ BAIXADO';
+      } else if (d.status === 'analise') {
+        rowClass = 'item-analise';
+        statusDisplay = '⚠️ EM ANÁLISE';
+      } else {
+        statusDisplay = '✅ ATIVO';
+      }
+      t += `<tr class="${rowClass}">
+        <td><strong>${d.numero}</strong></td>
+        <td>${d.local}</td>
+        <td>${d.descricao}</td>
+        <td class="${d.status === 'analise' ? 'status-analise' : ''}">${statusDisplay}</td>
+        <td><small>${formatarData(d.dataModificacao)}</small></td>`;
+      if (isAdmin) {
+        t += `<td class="action-buttons">
+          <button class="btn-edit" onclick="editar('${d.id}')">Editar</button>
+          ${d.status === 'baixado' ? 
+            `<button class="btn-edit" onclick="reativar('${d.id}')" style="background:#4caf50;">Reativar</button>` : 
+            d.status === 'analise' ?
+            `<button class="btn-edit" onclick="reativar('${d.id}')" style="background:#4caf50;">Aprovar</button>
+             <button class="btn-baixa-status" onclick="darBaixa('${d.id}')">Dar Baixa</button>` :
+            `<button class="btn-baixa-status" onclick="colocarEmAnalise('${d.id}')" style="background:#f9a825;">⚠️ Análise</button>
+             <button class="btn-baixa-status" onclick="darBaixa('${d.id}')">Dar Baixa</button>`
+          }
+          <button class="btn-delete" onclick="excluir('${d.id}')">Excluir</button>
+        </td>`;
+      }
+      t += `</tr>`;
+    });
+    t += '</tbody></table></div>';
+    div.innerHTML = t;
+    tabContents.appendChild(div);
+    return;
+  }
+
+  const campo = modo === 'local' ? 'local' : 'descricao';
+  const grupos = [...new Set(filtrados.map(d => d[campo]))].sort();
+  let indiceAtivo = 0;
+  
+  grupos.forEach((g, i) => {
+    if (abaParaFocar && g === abaParaFocar) indiceAtivo = i;
+    const b = document.createElement('button');
+    b.textContent = g;
+    b.onclick = () => { abaAbertaRecentemente = g; ativarAba(i); };
+    tabButtons.appendChild(b);
+    
+    const div = document.createElement('div');
+    div.className = 'tab-content';
+    
     const itensGrupo = filtrados.filter(d => d[campo] === g);
     const ultimaModificacao = itensGrupo.length > 0 ? 
       Math.max(...itensGrupo.map(d => d.dataModificacao ? new Date(d.dataModificacao).getTime() : 0)) : 0;
@@ -1173,11 +2350,17 @@ verificarSessao();
 setModo('local');
 
 window.onclick = function(event) {
-  const modal = document.getElementById('editModal');
-  if (event.target == modal) {
+  const editModal = document.getElementById('editModal');
+  const dateModal = document.getElementById('dateFilterModal');
+  
+  if (event.target == editModal) {
     fecharModal();
+  }
+  if (event.target == dateModal) {
+    fecharModalData();
   }
 }
 </script>
 </body>
+</html>
 </html>

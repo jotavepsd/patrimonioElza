@@ -1,0 +1,430 @@
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body { 
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; 
+  background: #f4f6f8; 
+  margin: 0;
+  padding: 16px;
+  color: #333; 
+}
+
+h1 { 
+  text-align: center; 
+  font-size: 1.5rem;
+  margin: 0 0 16px 0;
+}
+
+.form-container { 
+  background: #fff; 
+  padding: 16px; 
+  border-radius: 12px; 
+  margin-bottom: 16px; 
+  box-shadow: 0 2px 6px rgba(0,0,0,.1); 
+}
+
+.form-group { 
+  margin-bottom: 12px; 
+}
+
+label { 
+  font-weight: bold; 
+  display: block; 
+  margin-bottom: 6px; 
+  font-size: 14px;
+}
+
+input, select, button { 
+  width: 100%; 
+  padding: 12px; 
+  box-sizing: border-box; 
+  border: 1px solid #ccc; 
+  border-radius: 8px; 
+  font-size: 16px;
+  font-family: inherit;
+}
+
+button { 
+  background: #2e7d32; 
+  color: #fff; 
+  border: none; 
+  cursor: pointer; 
+  font-weight: bold; 
+  transition: 0.2s; 
+}
+
+button:hover { 
+  background: #1b5e20; 
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+.modo-buttons { 
+  display: flex; 
+  gap: 10px; 
+  margin-bottom: 16px; 
+  flex-wrap: wrap; 
+}
+
+.modo-buttons button { 
+  background: #455a64; 
+  flex: 1; 
+  min-width: 120px; 
+}
+
+.modo-buttons button.active { 
+  background: #1c313a; 
+}
+
+.btn-geral { 
+  background: #004d40 !important; 
+}
+
+.btn-baixa { 
+  background: #ff6f00 !important; 
+}
+
+.btn-baixa:hover { 
+  background: #e65100 !important; 
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 0 -8px;
+  padding: 0 8px;
+}
+
+table { 
+  width: 100%; 
+  min-width: 500px;
+  border-collapse: collapse; 
+  background: #fff; 
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+th, td { 
+  border: 1px solid #ccc; 
+  padding: 10px 8px; 
+  text-align: center; 
+  font-size: 13px;
+}
+
+th { 
+  background: #e0e0e0; 
+  font-weight: bold;
+}
+
+.btn-edit { 
+  background: #0277bd; 
+  width: auto; 
+  padding: 6px 12px; 
+  margin: 2px;
+  font-size: 12px;
+  display: inline-block;
+}
+
+.btn-delete { 
+  background: #c62828; 
+  width: auto; 
+  padding: 6px 12px; 
+  margin: 2px;
+  font-size: 12px;
+  display: inline-block;
+}
+
+.btn-baixa-status { 
+  background: #ff8f00; 
+  width: auto; 
+  padding: 6px 12px; 
+  margin: 2px;
+  font-size: 12px;
+  display: inline-block;
+}
+
+.tab-buttons { 
+  display: flex; 
+  flex-wrap: wrap; 
+  gap: 8px; 
+  margin-bottom: 16px; 
+}
+
+.tab-buttons button { 
+  width: auto; 
+  background: #90a4ae; 
+  color: white; 
+  padding: 10px 18px; 
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.tab-buttons button.active { 
+  background: #37474f; 
+}
+
+.tab-content { 
+  display: none; 
+}
+
+.tab-content.active { 
+  display: block; 
+}
+
+.btn-print { 
+  background: #f57c00; 
+  width: auto; 
+  padding: 8px 16px; 
+}
+
+.btn-print:hover { 
+  background: #e65100; 
+}
+
+.item-baixado { 
+  background-color: #ffebee !important; 
+  opacity: 0.7; 
+  text-decoration: line-through; 
+}
+
+.item-analise { 
+  background-color: #fff9c4 !important; 
+}
+
+.info-data { 
+  font-size: 11px; 
+  color: #666; 
+  margin-top: 5px; 
+  text-align: right; 
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 10px;
+}
+
+.close {
+  cursor: pointer;
+  font-size: 28px;
+  font-weight: bold;
+  color: #aaa;
+}
+
+.close:hover { color: #000; }
+
+.cadastro-multiplo {
+  background: #e8eaf6;
+  padding: 12px;
+  border-radius: 8px;
+  margin-top: 12px;
+  border-left: 4px solid #3949ab;
+  font-size: 13px;
+}
+
+.info-multiplo {
+  font-size: 12px;
+  color: #555;
+  margin-top: 5px;
+}
+
+.status-analise {
+  color: #f57f17;
+  font-weight: bold;
+}
+
+.status-analise::before {
+  content: "⚠️ ";
+}
+
+.action-buttons {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.user-bar {
+  background: #2c3e50;
+  color: white;
+  padding: 12px 16px;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.user-role {
+  background: #e74c3c;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.user-role.admin {
+  background: #27ae60;
+}
+
+.btn-logout {
+  background: #e74c3c;
+  padding: 6px 16px;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  width: auto;
+}
+
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.card {
+  background: white;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.card:active {
+  transform: scale(0.97);
+}
+
+.card-value {
+  font-size: 28px;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.card-label {
+  font-size: 12px;
+  color: #666;
+  margin-top: 4px;
+}
+
+.login-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  padding: 20px;
+}
+
+.login-box {
+  background: white;
+  padding: 32px 24px;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+  width: 100%;
+  max-width: 320px;
+}
+
+.login-box h2 {
+  text-align: center;
+  margin-bottom: 24px;
+  font-size: 24px;
+}
+
+.login-box input {
+  margin: 8px 0;
+}
+
+/* Desktop ajustes */
+@media (min-width: 768px) {
+  body {
+    padding: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  
+  .dashboard {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  
+  .table-wrapper {
+    margin: 0;
+    padding: 0;
+  }
+  
+  table {
+    min-width: auto;
+  }
+}
+
+/* Ajustes para telas muito pequenas */
+@media (max-width: 480px) {
+  body {
+    padding: 12px;
+  }
+  
+  .modo-buttons button {
+    min-width: 100px;
+    font-size: 13px;
+  }
+  
+  .tab-buttons button {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+  
+  th, td {
+    padding: 8px 6px;
+    font-size: 12px;
+  }
+  
+  .card-value {
+    font-size: 24px;
+  }
+}

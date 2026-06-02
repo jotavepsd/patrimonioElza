@@ -63,6 +63,19 @@
   let editandoId = null;
   let filtroStatus = 'todos';
 
+  const padraoLocais = ["Sala 01","Sala 03","Sala 04","Sala 05","Sala 06","Sala 07","Sala 08",
+                        "Sala 09","Sala 10","Sala 11","Sala 12","Sala 13","Sala 14",
+                        "Secretaria", "Direção", "Depósito","Biblioteca","Coordenação",
+                        "Refeitório","Sala de Atendimento","Sala de Informática",
+                        "Sala do AEE","Sala dos Professores","Vice-Direção","Cozinha dos Servidores","Não localizado"];
+const padraoDescricoes = [
+    "Conjunto de carteira", "Armário", "Ar Condicionado", "Cadeira", 
+    "Ventilador", "Mesa", "Headset", "WebCam", "Computador", 
+    "Monitor", "Roteador", "Impressora", "Geladeira", "Microondas", 
+    "Arquivo", "Prateleira", "TV", "Bebedouro", "Lousa Digital", 
+    "Plastificadora", "Switch", "Suporte"
+  ];
+
   verificarSessao();
 
   function fazerLogin() {
@@ -157,13 +170,23 @@
 
   db.ref("locais").on("value", (snapshot) => {
     const val = snapshot.val();
-    listaLocais = val ? Object.values(val).sort() : ["Sala 01", "Secretaria", "Direção", "Depósito", "Não localizado"];
+    if (!val) {
+      padraoLocais.forEach(l => db.ref("locais").push(l));
+      listaLocais = [...padraoLocais].sort();
+    } else {
+      listaLocais = Object.values(val).sort();
+    }
     atualizarSelectsFormulario();
   });
 
   db.ref("descricoes").on("value", (snapshot) => {
     const val = snapshot.val();
-    listaDescricoes = val ? Object.values(val).sort() : ["Armário", "Computador", "Cadeira", "Mesa", "Ventilador"];
+    if (!val) {
+      padraoDescricoes.forEach(d => db.ref("descricoes").push(d));
+      listaDescricoes = [...padraoDescricoes].sort();
+    } else {
+      listaDescricoes = Object.values(val).sort();
+    }
     atualizarSelectsFormulario();
   });
 
@@ -540,23 +563,22 @@
   }
 
   window.addEventListener('DOMContentLoaded', () => {
-    document.querySelector("button[onclick='fazerLogin()']").onclick = fazerLogin;
-    document.querySelector("button[onclick='logout()']").onclick = logout;
-    document.querySelector("button[onclick='filtrarTodos()']").onclick = filtrarTodos;
-    document.querySelector("button[onclick='filtrarAtivos()']").onclick = filtrarAtivos;
-    document.querySelector("button[onclick='filtrarAnalise()']").onclick = filtrarAnalise;
-    document.querySelector("button[onclick='filtrarBaixados()']").onclick = filtrarBaixados;
-    document.querySelector("button[onclick='exportar()']").onclick = exportar;
-    document.querySelector("button[onclick='gerarRelatorioGeral()']").onclick = gerarRelatorioGeral;
-    document.querySelector("button[onclick='gerarRelatorioBaixados()']").onclick = gerarRelatorioBaixados;
+    document.getElementById('btnFazerLogin').onclick = fazerLogin;
+    document.getElementById('btnLogout').onclick = logout;
+    document.getElementById('cardTotal').onclick = filtrarTodos;
+    document.getElementById('cardAtivos').onclick = filtrarAtivos;
+    document.getElementById('cardAnalise').onclick = filtrarAnalise;
+    document.getElementById('cardBaixados').onclick = filtrarBaixados;
+    document.getElementById('btnExportar').onclick = exportar;
+    document.getElementById('btnRelatorioGeral').onclick = gerarRelatorioGeral;
+    document.getElementById('btnRelatorioBaixados').onclick = gerarRelatorioBaixados;
     document.getElementById('btnAdicionar').onclick = adicionar;
     document.getElementById('btnLocal').onclick = () => setModo('local');
     document.getElementById('btnDescricao').onclick = () => setModo('descricao');
     document.querySelector(".close").onclick = fecharModal;
-    document.querySelector("button[onclick='salvarEdicao()']").onclick = salvarEdicao;
+    document.getElementById('btnSalvarEdicao').onclick = salvarEdicao;
     document.getElementById('pesquisa').oninput = () => renderizar();
     document.getElementById('importFile').onchange = (e) => importar(e);
-    
     document.getElementById('btnAdicionarLocal').onclick = adicionarLocalDinamico;
     document.getElementById('btnAdicionarDescricao').onclick = adicionarDescricaoDinamica;
   });

@@ -14,49 +14,63 @@
     <div class="login-box">
       <h2>SISTEMA PATRIMONIAL</h2>
       <p>Insira suas credenciais para continuar</p>
+
       <div class="form-group">
         <label>Usuário</label>
         <input type="text" id="loginUser" placeholder="Ex: admin">
       </div>
+
       <div class="form-group">
         <label>Senha</label>
         <input type="password" id="loginPassword" placeholder="••••••••">
       </div>
-      <button onclick="fazerLogin()">Entrar no Sistema</button>
+
+      <button id="btnFazerLogin">Entrar no Sistema</button>
+
       <div id="loginError" class="login-error"></div>
     </div>
   </div>
 
-  <div id="mainApp" style="display: none;">
+  <div id="mainApp" style="display:none;">
+
     <header class="main-header">
       <div class="header-left">
         <h1>Controle de Patrimônio</h1>
+
         <div class="user-badge">
           <span id="userNameDisplay">...</span>
           <span id="userRoleDisplay">...</span>
         </div>
       </div>
-      <button class="btn-logout" onclick="logout()">Sair do Sistema 🚪</button>
+
+      <button class="btn-logout" id="btnLogout">
+        Sair do Sistema 🚪
+      </button>
     </header>
 
     <div class="container">
+
       <section class="dashboard">
-        <div class="card card-total" onclick="filtrarTodos()">
+        <div class="card card-total" id="cardTotal">
           <h3>Total de Itens</h3>
           <p id="totalItens">0</p>
         </div>
-        <div class="card card-ativo" onclick="filtrarAtivos()">
+
+        <div class="card card-ativo" id="cardAtivos">
           <h3>Ativos</h3>
           <p id="totalAtivos">0</p>
         </div>
-        <div class="card card-analise" onclick="filtrarAnalise()">
+
+        <div class="card card-analise" id="cardAnalise">
           <h3>Em Análise</h3>
           <p id="totalAnalise">0</p>
         </div>
-        <div class="card card-baixado" onclick="filtrarBaixados()">
+
+        <div class="card card-baixado" id="cardBaixados">
           <h3>Baixados</h3>
           <p id="totalBaixados">0</p>
         </div>
+
         <div class="card card-locais">
           <h3>Setores/Salas</h3>
           <p id="totalLocais">0</p>
@@ -65,48 +79,76 @@
 
       <section class="cadastro-box">
         <h2>Cadastrar Novo Patrimônio</h2>
+
         <div class="form-grid">
+
           <div class="form-group col-full">
-            <label>Número(s) do Patrimônio <small>(Separe por espaço para lote)</small></label>
+            <label>Número(s) do Patrimônio</label>
             <input type="text" id="numero" placeholder="Ex: 10234 10235 10236">
           </div>
-          
+
           <div class="form-group">
             <label>Local</label>
+
             <div class="input-with-btn">
               <select id="local">
                 <option value="">Carregando locais...</option>
               </select>
-              <button type="button" class="btn-inline-add" id="btnAdicionarLocal">➕</button>
+
+              <button type="button" class="btn-inline-add" id="btnAdicionarLocal">
+                ➕
+              </button>
             </div>
           </div>
 
           <div class="form-group">
-            <label>Descrição (Item)</label>
+            <label>Descrição</label>
+
             <div class="input-with-btn">
               <select id="descricao">
                 <option value="">Carregando itens...</option>
               </select>
-              <button type="button" class="btn-inline-add" id="btnAdicionarDescricao">➕</button>
+
+              <button type="button" class="btn-inline-add" id="btnAdicionarDescricao">
+                ➕
+              </button>
             </div>
           </div>
+
         </div>
-        <button id="btnAdicionar" class="btn-primary">Cadastrar Patrimônio(s)</button>
+
+        <button id="btnAdicionar" class="btn-primary">
+          Cadastrar Patrimônio(s)
+        </button>
       </section>
 
       <section class="acoes-box">
+
         <div class="busca-wrapper">
-          <input type="text" id="pesquisa" placeholder="🔍 Digite um número de patrimônio para pesquisar...">
+          <input type="text" id="pesquisa" placeholder="🔍 Digite um patrimônio">
         </div>
+
         <div class="botoes-relatorio">
-          <button onclick="gerarRelatorioGeral()">🖨️ Relatório Geral de Ativos</button>
-          <button onclick="gerarRelatorioBaixados()" style="background:#c62828;">🖨️ Relatório de Itens Baixados</button>
-          <button onclick="exportar()" style="background:#2e7d32;">💾 Fazer Backup (Exportar JSON)</button>
+
+          <button id="btnRelatorioGeral">
+            🖨️ Relatório Geral de Ativos
+          </button>
+
+          <button id="btnRelatorioBaixados" style="background:#c62828;">
+            🖨️ Relatório de Itens Baixados
+          </button>
+
+          <button id="btnExportar" style="background:#2e7d32;">
+            💾 Fazer Backup
+          </button>
+
           <label class="btn-import">
-            📂 Restaurar Backup (Importar JSON)
+            📂 Restaurar Backup
             <input type="file" id="importFile" accept=".json" style="display:none;">
           </label>
+
         </div>
+
       </section>
 
       <section class="visualizacao-box">
@@ -114,40 +156,57 @@
           <button id="btnLocal" class="active">Visualizar por Local</button>
           <button id="btnDescricao">Visualizar por Descrição</button>
         </div>
+
         <div id="tabButtons" class="tab-buttons"></div>
         <div id="tabContents" class="tab-contents"></div>
       </section>
+
     </div>
 
     <div id="editModal" class="modal">
+
       <div class="modal-content">
+
         <span class="close">&times;</span>
+
         <h2>Editar Patrimônio</h2>
+
         <div class="form-group">
           <label>Número</label>
           <input type="text" id="editNumero">
         </div>
+
         <div class="form-group">
           <label>Local</label>
           <select id="editLocal"></select>
         </div>
+
         <div class="form-group">
           <label>Descrição</label>
           <select id="editDescricao"></select>
         </div>
+
         <div class="form-group">
           <label>Status</label>
+
           <select id="editStatus">
             <option value="ativo">Ativo</option>
             <option value="analise">Em Análise</option>
             <option value="baixado">Baixado</option>
           </select>
         </div>
-        <button onclick="salvarEdicao()" class="btn-primary">Salvar Alterações</button>
+
+        <button id="btnSalvarEdicao" class="btn-primary">
+          Salvar Alterações
+        </button>
+
       </div>
+
     </div>
+
   </div>
 
   <script src="script.js"></script>
+
 </body>
 </html>

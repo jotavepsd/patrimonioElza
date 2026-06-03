@@ -52,7 +52,7 @@
   let currentUser = null;
   const users = {
   'admin': {
-    hash: 'dc313636608d984f15a8785d03c10c5189e1e1fd957ee99b083da08fb7f1e7c3',
+    hash: '70ce5f4702ba0648c6913fe26ef35bfa3de9ff66632c02ca43ba43da393d39bc',
     role: 'admin',
     name: 'Administrador'
   },

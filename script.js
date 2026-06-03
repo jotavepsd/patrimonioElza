@@ -79,28 +79,62 @@ const padraoDescricoes = [
   verificarSessao();
 
   function fazerLogin() {
-    const username = document.getElementById('loginUser').value.trim();
-    const password = document.getElementById('loginPassword').value;
-    const user = users[username];
-    
-    if (user && user.hash === sha256(password)) {
-      currentUser = { username, role: user.role, name: user.name };
-      sessionStorage.setItem('currentUser', JSON.stringify(currentUser));
-      
-      document.getElementById('loginContainer').style.display = 'none';
-      document.getElementById('mainApp').style.display = 'block';
-      document.getElementById('userNameDisplay').textContent = currentUser.name;
-      
-      const roleSpan = document.getElementById('userRoleDisplay');
-      roleSpan.textContent = currentUser.role === 'admin' ? '👑 ADMIN' : '👤 USUÁRIO';
-      roleSpan.classList.toggle('admin', currentUser.role === 'admin');
-      
-      aplicarRestricoes();
-      document.getElementById('loginError').textContent = '';
-    } else {
-      document.getElementById('loginError').textContent = 'Usuário ou senha inválidos!';
-    }
+  const username = document.getElementById('loginUser').value.trim();
+  const password = document.getElementById('loginPassword').value;
+  const user = users[username];
+
+  const hashGerado = sha256(password);
+
+  console.log("=================================");
+  console.log("Usuário:", username);
+  console.log("Senha digitada:", password);
+  console.log("Hash gerado:", hashGerado);
+  console.log("Hash esperado:", user ? user.hash : "usuário não encontrado");
+  console.log("=================================");
+
+  if (user && user.hash === hashGerado) {
+    currentUser = {
+      username,
+      role: user.role,
+      name: user.name
+    };
+
+    sessionStorage.setItem(
+      'currentUser',
+      JSON.stringify(currentUser)
+    );
+
+    document.getElementById('loginContainer').style.display = 'none';
+    document.getElementById('mainApp').style.display = 'block';
+
+    document.getElementById('userNameDisplay').textContent =
+      currentUser.name;
+
+    const roleSpan =
+      document.getElementById('userRoleDisplay');
+
+    roleSpan.textContent =
+      currentUser.role === 'admin'
+        ? '👑 ADMIN'
+        : '👤 USUÁRIO';
+
+    roleSpan.classList.toggle(
+      'admin',
+      currentUser.role === 'admin'
+    );
+
+    aplicarRestricoes();
+
+    document.getElementById('loginError').textContent = '';
+
+    console.log("LOGIN OK");
+  } else {
+    console.log("LOGIN FALHOU");
+    document.getElementById('loginError').textContent =
+      'Usuário ou senha inválidos!';
   }
+}
+
 
   function logout() {
     currentUser = null;

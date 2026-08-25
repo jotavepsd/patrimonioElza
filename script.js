@@ -51,6 +51,9 @@
   let abaAbertaRecentemente = null;
   let editandoId = null;
   let filtroStatus = 'todos';
+  let inventarioAtivo = false;
+  let inventarioLocal = '';
+  let inventarioItens = [];
 
 
   // =========================================================

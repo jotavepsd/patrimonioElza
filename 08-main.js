@@ -1,0 +1,315 @@
+function vincularEventosBotoes(
+  container
+) {
+
+  container
+    .querySelectorAll(
+      'button'
+    )
+    .forEach(
+      btn => {
+
+        const action =
+          btn.getAttribute(
+            'data-action'
+          );
+
+        const id =
+          btn.getAttribute(
+            'data-id'
+          );
+
+        const grupo =
+          btn.getAttribute(
+            'data-grupo'
+          );
+
+
+        if (!action) {
+          return;
+        }
+
+
+        btn.onclick =
+          (e) => {
+
+            e.preventDefault();
+
+
+            if (
+              action === 'editar'
+            ) {
+              editar(id);
+            }
+
+
+            if (
+              action === 'excluir'
+            ) {
+              excluir(id);
+            }
+
+
+            if (
+              action === 'analise'
+            ) {
+              colocarEmAnalise(id);
+            }
+
+
+            if (
+              action === 'baixa'
+            ) {
+              darBaixa(id);
+            }
+
+
+            if (
+              action === 'reativar'
+            ) {
+              reativar(id);
+            }
+
+
+            if (
+              action === 'imprimir-grupo'
+            ) {
+              gerarRelatorio(grupo);
+            }
+
+          };
+      }
+    );
+}
+
+
+// =========================================================
+// INICIALIZAÇÃO DA INTERFACE
+// =========================================================
+
+window.addEventListener(
+  'DOMContentLoaded',
+  () => {
+
+    const btnLogin =
+      document.getElementById(
+        'btnFazerLogin'
+      );
+
+    const btnLogout =
+      document.getElementById(
+        'btnLogout'
+      );
+
+
+    if (btnLogin) {
+      btnLogin.onclick =
+        fazerLogin;
+    }
+
+
+    if (btnLogout) {
+      btnLogout.onclick =
+        logout;
+    }
+
+
+    document.getElementById(
+      'cardTotal'
+    ).onclick =
+      filtrarTodos;
+
+
+    document.getElementById(
+      'cardAtivos'
+    ).onclick =
+      filtrarAtivos;
+
+
+    document.getElementById(
+      'cardAnalise'
+    ).onclick =
+      filtrarAnalise;
+
+
+    document.getElementById(
+      'cardBaixados'
+    ).onclick =
+      filtrarBaixados;
+
+
+    document.getElementById(
+      'btnExportar'
+    ).onclick =
+      exportar;
+
+
+    document.getElementById(
+      'btnRelatorioGeral'
+    ).onclick =
+      gerarRelatorioGeral;
+
+
+    document.getElementById(
+      'btnRelatorioBaixados'
+    ).onclick =
+      gerarRelatorioBaixados;
+
+
+    document.getElementById(
+      'btnAdicionar'
+    ).onclick =
+      adicionar;
+
+
+    document.getElementById(
+      'btnLocal'
+    ).onclick =
+      () => setModo('local');
+
+
+    document.getElementById(
+      'btnDescricao'
+    ).onclick =
+      () => setModo('descricao');
+
+
+    document.querySelector(
+      ".close"
+    ).onclick =
+      fecharModal;
+
+
+    document.getElementById(
+      'btnSalvarEdicao'
+    ).onclick =
+      salvarEdicao;
+
+
+    document.getElementById(
+      'pesquisa'
+    ).oninput =
+      () => renderizar();
+
+
+    document.getElementById(
+      'importFile'
+    ).onchange =
+      (e) => importar(e);
+
+
+    document.getElementById(
+      'btnAdicionarLocal'
+    ).onclick =
+      adicionarLocalDinamico;
+
+
+    document.getElementById(
+      'btnAdicionarDescricao'
+    ).onclick =
+      adicionarDescricaoDinamica;
+
+
+    // Permitir pressionar ENTER no login
+
+    const loginPassword =
+      document.getElementById(
+        'loginPassword'
+      );
+
+
+    if (loginPassword) {
+
+      loginPassword.addEventListener(
+        'keydown',
+        (event) => {
+
+          if (
+            event.key === 'Enter'
+          ) {
+
+            fazerLogin();
+          }
+        }
+      );
+    }
+
+    // =========================================================
+// INVENTÁRIO
+// =========================================================
+
+document.getElementById(
+    'btnAbrirInventario'
+).onclick =
+    abrirConfiguracaoInventario;
+
+
+document.getElementById(
+    'btnIniciarInventario'
+).onclick =
+    iniciarInventario;
+
+
+document.getElementById(
+    'btnCancelarInventario'
+).onclick =
+    fecharConfiguracaoInventario;
+
+    const inventarioPesquisa =
+    document.getElementById('inventarioPesquisa');
+
+if (inventarioPesquisa) {
+
+    inventarioPesquisa.addEventListener(
+        'input',
+        pesquisarInventario
+    );
+}
+
+const btnLimparPesquisa =
+    document.getElementById('btnLimparPesquisa');
+
+if (btnLimparPesquisa) {
+
+    btnLimparPesquisa.addEventListener(
+        'click',
+        () => {
+
+            const input =
+                document.getElementById(
+                    'inventarioPesquisa'
+                );
+
+            const resultado =
+                document.getElementById(
+                    'inventarioResultadoBusca'
+                );
+
+            if (input) {
+                input.value = '';
+                input.focus();
+            }
+
+            if (resultado) {
+                resultado.innerHTML = '';
+            }
+        }
+    );
+}
+
+const btnFinalizarInventario =
+    document.getElementById(
+        'btnFinalizarInventario'
+    );
+
+if (btnFinalizarInventario) {
+
+    btnFinalizarInventario.addEventListener(
+        'click',
+        finalizarInventario
+    );
+
+}
+
+  }
+);

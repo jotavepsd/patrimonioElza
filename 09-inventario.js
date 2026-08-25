@@ -644,3 +644,125 @@ function fecharResultadoInventario() {
 
     atualizarResumoInventario();
 }
+
+function cancelarInventario() {
+
+  const confirmar = confirm(
+    'Deseja realmente cancelar o inventário atual?\n\n' +
+    'Todo o progresso desta conferência será perdido.'
+  );
+
+  if (!confirmar) {
+    return;
+  }
+
+  // Limpa o inventário atual
+  inventarioItens = [];
+
+  // Limpa os campos
+  const pesquisa = document.getElementById(
+    'inventarioPesquisa'
+  );
+
+  if (pesquisa) {
+    pesquisa.value = '';
+  }
+
+  const resultadoBusca = document.getElementById(
+    'inventarioResultadoBusca'
+  );
+
+  if (resultadoBusca) {
+    resultadoBusca.innerHTML = '';
+  }
+
+
+  // Esconde o painel da conferência
+  const painel = document.getElementById(
+    'inventarioPainel'
+  );
+
+  if (painel) {
+    painel.style.display = 'none';
+  }
+
+
+  // Mostra novamente a configuração
+  const config = document.getElementById(
+    'inventarioConfig'
+  );
+
+  if (config) {
+    config.style.display = 'block';
+  }
+
+
+  // Limpa o local selecionado
+  const selectLocal = document.getElementById(
+    'inventarioLocal'
+  );
+
+  if (selectLocal) {
+    selectLocal.value = '';
+  }
+
+
+  // Limpa o resultado final, caso exista
+  const resultado = document.getElementById(
+    'inventarioResultado'
+  );
+
+  if (resultado) {
+    resultado.innerHTML = '';
+    resultado.style.display = 'none';
+  }
+
+
+  // Reseta os indicadores
+  const ids = [
+    'inventarioEsperados',
+    'inventarioConferidos',
+    'inventarioPendentes'
+  ];
+
+  ids.forEach(id => {
+
+    const elemento =
+      document.getElementById(id);
+
+    if (elemento) {
+      elemento.textContent = '0';
+    }
+
+  });
+
+
+  const progresso =
+    document.getElementById(
+      'inventarioProgresso'
+    );
+
+  if (progresso) {
+    progresso.style.width = '0%';
+  }
+
+
+  const porcentagem =
+    document.getElementById(
+      'inventarioPorcentagem'
+    );
+
+  if (porcentagem) {
+    porcentagem.textContent = '0%';
+  }
+
+
+  const localAtual =
+    document.getElementById(
+      'inventarioLocalAtual'
+    );
+
+  if (localAtual) {
+    localAtual.textContent = '-';
+  }
+}

@@ -34,209 +34,289 @@
 
   <div id="mainApp" style="display:none;">
 
-    <header class="main-header">
-      <div class="header-left">
-        <h1>Controle de Patrimônio</h1>
+  <header class="main-header">
+    <div class="header-left">
+      <h1>Controle de Patrimônio</h1>
 
-        <div class="user-badge">
-          <span id="userNameDisplay">...</span>
-          <span id="userRoleDisplay">...</span>
+      <div class="user-badge">
+        <span id="userNameDisplay">...</span>
+        <span id="userRoleDisplay">...</span>
+      </div>
+    </div>
+
+    <button class="btn-logout" id="btnLogout">
+      Sair do Sistema 🚪
+    </button>
+  </header>
+
+
+  <!-- =====================================================
+       NAVEGAÇÃO PRINCIPAL
+  ====================================================== -->
+
+  <nav class="main-nav">
+    <div class="nav-inner">
+
+      <button
+        class="nav-tab active"
+        data-view="dashboard"
+        type="button"
+      >
+        📊 Dashboard
+      </button>
+
+      <button
+        class="nav-tab"
+        data-view="estoque"
+        type="button"
+      >
+        📦 Estoque
+      </button>
+
+      <button
+        class="nav-tab"
+        data-view="inventario"
+        type="button"
+      >
+        📋 Inventário
+      </button>
+
+    </div>
+  </nav>
+
+
+  <main class="container">
+
+    <!-- ===================================================
+         DASHBOARD
+    ==================================================== -->
+
+    <section
+      id="view-dashboard"
+      class="app-view active"
+    >
+
+      <div class="page-header">
+        <div>
+          <h2>Dashboard</h2>
+          <p>
+            Visão geral do patrimônio da escola.
+          </p>
         </div>
       </div>
 
-      <button class="btn-logout" id="btnLogout">
-        Sair do Sistema 🚪
-      </button>
-    </header>
-
-    <div class="container">
 
       <section class="dashboard">
-        <div class="card card-total" id="cardTotal">
+
+        <div
+          class="card card-total"
+          id="cardTotal"
+        >
           <h3>Total de Itens</h3>
           <p id="totalItens">0</p>
         </div>
 
-        <div class="card card-ativo" id="cardAtivos">
+
+        <div
+          class="card card-ativo"
+          id="cardAtivos"
+        >
           <h3>Ativos</h3>
           <p id="totalAtivos">0</p>
         </div>
 
-        <div class="card card-analise" id="cardAnalise">
+
+        <div
+          class="card card-analise"
+          id="cardAnalise"
+        >
           <h3>Em Análise</h3>
           <p id="totalAnalise">0</p>
         </div>
 
-        <div class="card card-baixado" id="cardBaixados">
+
+        <div
+          class="card card-baixado"
+          id="cardBaixados"
+        >
           <h3>Baixados</h3>
           <p id="totalBaixados">0</p>
         </div>
 
-        <div class="card card-locais">
-          <h3>Setores/Salas</h3>
+
+        <div
+          class="card card-locais"
+          id="cardLocais"
+        >
+          <h3>Locais</h3>
           <p id="totalLocais">0</p>
         </div>
+
       </section>
 
-      <section class="inventario-box">
-  <div class="inventario-header">
-    <div>
-      <h2>📋 Inventário de Patrimônio</h2>
-      <p>
-        Confira os patrimônios fisicamente presentes em um local.
-      </p>
-    </div>
 
-    <button id="btnAbrirInventario" class="btn-inventario">
-      📋 Iniciar Inventário
-    </button>
-  </div>
+      <section class="dashboard-welcome">
 
-  <div id="inventarioConfig" class="inventario-config" style="display:none;">
+        <h3>Bem-vindo ao Sistema Patrimonial</h3>
 
-    <div class="form-group">
-      <label>Local para conferência</label>
-      <select id="inventarioLocal">
-        <option value="">Selecione o local</option>
-      </select>
-    </div>
+        <p>
+          Utilize o menu acima para consultar o estoque
+          ou realizar uma conferência de inventário.
+        </p>
 
-    <button id="btnIniciarInventario" class="btn-primary">
-      Iniciar Conferência
-    </button>
+        <div class="dashboard-shortcuts">
 
-    <button id="btnCancelarInventario" class="btn-secondary">
-      Cancelar
-    </button>
+          <button
+            type="button"
+            class="dashboard-shortcut"
+            data-go-view="estoque"
+          >
+            <span>📦</span>
+            <strong>Consultar Estoque</strong>
+            <small>
+              Veja os patrimônios organizados por local.
+            </small>
+          </button>
 
-  </div>
 
-  <div id="inventarioPainel" style="display:none;">
+          <button
+            type="button"
+            class="dashboard-shortcut"
+            data-go-view="inventario"
+          >
+            <span>📋</span>
+            <strong>Realizar Inventário</strong>
+            <small>
+              Confira fisicamente os patrimônios de um local.
+            </small>
+          </button>
 
-    <div class="inventario-local-atual">
-      <span>Local em conferência:</span>
-      <strong id="inventarioLocalAtual">-</strong>
-    </div>
+        </div>
 
-    <div class="inventario-resumo">
+      </section>
 
-      <div class="inventario-card">
-        <span>Esperados</span>
-        <strong id="inventarioEsperados">0</strong>
+    </section>
+
+
+    <!-- ===================================================
+         ESTOQUE
+    ==================================================== -->
+
+    <section
+      id="view-estoque"
+      class="app-view"
+    >
+
+      <div class="page-header">
+
+        <div>
+          <h2>Estoque</h2>
+          <p>
+            Consulte os patrimônios organizados por local
+            ou por descrição.
+          </p>
+        </div>
+
       </div>
 
-      <div class="inventario-card conferidos">
-        <span>Conferidos</span>
-        <strong id="inventarioConferidos">0</strong>
-      </div>
 
-      <div class="inventario-card pendentes">
-        <span>Pendentes</span>
-        <strong id="inventarioPendentes">0</strong>
-      </div>
-
-    </div>
-
-    <div class="inventario-progresso">
-      <div class="inventario-progresso-barra">
-        <div id="inventarioProgresso"></div>
-      </div>
-
-      <span id="inventarioPorcentagem">0%</span>
-    </div>
-
-    <div class="inventario-busca">
-      <input
-        type="text"
-        id="inventarioPesquisa"
-        placeholder="🔍 Digite o número do patrimônio"
-        autocomplete="off"
-      />
-
-      <button id="btnLimparPesquisa">
-        Limpar
-      </button>
-    </div>
-
-    <div id="inventarioResultadoBusca"></div>
-
-    <div class="inventario-lista-header">
-      <h3>Patrimônios da sala</h3>
-
-      <div class="inventario-legenda">
-        <span>🟢 Conferido</span>
-        <span>⚪ Pendente</span>
-      </div>
-    </div>
-
-    <div id="inventarioLista"></div>
-
-    <div class="inventario-finalizar">
-      <button id="btnFinalizarInventario" class="btn-finalizar-inventario">
-        Finalizar Inventário
-      </button>
-
-      <button id="btnCancelarInventarioEmAndamento" class="btn-secondary">
-        Cancelar Inventário
-      </button>
-    </div>
-
-  </div>
-
-  <div id="inventarioResultado" style="display:none;"></div>
-
-</section>
+      <!-- CADASTRO -->
 
       <section class="cadastro-box">
+
         <h2>Cadastrar Novo Patrimônio</h2>
 
         <div class="form-grid">
 
           <div class="form-group col-full">
+
             <label>Número(s) do Patrimônio</label>
-            <input type="text" id="numero" placeholder="Ex: 10234 10235 10236">
+
+            <input
+              type="text"
+              id="numero"
+              placeholder="Ex: 10234 10235 10236"
+            >
+
           </div>
 
+
           <div class="form-group">
+
             <label>Local</label>
 
             <div class="input-with-btn">
+
               <select id="local">
-                <option value="">Carregando locais...</option>
+                <option value="">
+                  Carregando locais...
+                </option>
               </select>
 
-              <button type="button" class="btn-inline-add" id="btnAdicionarLocal">
+              <button
+                type="button"
+                class="btn-inline-add"
+                id="btnAdicionarLocal"
+              >
                 ➕
               </button>
+
             </div>
+
           </div>
 
+
           <div class="form-group">
+
             <label>Descrição</label>
 
             <div class="input-with-btn">
+
               <select id="descricao">
-                <option value="">Carregando itens...</option>
+                <option value="">
+                  Carregando itens...
+                </option>
               </select>
 
-              <button type="button" class="btn-inline-add" id="btnAdicionarDescricao">
+              <button
+                type="button"
+                class="btn-inline-add"
+                id="btnAdicionarDescricao"
+              >
                 ➕
               </button>
+
             </div>
+
           </div>
 
         </div>
 
-        <button id="btnAdicionar" class="btn-primary">
+
+        <button
+          id="btnAdicionar"
+          class="btn-primary"
+        >
           Cadastrar Patrimônio(s)
         </button>
+
       </section>
+
+
+      <!-- BUSCA / RELATÓRIOS / BACKUP -->
 
       <section class="acoes-box">
 
         <div class="busca-wrapper">
-          <input type="text" id="pesquisa" placeholder="🔍 Digite um patrimônio">
+
+          <input
+            type="text"
+            id="pesquisa"
+            placeholder="🔍 Digite um patrimônio"
+          >
+
         </div>
+
 
         <div class="botoes-relatorio">
 
@@ -244,77 +324,379 @@
             🖨️ Relatório Geral de Ativos
           </button>
 
-          <button id="btnRelatorioBaixados" style="background:#c62828;">
+          <button
+            id="btnRelatorioBaixados"
+            style="background:#c62828;"
+          >
             🖨️ Relatório de Itens Baixados
           </button>
 
-          <button id="btnExportar" style="background:#2e7d32;">
+          <button
+            id="btnExportar"
+            style="background:#2e7d32;"
+          >
             💾 Fazer Backup
           </button>
 
           <label class="btn-import">
             📂 Restaurar Backup
-            <input type="file" id="importFile" accept=".json" style="display:none;">
+
+            <input
+              type="file"
+              id="importFile"
+              accept=".json"
+              style="display:none;"
+            >
           </label>
 
         </div>
 
       </section>
 
+
+      <!-- VISUALIZAÇÃO DO ESTOQUE -->
+
       <section class="visualizacao-box">
+
         <div class="modo-seletores">
-          <button id="btnLocal" class="active">Visualizar por Local</button>
-          <button id="btnDescricao">Visualizar por Descrição</button>
+
+          <button
+            id="btnLocal"
+            class="active"
+          >
+            Visualizar por Local
+          </button>
+
+          <button id="btnDescricao">
+            Visualizar por Descrição
+          </button>
+
         </div>
 
-        <div id="tabButtons" class="tab-buttons"></div>
-        <div id="tabContents" class="tab-contents"></div>
+
+        <div
+          id="tabButtons"
+          class="tab-buttons"
+        ></div>
+
+
+        <div
+          id="tabContents"
+          class="tab-contents"
+        ></div>
+
       </section>
 
-    </div>
+    </section>
 
-    <div id="editModal" class="modal">
 
-      <div class="modal-content">
+    <!-- ===================================================
+         INVENTÁRIO
+    ==================================================== -->
 
-        <span class="close">&times;</span>
+    <section
+      id="view-inventario"
+      class="app-view"
+    >
 
-        <h2>Editar Patrimônio</h2>
+      <div class="page-header">
 
-        <div class="form-group">
-          <label>Número</label>
-          <input type="text" id="editNumero">
+        <div>
+          <h2>Inventário</h2>
+          <p>
+            Confira fisicamente os patrimônios de cada local.
+          </p>
         </div>
-
-        <div class="form-group">
-          <label>Local</label>
-          <select id="editLocal"></select>
-        </div>
-
-        <div class="form-group">
-          <label>Descrição</label>
-          <select id="editDescricao"></select>
-        </div>
-
-        <div class="form-group">
-          <label>Status</label>
-
-          <select id="editStatus">
-            <option value="ativo">Ativo</option>
-            <option value="analise">Em Análise</option>
-            <option value="baixado">Baixado</option>
-          </select>
-        </div>
-
-        <button id="btnSalvarEdicao" class="btn-primary">
-          Salvar Alterações
-        </button>
 
       </div>
+
+
+      <!-- AQUI FICA O CÓDIGO ATUAL DO INVENTÁRIO -->
+
+      <section class="inventario-box">
+
+        <div class="inventario-header">
+
+          <div>
+
+            <h2>📋 Conferência de Patrimônio</h2>
+
+            <p>
+              Confira os patrimônios fisicamente presentes
+              em um local.
+            </p>
+
+          </div>
+
+
+          <button
+            id="btnAbrirInventario"
+            class="btn-inventario"
+          >
+            📋 Iniciar Inventário
+          </button>
+
+        </div>
+
+
+        <div
+          id="inventarioConfig"
+          class="inventario-config"
+          style="display:none;"
+        >
+
+          <div class="form-group">
+
+            <label>
+              Local para conferência
+            </label>
+
+            <select id="inventarioLocal">
+
+              <option value="">
+                Selecione o local
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <button
+            id="btnIniciarInventario"
+            class="btn-primary"
+          >
+            Iniciar Conferência
+          </button>
+
+
+          <button
+            id="btnCancelarInventario"
+            class="btn-secondary"
+          >
+            Cancelar
+          </button>
+
+        </div>
+
+
+        <div
+          id="inventarioPainel"
+          style="display:none;"
+        >
+
+          <div class="inventario-local-atual">
+
+            <span>
+              Local em conferência:
+            </span>
+
+            <strong id="inventarioLocalAtual">
+              -
+            </strong>
+
+          </div>
+
+
+          <div class="inventario-resumo">
+
+            <div class="inventario-card">
+
+              <span>Esperados</span>
+
+              <strong id="inventarioEsperados">
+                0
+              </strong>
+
+            </div>
+
+
+            <div class="inventario-card conferidos">
+
+              <span>Conferidos</span>
+
+              <strong id="inventarioConferidos">
+                0
+              </strong>
+
+            </div>
+
+
+            <div class="inventario-card pendentes">
+
+              <span>Pendentes</span>
+
+              <strong id="inventarioPendentes">
+                0
+              </strong>
+
+            </div>
+
+          </div>
+
+
+          <div class="inventario-progresso">
+
+            <div class="inventario-progresso-barra">
+
+              <div id="inventarioProgresso"></div>
+
+            </div>
+
+            <span id="inventarioPorcentagem">
+              0%
+            </span>
+
+          </div>
+
+
+          <div class="inventario-busca">
+
+            <input
+              type="text"
+              id="inventarioPesquisa"
+              placeholder="🔍 Digite o número do patrimônio"
+              autocomplete="off"
+            >
+
+            <button id="btnLimparPesquisa">
+              Limpar
+            </button>
+
+          </div>
+
+
+          <div id="inventarioResultadoBusca"></div>
+
+
+          <div class="inventario-lista-header">
+
+            <h3>
+              Patrimônios do local
+            </h3>
+
+            <div class="inventario-legenda">
+              <span>🟢 Conferido</span>
+              <span>⚪ Pendente</span>
+            </div>
+
+          </div>
+
+
+          <div id="inventarioLista"></div>
+
+
+          <div class="inventario-finalizar">
+
+            <button
+              id="btnFinalizarInventario"
+              class="btn-finalizar-inventario"
+            >
+              Finalizar Inventário
+            </button>
+
+
+            <button
+              id="btnCancelarInventarioEmAndamento"
+              class="btn-secondary"
+            >
+              Cancelar Inventário
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div
+          id="inventarioResultado"
+          style="display:none;"
+        ></div>
+
+      </section>
+
+    </section>
+
+  </main>
+
+
+  <!-- =====================================================
+       MODAL DE EDIÇÃO
+  ====================================================== -->
+
+  <div id="editModal" class="modal">
+
+    <div class="modal-content">
+
+      <span class="close">&times;</span>
+
+      <h2>Editar Patrimônio</h2>
+
+      <div class="form-group">
+
+        <label>Número</label>
+
+        <input
+          type="text"
+          id="editNumero"
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>Local</label>
+
+        <select id="editLocal"></select>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>Descrição</label>
+
+        <select id="editDescricao"></select>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>Status</label>
+
+        <select id="editStatus">
+
+          <option value="ativo">
+            Ativo
+          </option>
+
+          <option value="analise">
+            Em Análise
+          </option>
+
+          <option value="baixado">
+            Baixado
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <button
+        id="btnSalvarEdicao"
+        class="btn-primary"
+      >
+        Salvar Alterações
+      </button>
 
     </div>
 
   </div>
+
+</div>
 
  <script src="01-config-state.js"></script>
 <script src="02-auth.js"></script>

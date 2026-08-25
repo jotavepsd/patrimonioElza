@@ -90,6 +90,77 @@ function vincularEventosBotoes(
 window.addEventListener(
   'DOMContentLoaded',
   () => {
+    // =========================================================
+// NAVEGAÇÃO PRINCIPAL
+// =========================================================
+
+inicializarNavegacao()
+
+function abrirView(view) {
+
+  const views = document.querySelectorAll('.app-view');
+  const tabs = document.querySelectorAll('.nav-tab');
+
+  views.forEach(section => {
+    section.classList.toggle(
+      'active',
+      section.id === `view-${view}`
+    );
+  });
+
+  tabs.forEach(tab => {
+    tab.classList.toggle(
+      'active',
+      tab.dataset.view === view
+    );
+  });
+
+  // Quando entrar no estoque, garante que a lista
+  // esteja atualizada.
+  if (view === 'estoque') {
+    renderizar();
+  }
+
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+}
+
+
+function inicializarNavegacao() {
+
+  document
+    .querySelectorAll('.nav-tab')
+    .forEach(tab => {
+
+      tab.addEventListener('click', () => {
+
+        const view =
+          tab.dataset.view;
+
+        abrirView(view);
+
+      });
+
+    });
+
+
+  document
+    .querySelectorAll('[data-go-view]')
+    .forEach(button => {
+
+      button.addEventListener('click', () => {
+
+        abrirView(
+          button.dataset.goView
+        );
+
+      });
+
+    });
+
+}
 
     const btnLogin =
       document.getElementById(
@@ -114,29 +185,48 @@ window.addEventListener(
     }
 
 
-    document.getElementById(
-      'cardTotal'
-    ).onclick =
-      filtrarTodos;
+document.getElementById(
+  'cardTotal'
+).onclick = () => {
+
+  abrirView('estoque');
+
+  filtrarTodos();
+
+};
 
 
-    document.getElementById(
-      'cardAtivos'
-    ).onclick =
-      filtrarAtivos;
+document.getElementById(
+  'cardAtivos'
+).onclick = () => {
+
+  abrirView('estoque');
+
+  filtrarAtivos();
+
+};
 
 
-    document.getElementById(
-      'cardAnalise'
-    ).onclick =
-      filtrarAnalise;
+document.getElementById(
+  'cardAnalise'
+).onclick = () => {
+
+  abrirView('estoque');
+
+  filtrarAnalise();
+
+};
 
 
-    document.getElementById(
-      'cardBaixados'
-    ).onclick =
-      filtrarBaixados;
+document.getElementById(
+  'cardBaixados'
+).onclick = () => {
 
+  abrirView('estoque');
+
+  filtrarBaixados();
+
+};
 
     document.getElementById(
       'btnExportar'

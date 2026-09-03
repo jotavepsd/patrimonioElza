@@ -68,7 +68,7 @@ function importar(e) {
 
 
   reader.onload =
-    (event) => {
+    async (event) => {
 
       try {
 
@@ -84,7 +84,7 @@ function importar(e) {
           )
         ) {
 
-          alert(
+          appAlert(
             "O arquivo não contém uma lista válida de patrimônios."
           );
 
@@ -93,64 +93,39 @@ function importar(e) {
 
 
         if (
-          confirm(
-            `Importar ${importados.length} itens?`
+          await appConfirm(
+            `Importar ${importados.length} itens?`,
+            "Importar backup",
+            { icone: "📥", confirmarTexto: "Importar" }
           )
         ) {
 
-          const ref =
-            db.ref(
-              "patrimonios"
-            );
+          const atualizacoes = {};
+          const agora = new Date().toISOString();
 
+          importados.forEach(item => {
+            const key = db.ref('patrimonios').push().key;
+            atualizacoes[`patrimonios/${key}`] = {
+              numero: item.numero,
+              local: item.local,
+              descricao: item.descricao,
+              status: item.status || 'ativo',
+              dataCadastro: item.dataCadastro || agora,
+              dataModificacao: agora
+            };
+          });
 
-          const promessas =
-            importados.map(
-              item =>
-                ref.push({
-                  numero:
-                    item.numero,
+          await registrarEvento({
+            tipo: 'importacao_backup',
+            observacao: `Importação de backup concluída com ${importados.length} patrimônio(s).`,
+            databaseUpdates: atualizacoes
+          });
 
-                  local:
-                    item.local,
-
-                  descricao:
-                    item.descricao,
-
-                  status:
-                    item.status ||
-                    'ativo',
-
-                  dataCadastro:
-                    item.dataCadastro ||
-                    new Date().toISOString(),
-
-                  dataModificacao:
-                    new Date().toISOString()
-                })
-            );
-
-
-          Promise
-            .all(promessas)
-            .then(() => {
-
-              alert(
-                "Importação concluída!"
-              );
-
-            })
-            .catch(error => {
-
-              console.error(
-                "Erro na importação:",
-                error
-              );
-
-              alert(
-                "Ocorreu um erro durante a importação."
-              );
-            });
+          appAlert(
+            "Importação concluída!",
+            "Backup importado",
+            { icone: "✅" }
+          );
         }
 
       } catch (err) {
@@ -160,7 +135,7 @@ function importar(e) {
           err
         );
 
-        alert(
+        appAlert(
           "Arquivo inválido."
         );
       }

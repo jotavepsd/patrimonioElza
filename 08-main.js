@@ -42,6 +42,12 @@ function vincularEventosBotoes(
               editar(id);
             }
 
+            if (
+  action === 'historico'
+) {
+  abrirHistorico(id);
+}
+
 
             if (
               action === 'excluir'
@@ -119,6 +125,19 @@ function abrirView(view) {
   // esteja atualizada.
   if (view === 'estoque') {
     renderizar();
+  }
+
+  if (view === 'auditoria') {
+    iniciarListenerAuditoria();
+    carregarAuditoria();
+  }
+
+  if (view === 'lixeira') {
+    renderizarLixeira();
+  }
+
+  if (view === 'dashboard' && typeof atualizarDashboardExtra === 'function') {
+    atualizarDashboardExtra();
   }
 
   window.scrollTo({
@@ -398,6 +417,100 @@ if (btnFinalizarInventario) {
         'click',
         finalizarInventario
     );
+
+}
+
+    // =========================================================
+// AUDITORIA
+// =========================================================
+
+const filtroAuditoriaTipo =
+  document.getElementById(
+    'auditoriaFiltroTipo'
+  );
+
+
+const filtroAuditoriaPatrimonio =
+  document.getElementById(
+    'auditoriaFiltroPatrimonio'
+  );
+
+
+const filtroAuditoriaUsuario =
+  document.getElementById(
+    'auditoriaFiltroUsuario'
+  );
+
+
+const btnLimparAuditoria =
+  document.getElementById(
+    'btnLimparFiltrosAuditoria'
+  );
+
+
+if (filtroAuditoriaTipo) {
+
+  filtroAuditoriaTipo.addEventListener(
+    'change',
+    renderizarAuditoria
+  );
+
+}
+
+
+if (filtroAuditoriaPatrimonio) {
+
+  filtroAuditoriaPatrimonio.addEventListener(
+    'input',
+    renderizarAuditoria
+  );
+
+}
+
+
+if (filtroAuditoriaUsuario) {
+
+  filtroAuditoriaUsuario.addEventListener(
+    'input',
+    renderizarAuditoria
+  );
+
+}
+
+['auditoriaFiltroDataInicio','auditoriaFiltroDataFim'].forEach(id => {
+  const campo = document.getElementById(id);
+  if (campo) campo.addEventListener('change', renderizarAuditoria);
+});
+
+
+if (btnLimparAuditoria) {
+
+  btnLimparAuditoria.onclick =
+    () => {
+
+      if (filtroAuditoriaTipo) {
+        filtroAuditoriaTipo.value =
+          'todos';
+      }
+
+      if (filtroAuditoriaPatrimonio) {
+        filtroAuditoriaPatrimonio.value =
+          '';
+      }
+
+      if (filtroAuditoriaUsuario) {
+        filtroAuditoriaUsuario.value =
+          '';
+      }
+
+      const dataInicioAuditoria = document.getElementById('auditoriaFiltroDataInicio');
+      const dataFimAuditoria = document.getElementById('auditoriaFiltroDataFim');
+      if (dataInicioAuditoria) dataInicioAuditoria.value = '';
+      if (dataFimAuditoria) dataFimAuditoria.value = '';
+
+      renderizarAuditoria();
+
+    };
 
 }
 

@@ -60,7 +60,7 @@ function gerarRelatorioGeral() {
     dadosFiltrados.length === 0
   ) {
 
-    alert(
+    appAlert(
       "Não há dados para o relatório."
     );
 
@@ -110,7 +110,7 @@ function gerarRelatorioBaixados() {
     baixados.length === 0
   ) {
 
-    alert(
+    appAlert(
       "Não há itens baixados."
     );
 
@@ -328,7 +328,7 @@ function imprimirTemplate(
 
   if (!win) {
 
-    alert(
+    appAlert(
       "O navegador bloqueou a janela de impressão. Permita pop-ups para este site."
     );
 

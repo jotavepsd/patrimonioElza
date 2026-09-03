@@ -1,27 +1,29 @@
 function atualizarDashboard() {
 
+  const consultaveis = dados.filter(d => d.status !== 'excluido');
+
   document.getElementById('totalItens').textContent =
-    dados.length;
+    consultaveis.length;
 
   document.getElementById('totalAtivos').textContent =
-    dados.filter(
+    consultaveis.filter(
       d => d.status === 'ativo'
     ).length;
 
   document.getElementById('totalAnalise').textContent =
-    dados.filter(
+    consultaveis.filter(
       d => d.status === 'analise'
     ).length;
 
   document.getElementById('totalBaixados').textContent =
-    dados.filter(
+    consultaveis.filter(
       d => d.status === 'baixado'
     ).length;
 
   document.getElementById('totalLocais').textContent =
     [
       ...new Set(
-        dados.map(d => d.local)
+        consultaveis.map(d => d.local)
       )
     ].length;
 }
@@ -95,12 +97,47 @@ db.ref("patrimonios").on(
         ? Object.keys(val).map(
             key => ({
               id: key,
-              ...val[key]
+              ...val[key],
+              // Registros antigos, criados antes da implementação
+              // do dashboard, podem não possuir o campo status.
+              // Para esses registros, o status padrão é ATIVO.
+              status:
+                val[key]?.status || 'ativo'
             })
           )
         : [];
 
+    // Migração segura dos patrimônios antigos: se o campo status
+    // ainda não existir (ou estiver vazio), grava ATIVO no Firebase.
+    // A segunda execução do listener não encontrará mais itens para migrar.
+    if (val) {
+      const atualizacoesStatus = {};
+
+      Object.entries(val).forEach(([key, item]) => {
+        if (!item?.status) {
+          atualizacoesStatus[`patrimonios/${key}/status`] = 'ativo';
+        }
+      });
+
+      if (Object.keys(atualizacoesStatus).length > 0) {
+        db.ref().update(atualizacoesStatus)
+          .then(() => {
+            console.log(
+              'STATUS: patrimônios antigos normalizados para ATIVO:',
+              Object.keys(atualizacoesStatus).length
+            );
+          })
+          .catch(error => {
+            console.error(
+              'STATUS: erro ao normalizar patrimônios antigos:',
+              error
+            );
+          });
+      }
+    }
+
     atualizarDashboard();
+    if (typeof atualizarDashboardExtra === 'function') atualizarDashboardExtra();
 
     renderizar(
       abaAbertaRecentemente
@@ -138,6 +175,7 @@ db.ref("locais").on(
     }
 
     atualizarSelectsFormulario();
+    if (typeof atualizarFiltrosAvancados === 'function') atualizarFiltrosAvancados();
   }
 );
 
@@ -171,6 +209,7 @@ db.ref("descricoes").on(
     }
 
     atualizarSelectsFormulario();
+    if (typeof atualizarFiltrosAvancados === 'function') atualizarFiltrosAvancados();
   }
 );
 
@@ -215,20 +254,36 @@ function atualizarSelectsFormulario() {
 }
 
 
+function atualizarFiltrosAvancados() {
+  const localSelect = document.getElementById('filtroLocalAvancado');
+  const descSelect = document.getElementById('filtroDescricaoAvancado');
+  if (localSelect) {
+    const atual = localSelect.value;
+    localSelect.innerHTML = '<option value="">Todos os locais</option>' + listaLocais.map(v => `<option value="${String(v).replace(/"/g,'&quot;')}">${v}</option>`).join('');
+    localSelect.value = listaLocais.includes(atual) ? atual : '';
+  }
+  if (descSelect) {
+    const atual = descSelect.value;
+    descSelect.innerHTML = '<option value="">Todas as descrições</option>' + listaDescricoes.map(v => `<option value="${String(v).replace(/"/g,'&quot;')}">${v}</option>`).join('');
+    descSelect.value = listaDescricoes.includes(atual) ? atual : '';
+  }
+}
+
 // =========================================================
 // ADICIONAR LOCAL
 // =========================================================
 
-function adicionarLocalDinamico() {
+async function adicionarLocalDinamico() {
 
   if (!validarAcessoAdmin()) {
     return;
   }
 
-  const novoLocal =
-    prompt(
-      "Digite o nome do novo Local (Setor):"
-    );
+  const novoLocal = await appPrompt(
+    "Digite o nome do novo Local (Setor):",
+    "",
+    "Novo local"
+  );
 
   if (
     !novoLocal ||
@@ -246,7 +301,7 @@ function adicionarLocalDinamico() {
     )
   ) {
 
-    alert(
+    appAlert(
       "Este local já está cadastrado!"
     );
 
@@ -254,26 +309,34 @@ function adicionarLocalDinamico() {
   }
 
 
-  db.ref("locais")
-    .push(novoLocal.trim())
-    .then(() => {
+  try {
+    const localRef = db.ref('locais').push();
 
-      alert(
-        "Local adicionado com sucesso!"
-      );
-
-    })
-    .catch(error => {
-
-      console.error(
-        "Erro ao adicionar local:",
-        error
-      );
-
-      alert(
-        "Não foi possível adicionar o local."
-      );
+    await registrarEvento({
+      tipo: 'cadastro_local',
+      observacao: `Novo local cadastrado: ${novoLocal.trim()}.`,
+      databaseUpdates: {
+        [`locais/${localRef.key}`]: novoLocal.trim()
+      }
     });
+
+    appAlert(
+      "Local adicionado com sucesso!",
+      "Cadastro concluído",
+      { icone: "✅" }
+    );
+  } catch (error) {
+    console.error(
+      "Erro ao adicionar local:",
+      error
+    );
+
+    appAlert(
+      "Não foi possível adicionar o local.",
+      "Erro",
+      { icone: "❌" }
+    );
+  }
 }
 
 
@@ -281,16 +344,17 @@ function adicionarLocalDinamico() {
 // ADICIONAR DESCRIÇÃO
 // =========================================================
 
-function adicionarDescricaoDinamica() {
+async function adicionarDescricaoDinamica() {
 
   if (!validarAcessoAdmin()) {
     return;
   }
 
-  const novoItem =
-    prompt(
-      "Digite a descrição do novo Item:"
-    );
+  const novoItem = await appPrompt(
+    "Digite a descrição do novo Item:",
+    "",
+    "Nova descrição"
+  );
 
   if (
     !novoItem ||
@@ -308,7 +372,7 @@ function adicionarDescricaoDinamica() {
     )
   ) {
 
-    alert(
+    appAlert(
       "Esta descrição de item já existe!"
     );
 
@@ -316,26 +380,34 @@ function adicionarDescricaoDinamica() {
   }
 
 
-  db.ref("descricoes")
-    .push(novoItem.trim())
-    .then(() => {
+  try {
+    const descricaoRef = db.ref('descricoes').push();
 
-      alert(
-        "Item adicionado com sucesso!"
-      );
-
-    })
-    .catch(error => {
-
-      console.error(
-        "Erro ao adicionar descrição:",
-        error
-      );
-
-      alert(
-        "Não foi possível adicionar o item."
-      );
+    await registrarEvento({
+      tipo: 'cadastro_descricao',
+      observacao: `Nova descrição cadastrada: ${novoItem.trim()}.`,
+      databaseUpdates: {
+        [`descricoes/${descricaoRef.key}`]: novoItem.trim()
+      }
     });
+
+    appAlert(
+      "Item adicionado com sucesso!",
+      "Cadastro concluído",
+      { icone: "✅" }
+    );
+  } catch (error) {
+    console.error(
+      "Erro ao adicionar descrição:",
+      error
+    );
+
+    appAlert(
+      "Não foi possível adicionar o item.",
+      "Erro",
+      { icone: "❌" }
+    );
+  }
 }
 
 

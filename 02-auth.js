@@ -442,7 +442,7 @@ async function logout() {
       error
     );
 
-    alert(
+    appAlert(
       "Não foi possível sair do sistema."
     );
   }
@@ -497,7 +497,7 @@ function validarAcessoAdmin() {
     currentUser.role !== 'admin'
   ) {
 
-    alert(
+    appAlert(
       "Acesso negado: Apenas administradores autorizados!"
     );
 

@@ -35,13 +35,32 @@ function renderizar(
         const matchStatus =
           filtroStatus === 'todos'
             ? true
-            : d.status ===
-              filtroStatus;
+            : d.status === filtroStatus;
 
+        const matchLocal =
+          typeof filtroLocalAvancado === 'undefined' ||
+          !filtroLocalAvancado ||
+          String(d.local || '').toLowerCase() === String(filtroLocalAvancado).toLowerCase();
+
+        const matchDescricao =
+          typeof filtroDescricaoAvancado === 'undefined' ||
+          !filtroDescricaoAvancado ||
+          String(d.descricao || '').toLowerCase() === String(filtroDescricaoAvancado).toLowerCase();
+
+        const dataItem = String(d.dataCadastro || d.dataModificacao || '').slice(0, 10);
+        const matchInicio = typeof filtroDataInicioAvancado === 'undefined' || !filtroDataInicioAvancado || dataItem >= filtroDataInicioAvancado;
+        const matchFim = typeof filtroDataFimAvancado === 'undefined' || !filtroDataFimAvancado || dataItem <= filtroDataFimAvancado;
+
+        const naoExcluido = d.status !== 'excluido';
 
         return (
           matchPesquisa &&
-          matchStatus
+          matchStatus &&
+          matchLocal &&
+          matchDescricao &&
+          matchInicio &&
+          matchFim &&
+          naoExcluido
         );
       })
       .sort(
@@ -209,6 +228,14 @@ function renderizar(
             >
               Editar
             </button>
+
+            <button
+    class="btn-historico"
+    data-id="${d.id}"
+    data-action="historico"
+>
+    📜 Histórico
+</button>
 
             ${
               d.status === 'baixado'
@@ -522,6 +549,14 @@ function renderizar(
                 >
                   Editar
                 </button>
+
+                <button
+                class="btn-historico"
+               data-id="${d.id}"
+               data-action="historico"
+                >
+               📜 Histórico
+              </button>
 
                 ${
                   d.status === 'baixado'

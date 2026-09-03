@@ -401,28 +401,104 @@ td.status-analise {
 .btn-baixa-status { background: #e53935; }
 .btn-delete { background: #212121; }
 
+
+
 .modal {
   display: none;
+
   position: fixed;
+  inset: 0;
+
   z-index: 1000;
-  left: 0;
-  top: 0;
+
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,0.5);
+
+  background-color: rgba(0, 0, 0, 0.5);
+
+  
+  align-items: center;
+  justify-content: center;
+
+
+  padding: 20px;
+
+  box-sizing: border-box;
 }
+
+
 
 .modal-content {
   background-color: white;
-  margin: 10% auto;
-  padding: 30px;
-  border-radius: 6px;
+
   width: 90%;
   max-width: 500px;
+
+ 
+  max-height: calc(100vh - 40px);
+
+  padding: 30px;
+
+  border-radius: 6px;
+
   position: relative;
+
   display: flex;
   flex-direction: column;
+
   gap: 15px;
+
+  box-sizing: border-box;
+
+  overflow: hidden;
+}
+
+
+
+
+.historico-modal {
+  max-width: 650px;
+
+  max-height: calc(100vh - 40px);
+
+  overflow: hidden;
+}
+
+
+
+
+#historicoConteudo {
+  flex: 1;
+
+  min-height: 0;
+
+  overflow-y: auto;
+
+  overflow-x: hidden;
+
+  padding-right: 10px;
+
+  box-sizing: border-box;
+}
+
+
+
+#historicoConteudo::-webkit-scrollbar {
+  width: 8px;
+}
+
+#historicoConteudo::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+#historicoConteudo::-webkit-scrollbar-thumb {
+  background: #bbb;
+  border-radius: 10px;
+}
+
+#historicoConteudo::-webkit-scrollbar-thumb:hover {
+  background: #999;
 }
 
 .close {
@@ -980,3 +1056,111 @@ td.status-analise {
   }
 
 }
+
+.btn-historico {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-historico:hover {
+    background-color: #5a6268;
+}
+/* ==============================
+   MODAL GLOBAL DE MENSAGENS
+   ============================== */
+.modal-global {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, .55);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.modal-global-content {
+  width: min(92vw, 480px);
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  text-align: center;
+  align-items: stretch;
+  box-shadow: 0 18px 50px rgba(0,0,0,.22);
+}
+
+.modal-global-fechar {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  border: 0;
+  background: transparent;
+  color: #777;
+  font-size: 28px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.modal-global-icone {
+  font-size: 38px;
+  margin-top: 4px;
+}
+
+.modal-global-content h2 {
+  margin: 0;
+}
+
+.modal-global-mensagem {
+  white-space: pre-line;
+  line-height: 1.5;
+  color: #444;
+  word-break: break-word;
+}
+
+.modal-global-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+.modal-global-acoes {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.modal-global-acoes button {
+  min-width: 110px;
+}
+
+.btn-secondary {
+  background: #e9ecef;
+  color: #333;
+  border: 1px solid #ced4da;
+}
+
+/* =========================================================
+   RECURSOS EXTRAS
+   ========================================================= */
+.filtros-avancados{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;width:100%}
+.filtros-avancados select,.filtros-avancados input{min-height:40px;padding:8px 10px;border:1px solid #d0d7de;border-radius:6px;background:#fff;box-sizing:border-box}
+.dashboard-extras{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin:20px 0}
+.dashboard-extra-card{background:#fff;border:1px solid #e0e0e0;border-radius:10px;padding:18px;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.dashboard-extra-card h3{margin-top:0}
+.dashboard-local-row,.dashboard-evento-row{display:grid;grid-template-columns:1fr auto;gap:8px;padding:9px 0;border-bottom:1px solid #eee}
+.dashboard-local-row:last-child,.dashboard-evento-row:last-child{border-bottom:0}
+.dashboard-evento-row small{grid-column:1/-1;color:#777}
+.auditoria-acoes-linha{margin-top:8px}
+.btn-auditoria-desfazer{border:1px solid #607d8b;background:#fff;color:#455a64;border-radius:5px;padding:5px 8px;cursor:pointer;font-size:.85rem}
+.btn-auditoria-desfazer:hover{background:#eceff1}
+@media(max-width:800px){.dashboard-extras{grid-template-columns:1fr}.filtros-avancados>*{flex:1 1 180px}}

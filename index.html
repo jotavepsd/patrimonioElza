@@ -81,6 +81,21 @@
         📋 Inventário
       </button>
 
+      <button
+  class="nav-tab"
+  data-view="auditoria"
+  type="button"
+>
+  🔎 Auditoria
+</button>
+
+      <button
+        class="nav-tab"
+        data-view="lixeira"
+        type="button"
+      >
+        🗑️ Lixeira
+      </button>
     </div>
   </nav>
 
@@ -152,6 +167,18 @@
           <p id="totalLocais">0</p>
         </div>
 
+      </section>
+
+
+      <section class="dashboard-extras">
+        <div class="dashboard-extra-card">
+          <h3>📍 Patrimônios por local</h3>
+          <div id="dashboardPorLocal"></div>
+        </div>
+        <div class="dashboard-extra-card">
+          <h3>🕒 Ações recentes</h3>
+          <div id="dashboardAcoesRecentes"></div>
+        </div>
       </section>
 
 
@@ -315,6 +342,14 @@
             placeholder="🔍 Digite um patrimônio"
           >
 
+        </div>
+
+        <div class="filtros-avancados">
+          <select id="filtroLocalAvancado"><option value="">Todos os locais</option></select>
+          <select id="filtroDescricaoAvancado"><option value="">Todas as descrições</option></select>
+          <input type="date" id="filtroDataInicioAvancado" title="Cadastro a partir de">
+          <input type="date" id="filtroDataFimAvancado" title="Cadastro até">
+          <button type="button" id="btnLimparFiltrosAvancados" class="btn-secondary">Limpar filtros</button>
         </div>
 
 
@@ -617,6 +652,149 @@
 
     </section>
 
+      <section id="view-lixeira" class="app-view">
+      <div class="page-header">
+        <div><h2>🗑️ Lixeira</h2><p>Patrimônios removidos do estoque, disponíveis para restauração.</p></div>
+      </div>
+      <div class="auditoria-resumo"><strong id="lixeiraResumo">0 patrimônio(s) na lixeira</strong></div>
+      <div id="lixeiraLista" class="auditoria-lista"></div>
+    </section>
+
+
+    <section
+  id="view-auditoria"
+  class="app-view"
+>
+
+  <div class="page-header">
+
+    <div>
+
+      <h2>Auditoria</h2>
+
+      <p>
+        Registro completo das ações realizadas
+        no sistema.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="auditoria-filtros">
+
+    <div class="form-group">
+
+      <label>Ação</label>
+
+      <select id="auditoriaFiltroTipo">
+
+        <option value="todos">
+          Todas as ações
+        </option>
+
+        <option value="cadastro">
+          Cadastro
+        </option>
+
+        <option value="alteracao">
+          Alteração
+        </option>
+
+        <option value="movimentacao">
+          Movimentação
+        </option>
+
+        <option value="entrada_analise">
+          Entrada em análise
+        </option>
+
+        <option value="reativacao">
+          Reativação
+        </option>
+
+        <option value="baixa">
+          Baixa
+        </option>
+
+        <option value="exclusao">
+          Exclusão/Remoção
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <div class="form-group">
+
+      <label>Patrimônio</label>
+
+      <input
+        type="text"
+        id="auditoriaFiltroPatrimonio"
+        placeholder="Número do patrimônio"
+      >
+
+    </div>
+
+
+    <div class="form-group">
+      <label>De</label>
+      <input type="date" id="auditoriaFiltroDataInicio">
+    </div>
+
+    <div class="form-group">
+      <label>Até</label>
+      <input type="date" id="auditoriaFiltroDataFim">
+    </div>
+
+    <div class="form-group">
+
+      <label>Usuário</label>
+
+      <input
+        type="text"
+        id="auditoriaFiltroUsuario"
+        placeholder="Nome ou e-mail"
+      >
+
+    </div>
+
+
+    <button
+      id="btnLimparFiltrosAuditoria"
+      class="btn-secondary"
+    >
+      Limpar filtros
+    </button>
+
+    <button id="btnExportarAuditoriaCSV" class="btn-secondary">📊 CSV</button>
+    <button id="btnImprimirAuditoria" class="btn-secondary">🖨️ PDF / Imprimir</button>
+
+  </div>
+
+
+  <div
+    id="auditoriaResumo"
+    class="auditoria-resumo"
+  ></div>
+
+
+  <div
+    id="auditoriaLista"
+    class="auditoria-lista"
+  >
+
+    <div class="auditoria-carregando">
+      Carregando auditoria...
+    </div>
+
+  </div>
+
+</section>
+
   </main>
 
 
@@ -696,9 +874,39 @@
 
   </div>
 
+  <div
+  id="historicoModal"
+  class="modal"
+>
+
+  <div
+    class="modal-content historico-modal"
+  >
+
+    <button
+      type="button"
+      class="historico-fechar"
+      onclick="fecharHistorico()"
+    >
+      ×
+    </button>
+
+
+    <h2 id="historicoTitulo">
+      Histórico do Patrimônio
+    </h2>
+
+
+    <div id="historicoConteudo"></div>
+
+  </div>
+
 </div>
 
- <script src="01-config-state.js"></script>
+</div>
+
+ <script src="00-modais.js"></script>
+<script src="01-config-state.js"></script>
 <script src="02-auth.js"></script>
 <script src="03-data.js"></script>
 <script src="04-patrimonio.js"></script>
@@ -706,6 +914,8 @@
 <script src="06-backup.js"></script>
 <script src="07-ui.js"></script>
 <script src="09-inventario.js"></script>
+<script src="10-historico.js"></script>
+<script src="11-recursos.js"></script>
 <script src="08-main.js"></script>
 
 </body>

@@ -45,7 +45,7 @@ function fecharConfiguracaoInventario() {
 }
 
 
-function iniciarInventario() {
+async function iniciarInventario() {
 
     const select =
         document.getElementById('inventarioLocal');
@@ -58,7 +58,7 @@ function iniciarInventario() {
 
     if (!local) {
 
-        alert(
+        appAlert(
             'Selecione um local para iniciar o inventário.'
         );
 
@@ -90,6 +90,16 @@ function iniciarInventario() {
         );
 
     inventarioAtivo = true;
+
+    try {
+        await registrarEvento({
+            tipo: 'inventario_iniciado',
+            observacao: `Inventário iniciado para o local "${inventarioLocal}". ${inventarioItens.length} patrimônio(s) esperado(s).`
+        });
+    } catch (error) {
+        console.error('Erro ao registrar início do inventário:', error);
+        appAlert('O inventário foi iniciado, mas não foi possível registrar a auditoria.');
+    }
 
     document.getElementById(
         'inventarioConfig'
@@ -419,7 +429,7 @@ function conferirPatrimonioInventario(id) {
 // FINALIZAR INVENTÁRIO
 // =========================================================
 
-function finalizarInventario() {
+async function finalizarInventario() {
 
     if (!inventarioAtivo) {
         return;
@@ -434,6 +444,16 @@ function finalizarInventario() {
         inventarioItens.filter(
             item => !item.conferido
         );
+
+    try {
+        await registrarEvento({
+            tipo: 'inventario_finalizado',
+            observacao: `Inventário finalizado para o local "${inventarioLocal}". ${conferidos.length} conferido(s) e ${pendentes.length} pendente(s).`
+        });
+    } catch (error) {
+        console.error('Erro ao registrar finalização do inventário:', error);
+        appAlert('O inventário foi finalizado, mas não foi possível registrar a auditoria.');
+    }
 
     inventarioAtivo = false;
 
@@ -645,11 +665,13 @@ function fecharResultadoInventario() {
     atualizarResumoInventario();
 }
 
-function cancelarInventario() {
+async function cancelarInventario() {
 
-  const confirmar = confirm(
+  const confirmar = await appConfirm(
     'Deseja realmente cancelar o inventário atual?\n\n' +
-    'Todo o progresso desta conferência será perdido.'
+    'Todo o progresso desta conferência será perdido.',
+    'Cancelar inventário',
+    { icone: '⚠️', confirmarTexto: 'Cancelar inventário' }
   );
 
   if (!confirmar) {

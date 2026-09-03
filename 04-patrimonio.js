@@ -28,7 +28,7 @@ async function adicionar() {
     !descricao
   ) {
 
-    alert(
+    appAlert(
       "Por favor, preencha todos os campos."
     );
 
@@ -49,7 +49,7 @@ async function adicionar() {
     numeros.length
   ) {
 
-    alert(
+    appAlert(
       "Erro: Existem números repetidos na lista!"
     );
 
@@ -88,7 +88,7 @@ async function adicionar() {
     numerosJaExistentes.length > 0
   ) {
 
-    alert(
+    appAlert(
       `Os seguintes patrimônios já existem:\n${numerosJaExistentes.join(', ')}`
     );
   }
@@ -98,7 +98,7 @@ async function adicionar() {
     numerosValidos.length === 0
   ) {
 
-    alert(
+    appAlert(
       "Nenhum número válido para cadastrar."
     );
 
@@ -112,25 +112,71 @@ async function adicionar() {
 
   try {
 
-    const promessas =
-      numerosValidos.map(
-        numero =>
-          db
-            .ref("patrimonios")
-            .push({
-              numero: numero,
-              local: local,
-              descricao: descricao,
-              status: 'ativo',
-              dataCadastro: dataAtual,
-              dataModificacao: dataAtual
-            })
-      );
+const promessas =
+  numerosValidos.map(
+    async numero => {
+
+      const ref =
+        db
+          .ref("patrimonios")
+          .push();
 
 
-    await Promise.all(
-      promessas
-    );
+      const patrimonio = {
+
+        numero: numero,
+
+        local: local,
+
+        descricao: descricao,
+
+        status: 'ativo',
+
+        dataCadastro:
+          dataAtual,
+
+        dataModificacao:
+          dataAtual
+
+      };
+
+
+      await registrarEvento({
+
+        tipo: 'cadastro',
+
+        patrimonioId:
+          ref.key,
+
+        patrimonio: {
+          numero: numero
+        },
+
+        localNovo:
+          local,
+
+        descricaoNova:
+          descricao,
+
+        statusNovo:
+          'ativo',
+
+        observacao:
+          'Patrimônio cadastrado no sistema.',
+
+        databaseUpdates: {
+          [`patrimonios/${ref.key}`]: patrimonio
+        }
+
+      });
+
+    }
+  );
+
+
+await Promise.all(
+  promessas
+);
 
 
     abaAbertaRecentemente =
@@ -139,7 +185,7 @@ async function adicionar() {
         : descricao;
 
 
-    alert(
+    appAlert(
       `${numerosValidos.length} patrimônio(s) cadastrado(s)!`
     );
 
@@ -155,7 +201,7 @@ async function adicionar() {
       error
     );
 
-    alert(
+    appAlert(
       "Erro ao cadastrar patrimônio."
     );
   }
@@ -174,20 +220,60 @@ async function excluir(id) {
 
 
   if (
-    !confirm(
-      "Excluir permanentemente?"
+    !await appConfirm(
+      "Mover para a lixeira? O patrimônio poderá ser restaurado depois.",
+      "Excluir patrimônio",
+      { icone: "🗑️", confirmarTexto: "Mover para lixeira" }
     )
   ) {
     return;
   }
 
 
+  const patrimonio =
+    dados.find(
+      item => item.id === id
+    );
+
+
+  if (!patrimonio) {
+    return;
+  }
+
+
   try {
 
-    await db
-      .ref("patrimonios")
-      .child(id)
-      .remove();
+    await registrarEvento({
+
+      tipo: 'exclusao',
+
+      patrimonioId: id,
+
+      patrimonio,
+
+      localAnterior:
+        patrimonio.local,
+
+      descricaoAnterior:
+        patrimonio.descricao,
+
+      statusAnterior:
+        patrimonio.status,
+
+      observacao:
+        'Patrimônio movido para a lixeira.',
+
+      statusNovo: 'excluido',
+
+      databaseUpdates: {
+        [`patrimonios/${id}/status`]: 'excluido',
+        [`patrimonios/${id}/excluido`]: true,
+        [`patrimonios/${id}/dataExclusao`]: new Date().toISOString(),
+        [`patrimonios/${id}/dataModificacao`]: new Date().toISOString()
+      }
+
+    });
+
 
   } catch (error) {
 
@@ -196,10 +282,12 @@ async function excluir(id) {
       error
     );
 
-    alert(
+    appAlert(
       "Não foi possível excluir o patrimônio."
     );
+
   }
+
 }
 
 
@@ -215,24 +303,62 @@ async function colocarEmAnalise(id) {
 
 
   if (
-    !confirm(
-      "Marcar como 'Em análise de integridade'?"
+    !await appConfirm(
+      "Marcar como 'Em análise de integridade'?",
+      "Enviar para análise",
+      { icone: "⚠️", confirmarTexto: "Continuar" }
     )
   ) {
     return;
   }
 
 
+  const patrimonio =
+    dados.find(
+      item => item.id === id
+    );
+
+
+  if (!patrimonio) {
+    return;
+  }
+
+
   try {
 
-    await db
-      .ref("patrimonios")
-      .child(id)
-      .update({
-        status: 'analise',
-        dataModificacao:
-          new Date().toISOString()
-      });
+    const data =
+      new Date().toISOString();
+
+
+    await registrarEvento({
+
+      tipo:
+        'entrada_analise',
+
+      patrimonioId:
+        id,
+
+      patrimonio,
+
+      localNovo:
+        patrimonio.local,
+
+      statusAnterior:
+        patrimonio.status,
+
+      statusNovo:
+        'analise',
+
+      observacao:
+        'Patrimônio colocado em análise de integridade.',
+
+      databaseUpdates: {
+        [`patrimonios/${id}/status`]: 'analise',
+        [`patrimonios/${id}/dataModificacao`]: data
+      }
+
+    });
+
 
   } catch (error) {
 
@@ -241,10 +367,12 @@ async function colocarEmAnalise(id) {
       error
     );
 
-    alert(
+    appAlert(
       "Não foi possível alterar o status."
     );
+
   }
+
 }
 
 
@@ -260,10 +388,23 @@ async function darBaixa(id) {
 
 
   if (
-    !confirm(
-      "Dar baixa neste patrimônio?"
+    !await appConfirm(
+      "Dar baixa neste patrimônio?",
+      "Dar baixa",
+      { icone: "❌", confirmarTexto: "Dar baixa" }
     )
   ) {
+    return;
+  }
+
+
+  const patrimonio =
+    dados.find(
+      item => item.id === id
+    );
+
+
+  if (!patrimonio) {
     return;
   }
 
@@ -274,14 +415,35 @@ async function darBaixa(id) {
       new Date().toISOString();
 
 
-    await db
-      .ref("patrimonios")
-      .child(id)
-      .update({
-        status: 'baixado',
-        dataBaixa: data,
-        dataModificacao: data
-      });
+    await registrarEvento({
+
+      tipo: 'baixa',
+
+      patrimonioId:
+        id,
+
+      patrimonio,
+
+      localNovo:
+        patrimonio.local,
+
+      statusAnterior:
+        patrimonio.status,
+
+      statusNovo:
+        'baixado',
+
+      observacao:
+        'Patrimônio recebeu baixa.',
+
+      databaseUpdates: {
+        [`patrimonios/${id}/status`]: 'baixado',
+        [`patrimonios/${id}/dataBaixa`]: data,
+        [`patrimonios/${id}/dataModificacao`]: data
+      }
+
+    });
+
 
   } catch (error) {
 
@@ -290,10 +452,12 @@ async function darBaixa(id) {
       error
     );
 
-    alert(
+    appAlert(
       "Não foi possível dar baixa."
     );
+
   }
+
 }
 
 
@@ -309,24 +473,59 @@ async function reativar(id) {
 
 
   if (
-    !confirm(
-      "Reativar/Aprovar este patrimônio?"
+    !await appConfirm(
+      "Reativar/Aprovar este patrimônio?",
+      "Reativar patrimônio",
+      { icone: "♻️", confirmarTexto: "Reativar" }
     )
   ) {
     return;
   }
 
 
+  const patrimonio =
+    dados.find(
+      item => item.id === id
+    );
+
+
+  if (!patrimonio) {
+    return;
+  }
+
+
   try {
 
-    await db
-      .ref("patrimonios")
-      .child(id)
-      .update({
-        status: 'ativo',
-        dataModificacao:
-          new Date().toISOString()
-      });
+    const data = new Date().toISOString();
+
+    await registrarEvento({
+
+      tipo: 'reativacao',
+
+      patrimonioId:
+        id,
+
+      patrimonio,
+
+      localNovo:
+        patrimonio.local,
+
+      statusAnterior:
+        patrimonio.status,
+
+      statusNovo:
+        'ativo',
+
+      observacao:
+        'Patrimônio reativado/aprovado.',
+
+      databaseUpdates: {
+        [`patrimonios/${id}/status`]: 'ativo',
+        [`patrimonios/${id}/dataModificacao`]: data
+      }
+
+    });
+
 
   } catch (error) {
 
@@ -335,10 +534,12 @@ async function reativar(id) {
       error
     );
 
-    alert(
+    appAlert(
       "Não foi possível reativar."
     );
+
   }
+
 }
 
 
@@ -402,7 +603,7 @@ function editar(id) {
 
   document.getElementById(
     'editModal'
-  ).style.display = 'block';
+  ).style.display = 'flex';
 }
 
 
@@ -434,21 +635,35 @@ async function salvarEdicao() {
   }
 
 
+  const patrimonioAnterior =
+    dados.find(
+      item => item.id === editandoId
+    );
+
+
+  if (!patrimonioAnterior) {
+    return;
+  }
+
+
   const numero =
     document
       .getElementById('editNumero')
       .value
       .trim();
 
+
   const local =
     document
       .getElementById('editLocal')
       .value;
 
+
   const descricao =
     document
       .getElementById('editDescricao')
       .value;
+
 
   const status =
     document
@@ -462,11 +677,12 @@ async function salvarEdicao() {
     !descricao
   ) {
 
-    alert(
+    appAlert(
       "Preencha todos os campos!"
     );
 
     return;
+
   }
 
 
@@ -481,34 +697,135 @@ async function salvarEdicao() {
     )
   ) {
 
-    alert(
+    appAlert(
       `Erro: Patrimônio nº ${numero} já existe!`
     );
 
+    return;
+
+  }
+
+
+  const houveAlteracao =
+    String(patrimonioAnterior.numero) !== String(numero) ||
+    patrimonioAnterior.local !== local ||
+    patrimonioAnterior.descricao !== descricao ||
+    (patrimonioAnterior.status || 'ativo') !== status;
+
+  if (!houveAlteracao) {
+    appAlert(
+      'Nenhuma alteração foi realizada.',
+      'Editar patrimônio'
+    );
     return;
   }
 
 
   try {
 
-    await db
-      .ref("patrimonios")
-      .child(editandoId)
-      .update({
+    const data =
+      new Date().toISOString();
+
+
+    // =====================================================
+    // DESCOBRIR O TIPO DA ALTERAÇÃO
+    // =====================================================
+
+    const houveMovimentacao =
+      patrimonioAnterior.local !== local;
+
+
+    const houveAlteracaoDescricao =
+      patrimonioAnterior.descricao !== descricao;
+
+
+    const houveAlteracaoStatus =
+      patrimonioAnterior.status !== status;
+
+
+    let tipoEvento =
+      'alteracao';
+
+
+    if (
+      houveMovimentacao &&
+      !houveAlteracaoDescricao &&
+      !houveAlteracaoStatus
+    ) {
+
+      tipoEvento =
+        'movimentacao';
+
+    }
+
+
+    await registrarEvento({
+
+      tipo:
+        tipoEvento,
+
+      patrimonioId:
+        editandoId,
+
+      patrimonio: {
+
+        numero
+
+      },
+
+      numeroAnterior:
+        patrimonioAnterior.numero,
+
+      numeroNovo:
         numero,
+
+      localAnterior:
+        patrimonioAnterior.local,
+
+      localNovo:
         local,
+
+
+      descricaoAnterior:
+        patrimonioAnterior.descricao,
+
+      descricaoNova:
         descricao,
+
+
+      statusAnterior:
+        patrimonioAnterior.status,
+
+      statusNovo:
         status,
-        dataModificacao:
-          new Date().toISOString()
-      });
+
+
+      observacao:
+        houveMovimentacao
+          ? 'Patrimônio movimentado para outro local.'
+          : 'Dados do patrimônio alterados.',
+
+      databaseUpdates: {
+        [`patrimonios/${editandoId}`]: {
+          ...patrimonioAnterior,
+          numero,
+          local,
+          descricao,
+          status,
+          dataModificacao: data
+        }
+      }
+
+    });
 
 
     fecharModal();
 
-    alert(
+
+    appAlert(
       "Atualizado com sucesso!"
     );
+
 
   } catch (error) {
 
@@ -517,10 +834,12 @@ async function salvarEdicao() {
       error
     );
 
-    alert(
+    appAlert(
       "Não foi possível salvar as alterações."
     );
+
   }
+
 }
 
 
